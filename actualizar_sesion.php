@@ -1,20 +1,20 @@
 <?php 
-    if(!isset($_SESSION["Nombre"]))
+    if(!isset($_SESSION["nombre"]))
     {
         header("Location:index.php");
     }
 
     try
     {
-        $email = $_SESSION["Email"];
+        $email = $_SESSION["email"];
 
         include("./conexion.php");
 
-        $consulta = mysqli_query($conexion, "SELECT * FROM Usuarios WHERE Email = '$email'");
+        $consulta = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email = '$email'");
     
         $fila = $consulta->fetch_assoc();
-        $_SESSION["Faltas"] = $fila["Faltas"];
-        $_SESSION["Racha"] = $fila["Racha"];
+        $_SESSION["faltas"] = $fila["faltas"];
+        $_SESSION["racha"] = $fila["racha"];
 
         mysqli_free_result($consulta);
         mysqli_close($conexion);

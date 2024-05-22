@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <?php 
-    if(intval($_SESSION["Administrador"]) != 1)
+    if(intval($_SESSION["rol"]) != 1)
         header("Location:index.php");
 ?>
 

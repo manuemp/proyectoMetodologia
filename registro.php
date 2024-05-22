@@ -182,7 +182,7 @@
         if(isset($_POST["enviar"]))
         {
             if($nombre_err == "" && $apellido_err == "" && $email_err == "" && $pass_err == "")
-            { 
+            {
                 include("./registrar_usuario.php");
                 //Como los headers ya fueron enviados no puedo usar header(Location);
                 //En cambio tengo que hacer la redirección via JS...
