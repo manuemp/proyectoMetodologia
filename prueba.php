@@ -21,4 +21,6 @@
     $consulta_usuario = mysqli_query($conexion, "SELECT * FROM Reservas WHERE Dia = '$dia' AND Hora = '$hora' AND Email = '$email'");
 
     echo mysqli_num_rows($consulta_usuario);
+
+    //que olor a leche
 ?>
