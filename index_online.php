@@ -3,11 +3,11 @@
     include("./actualizar_sesion.php");
     date_default_timezone_set("America/Argentina/Buenos_Aires");
 
-    if($_SESSION["Racha"] >= 60)
+    if($_SESSION["racha"] >= 60)
     {
         $level = "Socio";
     }
-    else if($_SESSION["Racha"] >= 25)
+    else if($_SESSION["racha"] >= 25)
     {
         $level = "Local";
     }
@@ -17,9 +17,9 @@
     }
 
     include("./conexion.php");
-    $email = $_SESSION["Email"];
-    $consulta = mysqli_query($conexion, "SELECT COUNT(*) AS Contador FROM Reservas WHERE Email = '$email'");
-    $reservas = mysqli_fetch_assoc($consulta)["Contador"];
+    $email = $_SESSION["email"];
+    $consulta = mysqli_query($conexion, "SELECT COUNT(*) AS contador FROM reservas WHERE email = '$email'");
+    $reservas = mysqli_fetch_assoc($consulta)["contador"];
 ?>
 
 <!DOCTYPE html>
@@ -467,11 +467,11 @@
     <main>
         <section id="panel_usuario">
             <article id="usuario">
-                <h1 id="titulo_usuario"><?php echo $_SESSION["Nombre"] . " " . $_SESSION["Apellido"] ?></h1>
+                <h1 id="titulo_usuario"><?php echo $_SESSION["nombre"] . " " . $_SESSION["apellido"] ?></h1>
                     <br><img src="./imgs/level2.png" alt="Icono Falta" class="icono_info"> Nivel: <?php echo $level ?>
                     <br><img src="./imgs/calendario.png" alt="Icono Falta" class="icono_info"> Reservas: <span style="color:#8650fe"><?php echo $reservas ?></span> 
-                    <br><img src="./imgs/check.png" alt="Icono Falta" class="icono_info"> Asistencias: <span style="color:#8650fe"><?php echo $_SESSION["Racha"] ?></span> 
-                    <br><img src="./imgs/falta.png" alt="Icono Falta" class="icono_info"> Faltas: <span style="color: red;"><?php echo $_SESSION["Faltas"]?></span>
+                    <br><img src="./imgs/check.png" alt="Icono Falta" class="icono_info"> Asistencias: <span style="color:#8650fe"><?php echo $_SESSION["racha"] ?></span> 
+                    <br><img src="./imgs/falta.png" alt="Icono Falta" class="icono_info"> Faltas: <span style="color: red;"><?php echo $_SESSION["faltas"]?></span>
             </article>
             <article id="reservas">
                 <span style="color: #8650fe; font-weight: bold;">Tus próximas reservas</span>
