@@ -1,0 +1,33 @@
+body
+{
+    background: linear-gradient(45deg, #4c02e9, #9f78f6);
+    min-height: 100vh;
+}
+
+p
+{
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 0px deeppink;
+    text-align:center;
+}
+
+.boton_aceptar{
+    display:block;
+    margin: auto;
+    width: 100px;
+}
+
+a{
+    text-decoration: none;
+}
+
+main{
+    height: 65vh;
+    overflow: scroll;
+}
+
+.footer p{
+    text-shadow: none;
+}

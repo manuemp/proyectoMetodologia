@@ -1,0 +1,148 @@
+#modal_background
+{
+    display: none;
+    width: 102%;
+    height: 102%;
+    background-color: gray;
+    opacity: 0.6;
+    z-index: 2;
+    position: fixed;
+    margin: -10px;
+}
+
+#modal_inicio_sesion, #modal_inicio_sesion_fail
+{
+    display: none;
+    font-size: 1.2rem;
+    color: #6b27fc;
+    padding: 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    min-height: 390px;
+    height: auto;
+    margin-top: -190px;
+    margin-left: -200px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid lightgray;
+    z-index: 3;
+}
+
+.modal_titulo{
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+.modal_input
+{
+    font-family:inherit;
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid lightgray;
+    font-weight: bold;
+}
+
+.modal_enviar
+{
+    background-color: dodgerblue;
+    height: 35px;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+    border: none;
+    width: 100%;
+    box-sizing:content-box;
+}
+
+.modal_nav
+{
+    display:flex;
+    justify-content: end;
+}
+
+.modal_cerrar
+{
+    width: 20px;
+    height: 20px;
+    background-color: crimson;
+    color: white;
+    font-weight: bold;
+    font-family: inherit;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#modal_admin{
+    display: none;
+    z-index: 3;
+    width: 520px;
+    height: 460px;
+    background-color: white;
+    border-radius: 20px;
+    border: 2px solid black;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: -230px;
+    padding: 40px;
+    box-sizing: border-box;
+    overflow: scroll;
+}
+
+
+.botones_admin{
+    width: 100%;
+    text-align: right;
+}
+
+
+.boton_modal_admin{
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 70px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: inherit;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.cerrar{
+    background-color: crimson;
+}
+
+.cerrar:hover{
+    background-color: red;
+}
+
+.guardar{
+    background-color:#7643e5;
+}
+
+.guardar:hover{
+    background-color:#8650fe;
+}
+
+@media(max-width: 450px)
+{
+    #modal_inicio_sesion, #modal_inicio_sesion_fail
+    {
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+
+    }
+}

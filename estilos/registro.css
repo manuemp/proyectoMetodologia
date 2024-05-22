@@ -1,0 +1,117 @@
+main
+{
+    display: flex;
+    min-height: 100%;
+}
+
+#titulo_registro
+{
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+a{
+    text-decoration: none;
+}
+
+.img_container
+{
+    min-width: 45%;
+    min-height: 100vh;
+    background: linear-gradient(45deg, lavender, white);
+    background-image: url("../imgs/jugador_pelota5.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.registro_container
+{
+    min-height: 100vh;
+    height: 100%;
+    width: 55%;
+    color: white;
+    background: linear-gradient(#8e59ff, #5c13ff);
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+}
+
+#table_registro
+{
+    width: 100%;
+}
+
+form
+{
+    width: 70%;
+    margin: auto;
+}
+
+#table_registro td
+{
+    width: 50%;
+}
+
+label
+{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form_container
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form_opcion
+{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+}
+
+.form_input
+{
+    width: 200px;
+    height: 30px;
+    background-color: white;
+    border: 2px solid lightgray;
+    padding: 5px;
+    color: black;
+    font-weight: bold;
+    display: block;
+    border-radius: 10px;
+}
+
+#enviar
+{
+    background-color: dodgerblue;
+    height: 45px;
+    cursor: pointer;
+    width: 214px;
+    margin-top: 38px;
+    border: none;
+    color: white;
+}
+
+#enviar:hover{
+    background-color: rgb(0, 110, 221);
+}
+
+.logo
+{
+    margin: 5px 10px;
+    position: absolute;
+    right: 45%;
+}
+
+#arrow{
+    position: absolute;
+    height: 50px;
+    left: 10px;
+    filter: invert(1);
+}
