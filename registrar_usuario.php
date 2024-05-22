@@ -15,6 +15,7 @@
     $dni = $_POST['dni'];
 
     include("./conexion.php");
+    
 
     $consulta = mysqli_query($conexion, "INSERT INTO usuarios (nombre, apellido, email, pass, faltas, racha, rol, saldo_a_favor, telefono, dni) VALUES ('$nombre', '$apellido', '$email', '$pass', 0, 0, 0, 0, $telefono, $dni)");
     $consulta = mysqli_query($conexion, "SELECT nombre, apellido, email, faltas, racha, rol, saldo_a_favor, telefono, dni FROM usuarios WHERE email='$email'");
