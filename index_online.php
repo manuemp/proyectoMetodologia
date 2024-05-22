@@ -17,10 +17,8 @@
     }
 
     include("./conexion.php");
-    $email = $_SESSION["email"];
-    $consulta_usuario = mysqli_query($conexion, "SELECT id FROM usuarios WHERE email = '$email'");
-    $id_usuario = mysqli_fetch_assoc($consulta_usuario)["id"];
-    $consulta = mysqli_query($conexion, "SELECT COUNT(*) AS contador FROM reservas WHERE usuario_id = '$id_usuario'");
+    $usuario_id = $_SESSION['id'];
+    $consulta = mysqli_query($conexion, "SELECT COUNT(*) AS contador FROM reservas WHERE usuario_id = '$usuario_id'");
     $reservas = mysqli_fetch_assoc($consulta)["contador"];
 ?>
 

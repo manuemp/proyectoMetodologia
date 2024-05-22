@@ -16,7 +16,10 @@
     include("./conexion.php");
     $email = $_SESSION["email"];
 
-    $consulta = mysqli_query($conexion, "SELECT * FROM reservas WHERE email = '$email' AND dia >= '$hoy' ORDER BY dia");
+    
+    $consulta = mysqli_query($conexion, "SELECT * FROM reservas R
+                                        JOIN usuarios U on R.usuario_id = U.id
+                                        WHERE U.email = '$email' AND R.dia >= '$hoy' ORDER BY R.dia");
 
     if(mysqli_num_rows($consulta) == 0)
     {

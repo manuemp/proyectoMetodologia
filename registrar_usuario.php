@@ -22,6 +22,7 @@
     $data = mysqli_fetch_assoc($consulta);
     
     //Asigno los valores a la sesion
+    $_SESSION['id'] = $data['id'];
     $_SESSION['nombre'] = $data['nombre'];
     $_SESSION['apellido'] = $data['apellido'];
     $_SESSION['email'] = $data['email'];
