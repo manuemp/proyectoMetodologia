@@ -1,8 +1,10 @@
 <?php session_start(); ?>
 <?php 
-    if(isset($_SESSION["Administrador"]))
+    //Si en la sesión está el campo rol...
+    if(isset($_SESSION["rol"]))
     {
-        if(intval($_SESSION["Administrador"]) == 1)
+        //Si ese campo es admin, o sea, valor 1, entonces no me manda al index de usuario, sino al de administrador
+        if(intval($_SESSION["rol"]) == 1)
             header("Location:admin_reservas.php");
     }
 ?>
@@ -52,7 +54,7 @@
 
     <!-- NAV -->
     <?php 
-        if(!isset($_SESSION['Nombre']))
+        if(!isset($_SESSION['nombre']))
         {
             include("./nav_offline.php");
             include("./index_offline.php");

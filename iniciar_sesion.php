@@ -10,8 +10,7 @@
 
     include("./conexion.php");
 
-    $consulta = mysqli_query($conexion, "SELECT Nombre, Apellido, Email, Faltas, Racha, Administrador 
-                                         FROM Usuarios WHERE Email='$email' AND Pass='$pass'");
+    $consulta = mysqli_query($conexion, "SELECT nombre, apellido, email, faltas, racha, rol, saldo_a_favor, telefono, dni FROM usuarios WHERE email='$email' AND pass='$pass'");
 
     $resultado = mysqli_num_rows($consulta);
     $data = mysqli_fetch_array($consulta);
@@ -25,17 +24,20 @@
     else
     {
         session_start();
-        $_SESSION['Nombre'] = $data['Nombre'];
-        $_SESSION['Apellido'] = $data['Apellido'];
-        $_SESSION['Email'] = $data['Email'];
-        $_SESSION['Faltas'] = $data['Faltas'];
-        $_SESSION['Racha'] = $data['Racha'];
-        $_SESSION['Administrador'] = $data['Administrador'];
+        $_SESSION['nombre'] = $data['nombre'];
+        $_SESSION['apellido'] = $data['apellido'];
+        $_SESSION['email'] = $data['email'];
+        $_SESSION['faltas'] = $data['faltas'];
+        $_SESSION['racha'] = $data['racha'];
+        $_SESSION['rol'] = $data['rol'];
+        $_SESSION['saldo_a_favor'] = $data['saldo_a_favor'];
+        $_SESSION['telefono'] = $data['telefono'];
+        $_SESSION['dni'] = $data['dni'];
 
         mysqli_free_result($consulta);
         mysqli_close($conexion);
 
-        if(intval($_SESSION['Administrador']) == 1)
+        if(intval($_SESSION['rol']) == 1)
         {
             header("Location:admin_reservas.php");
             exit;
