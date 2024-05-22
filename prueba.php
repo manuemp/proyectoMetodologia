@@ -22,5 +22,5 @@
 
     echo mysqli_num_rows($consulta_usuario);
 
-    //que olor a leche
+    //VAMOS VELEZ
 ?>
