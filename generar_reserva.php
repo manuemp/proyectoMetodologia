@@ -2,7 +2,7 @@
 <?php
     //Prohibir acceder a este script si no está activada la sesión, y si no se mandó por POST
     //tanto el día, como la cancha y la hora de la reserva.
-    if(!(isset($_SESSION["Nombre"]) && isset($_POST["select_dia"]) && isset($_POST["select_cancha"]) && isset($_POST["select_hora"])))
+    if(!(isset($_SESSION["nombre"]) && isset($_POST["select_dia"]) && isset($_POST["select_cancha"]) && isset($_POST["select_hora"])))
     {
         header("Location:index.php");
     }
@@ -11,18 +11,18 @@
     $cancha = $_POST["select_cancha"];
     $hora = $_POST["select_hora"];
     $precio = $_POST["precio_hidden"];
-    $nombre = $_SESSION["Nombre"];
-    $apellido = $_SESSION["Apellido"];
-    $email = $_SESSION["Email"];
+    $nombre = $_SESSION["nombre"];
+    $apellido = $_SESSION["apellido"];
+    $email = $_SESSION["email"];
     $hoy = date('Y/m/d');
 
     include("./conexion.php");
 
-    $consulta_reservas = mysqli_query($conexion, "SELECT * FROM Reservas WHERE Dia = '$dia' AND Hora = '$hora' AND Cancha = '$cancha' AND Asistio = 1");
+    $consulta_reservas = mysqli_query($conexion, "SELECT * FROM reservas WHERE dia = '$dia' AND hora = '$hora' AND cancha = '$cancha' AND asistio = 1");
     $resultado_reservas = mysqli_num_rows($consulta_reservas);
 
     //Chequear que el usuario no tenga una reserva el mismo día y hora en una cancha diferente
-    $consulta_usuario = mysqli_query($conexion, "SELECT * FROM Reservas WHERE Dia = '$dia' AND Hora = '$hora' AND Email = '$email'");
+    $consulta_usuario = mysqli_query($conexion, "SELECT * FROM reservas WHERE dia = '$dia' AND hora = '$hora' AND email = '$email'");
     $resultado_usuario = mysqli_num_rows($consulta_usuario);
 
     //Si tiene una reserva ese día y hora en otra cancha, redirecciono a página de error
@@ -39,15 +39,15 @@
         //tardó en elegir ya la hizo otro usuario, en ese caso redirecciono a página de error
         if($resultado_reservas == 0)
         {
-            $consulta_reservas = mysqli_query($conexion, "INSERT INTO Reservas (Dia, Hora, Cancha, Nombre, Apellido, Email, Asistio, Precio, Adelanto, Dia_Pedido) 
+            $consulta_reservas = mysqli_query($conexion, "INSERT INTO reservas (dia, hora, cancha, nombre, apellido, email, asistio, precio, monto_seniado, dia_de_reserva) 
                                                 VALUES ('$dia', '$hora', '$cancha', '$nombre', '$apellido', '$email', 1, '$precio', 0, '$hoy')");
             
             if($consulta_reservas)
             {
-                $consulta_id = mysqli_query($conexion, "SELECT MAX(ID) AS ID FROM Reservas");
-                $id = mysqli_fetch_assoc($consulta_id)["ID"];
+                $consulta_id = mysqli_query($conexion, "SELECT MAX(id) AS id FROM reservas");
+                $id = mysqli_fetch_assoc($consulta_id)["id"];
             
-                $consulta_reservas = mysqli_query($conexion, "UPDATE Usuarios SET Racha = Racha + 1 WHERE Email = '$email'");
+                $consulta_reservas = mysqli_query($conexion, "UPDATE usuarios SET racha = racha + 1 WHERE email = '$email'");
 
                 mysqli_free_result($consulta_usuario);
                 mysqli_close($conexion);

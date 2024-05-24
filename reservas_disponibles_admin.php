@@ -15,23 +15,23 @@
     $dia = $_POST["filtro_dia"];
     $email = $_POST["filtro_email"];
 
-    $resultado = mysqli_query($conexion, "SELECT ID, Dia, Hora, Cancha, Nombre, Apellido, Email, Asistio, Precio, Adelanto, Dia_Pedido FROM Reservas WHERE Dia >= '$hoy' AND Cancha LIKE '%$cancha%' AND Email LIKE '%$email%' AND Dia LIKE '%$dia%' AND Asistio = 1 ORDER BY Dia, Hora");
+    $resultado = mysqli_query($conexion, "SELECT id, dia, hora, cancha, nombre, apellido, email, asistio, precio, monto_seniado, dia_de_reserva FROM reservas WHERE dia >= '$hoy' AND cancha LIKE '%$cancha%' AND email LIKE '%$email%' AND dia LIKE '%$dia%' AND asistio = 1 ORDER BY dia, hora");
     $contador = mysqli_num_rows($resultado);
     
     $arr = [];
     while($fila = $resultado->fetch_assoc())
     {
         $obj = new stdClass();
-        $obj->id = $fila["ID"];
-        $obj->dia = date("d/m/Y", strtotime($fila['Dia']));
-        $obj->hora = $fila['Hora'];
-        $obj->cancha = generarCancha($fila['Cancha']);
-        $obj->nombre = $fila['Nombre'];
-        $obj->apellido = $fila['Apellido'];
-        $obj->email = $fila['Email'];
-        $obj->precio = $fila['Precio'];
-        $obj->adelanto = $fila['Adelanto'];
-        $obj->dia_pedido = date("d/m/Y", strtotime($fila['Dia_Pedido']));
+        $obj->id = $fila["id"];
+        $obj->dia = date("d/m/Y", strtotime($fila['dia']));
+        $obj->hora = $fila['hora'];
+        $obj->cancha = generarCancha($fila['cancha']);
+        $obj->nombre = $fila['nombre'];
+        $obj->apellido = $fila['apellido'];
+        $obj->email = $fila['email'];
+        $obj->precio = $fila['precio'];
+        $obj->adelanto = $fila['monto_seniado'];
+        $obj->dia_pedido = date("d/m/Y", strtotime($fila['dia_de_reserva']));
         array_push($arr, $obj);
     }
 

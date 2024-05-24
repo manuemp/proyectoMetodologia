@@ -1,28 +1,28 @@
 <?php session_start(); ?>
 <?php 
 
-    if(!isset($_SESSION["Nombre"]))
+    if(!isset($_SESSION["nombre"]))
     {
         header("Location:index.php");
     }
 
     include("./conexion.php");
-    $email = $_SESSION["Email"];
+    $email = $_SESSION["email"];
 
     date_default_timezone_set("America/Argentina/Buenos_Aires");
     $hora = date('H:i');
     $hoy = date('Y-m-d');
     $contador = 0;
 
-    $consulta = mysqli_query($conexion, "SELECT * FROM Reservas WHERE Email = '$email' AND DATEDIFF(Dia, CURRENT_DATE()) >= 0");
+    $consulta = mysqli_query($conexion, "SELECT * FROM reservas WHERE email = '$email' AND DATEDIFF(Dia, CURRENT_DATE()) >= 0");
 
     // Las reservas que son del mismo día pero de una hora que ya pasó no se van a 
     // contabilizar para la restricción de 3 reservas, ya que no son más reservas pendientes
     while($fila = $consulta->fetch_assoc())
     {
-        if($fila["Dia"] == $hoy)
+        if($fila["dia"] == $hoy)
         {
-            if(strtotime($hora) < strtotime($fila["Hora"]))
+            if(strtotime($hora) < strtotime($fila["hora"]))
                 $contador += 1;
         }
         else

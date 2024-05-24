@@ -3,18 +3,18 @@
     // $resultado = mysqli_query($conexion, "SELECT ID, Nombre, Apellido, Email, Reservas, Faltas, Nivel FROM Usuarios ORDER BY Nombre");
     
     $email = $_POST["email"];
-    $resultado = mysqli_query($conexion, "SELECT ID, Nombre, Apellido, Email, Faltas, Racha FROM Usuarios WHERE Email = '$email'");
+    $resultado = mysqli_query($conexion, "SELECT id, nombre, apellido, email, faltas, racha FROM usuarios WHERE email = '$email'");
 
     $arr = [];
     while($fila = $resultado->fetch_assoc())
     {
         $obj = new stdClass();
-        $obj->id = $fila['ID'];
-        $obj->nombre = $fila['Nombre'];
-        $obj->apellido = $fila['Apellido'];
-        $obj->email = $fila['Email'];
-        $obj->faltas = $fila['Faltas'];
-        $obj->racha = $fila['Racha'];
+        $obj->id = $fila['id'];
+        $obj->nombre = $fila['nombre'];
+        $obj->apellido = $fila['apellido'];
+        $obj->email = $fila['email'];
+        $obj->faltas = $fila['faltas'];
+        $obj->racha = $fila['racha'];
         array_push($arr, $obj);
     }
 

@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <?php 
-    if(!isset($_SESSION["Nombre"]))
+    if(!isset($_SESSION["nombre"]))
     {
         header("Location:index.php");
     }
@@ -157,12 +157,12 @@
     {
         var fila = "";
         data.forEach((registro) =>{   
-            if(parseInt(registro["Asistio"]) == 0){
+            if(parseInt(registro["asistio"]) == 0){
                 fila += `
                 <tr class='item_historial_falta'>\
-                <td class='td_historial'>${registro["Dia"]}</td>\
-                <td class='td_historial'>${registro["Cancha"]}</td>\
-                <td class='td_historial'>${registro["Hora"]}</td>\
+                <td class='td_historial'>${registro["dia"]}</td>\
+                <td class='td_historial'>${registro["cancha"]}</td>\
+                <td class='td_historial'>${registro["hora"]}</td>\
                 </tr>\
                 `
             }
@@ -170,9 +170,9 @@
             {
                 fila += `
                 <tr class='item_historial'>\
-                <td class='td_historial'>${registro["Dia"]}</td>\
-                <td class='td_historial'>${registro["Cancha"]}</td>\
-                <td class='td_historial'>${registro["Hora"]}</td>\
+                <td class='td_historial'>${registro["dia"]}</td>\
+                <td class='td_historial'>${registro["cancha"]}</td>\
+                <td class='td_historial'>${registro["hora"]}</td>\
                 </tr>\
                 `
             }

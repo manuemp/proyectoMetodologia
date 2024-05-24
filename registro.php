@@ -97,7 +97,7 @@
         else
         {
             include("./conexion.php");
-            $consulta_mail = mysqli_query($conexion, "SELECT * FROM Usuarios WHERE Email = '$email'");
+            $consulta_mail = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email = '$email'");
             if(mysqli_num_rows($consulta_mail) > 0)
             {
                 $email_err = "<br>Correo electrónico en uso";

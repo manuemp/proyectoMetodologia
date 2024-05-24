@@ -1,25 +1,25 @@
 <?php session_start(); ?>
 <?php
 
-    if(!isset($_POST["id_cancha"]))
+    if(!isset($_POST["cancha_id"]))
     {
         header("Location:index.php");
     }
     
-    $cancha = intval($_POST["id_cancha"]);
-    $email = $_SESSION["Email"];
+    $cancha = intval($_POST["cancha_id"]);
+    $email = $_SESSION["email"];
     $beneficio;
     
     include("./conexion.php");
     
-    $reservas = mysqli_query($conexion, "SELECT COUNT(1) AS 'Contador' FROM Reservas WHERE Email = '$email'");
+    $reservas = mysqli_query($conexion, "SELECT COUNT(1) AS 'contador' FROM reservas WHERE email = '$email'");
     $fila = mysqli_fetch_assoc($reservas);
 
-    if(intval($fila["Contador"]) >= 60)
+    if(intval($fila["contador"]) >= 60)
     {
         $beneficio = 0.85;
     }
-    else if(intval($fila["Contador"]) >= 25)
+    else if(intval($fila["contador"]) >= 25)
     {
         $beneficio = 0.9;
     }
@@ -28,7 +28,7 @@
         $beneficio = 1;
     }
 
-    $consulta = mysqli_query($conexion, "SELECT Precio FROM Canchas WHERE ID = $cancha");
+    $consulta = mysqli_query($conexion, "SELECT precio FROM canchas WHERE id = $cancha");
     $fila = mysqli_fetch_assoc($consulta);
 
     //Como la función que va a formatear a moneda el resultado está en el front,
@@ -36,7 +36,7 @@
     //porque si devolviera todo en un único string sería imposible formatear.
     //La función de formateo de php está deprecada, por eso uso la de JS.
     $respuesta = new stdClass();
-    $respuesta->precio = intval($fila["Precio"]) * $beneficio;
+    $respuesta->precio = intval($fila["precio"]) * $beneficio;
     if($beneficio == 0.85)
         $respuesta->beneficio = "15% off";
     else if($beneficio == 0.9)

@@ -7,22 +7,22 @@
     include("./generar_cancha.php");
     include("./conexion.php");
 
-    $email = $_SESSION["Email"];
+    $email = $_SESSION["email"];
     $cancha = $_POST["filtro_cancha"];
     
     if($cancha != "")
-        $resultado = mysqli_query($conexion, "SELECT Dia, Hora, Cancha, Asistio FROM Reservas WHERE Email = '$email' AND Cancha = $cancha ORDER BY Dia DESC");
+        $resultado = mysqli_query($conexion, "SELECT dia, hora, cancha, asistio FROM reservas WHERE email = '$email' AND cancha = $cancha ORDER BY dia DESC");
     else
-        $resultado = mysqli_query($conexion, "SELECT Dia, Hora, Cancha, Asistio FROM Reservas WHERE Email = '$email' ORDER BY Dia DESC");
+        $resultado = mysqli_query($conexion, "SELECT dia, hora, cancha, asistio FROM reservas WHERE email = '$email' ORDER BY dia DESC");
 
     $arr = [];
     while($fila = $resultado->fetch_assoc())
     {
         $subarray = [];
-        $subarray["Dia"] = date("d/m/Y", strtotime($fila["Dia"]));
-        $subarray["Hora"] = $fila["Hora"];
-        $subarray["Cancha"] = generarCancha($fila["Cancha"]);
-        $subarray["Asistio"] = $fila["Asistio"];
+        $subarray["dia"] = date("d/m/Y", strtotime($fila["dia"]));
+        $subarray["hora"] = $fila["hora"];
+        $subarray["cancha"] = generarCancha($fila["cancha"]);
+        $subarray["asistio"] = $fila["asistio"];
         array_push($arr, $subarray);
     }
 
