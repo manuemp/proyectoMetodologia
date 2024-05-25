@@ -9,11 +9,12 @@
 
     $email = $_SESSION["email"];
     $cancha = $_POST["filtro_cancha"];
+    $usuario_id = $_SESSION["id"];
     
     if($cancha != "")
-        $resultado = mysqli_query($conexion, "SELECT dia, hora, cancha, asistio FROM reservas WHERE email = '$email' AND cancha = $cancha ORDER BY dia DESC");
+        $resultado = mysqli_query($conexion, "SELECT dia, hora, cancha_id, asistio FROM reservas WHERE usuario_id = '$usuario_id' AND cancha_id = $cancha ORDER BY dia DESC");
     else
-        $resultado = mysqli_query($conexion, "SELECT dia, hora, cancha, asistio FROM reservas WHERE email = '$email' ORDER BY dia DESC");
+        $resultado = mysqli_query($conexion, "SELECT dia, hora, cancha_id, asistio FROM reservas WHERE usuario_id = '$usuario_id' ORDER BY dia DESC");
 
     $arr = [];
     while($fila = $resultado->fetch_assoc())
@@ -21,7 +22,7 @@
         $subarray = [];
         $subarray["dia"] = date("d/m/Y", strtotime($fila["dia"]));
         $subarray["hora"] = $fila["hora"];
-        $subarray["cancha"] = generarCancha($fila["cancha"]);
+        $subarray["cancha"] = generarCancha($fila["cancha_id"]);
         $subarray["asistio"] = $fila["asistio"];
         array_push($arr, $subarray);
     }
