@@ -57,14 +57,6 @@
 
                 header("Location:reserva_confirmada.php?cancha=$cancha&dia=$dia&hora=$hora&id_reserva=$id&precio=$precio");
             }
-            else{
-                echo($dia . "\n");
-                echo($hora . "\n");
-                echo($cancha . "\n");
-                echo($usuario_id . "\n");
-                echo($precio);
-
-            }
         }
         else
         {
