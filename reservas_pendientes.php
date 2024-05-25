@@ -15,11 +15,14 @@
 
     include("./conexion.php");
     $email = $_SESSION["email"];
+    $usuario_id = $_SESSION["id"];
 
     
-    $consulta = mysqli_query($conexion, "SELECT * FROM reservas R
-                                        JOIN usuarios U on R.usuario_id = U.id
-                                        WHERE U.email = '$email' AND R.dia >= '$hoy' ORDER BY R.dia");
+    // $consulta = mysqli_query($conexion, "SELECT * FROM reservas R
+    //                                     JOIN usuarios U on R.usuario_id = U.id
+    //                                     WHERE U.email = '$email' AND R.dia >= '$hoy' ORDER BY R.dia");
+
+    $consulta = mysqli_query($conexion, "SELECT * FROM reservas WHERE usuario_id = '$usuario_id' AND dia >= '$hoy' ORDER BY dia");
 
     if(mysqli_num_rows($consulta) == 0)
     {
@@ -34,19 +37,19 @@
                 //Evitar que la reserva de un mismo día aparezca cuando ya pasó la hora
                 if(strtotime($fila["hora"]) > strtotime(date("H:i")))
                     if(intval($fila["asistio"]) == 1){
-                        echo "<div class='reserva'>[id: " .  $fila["id"] ."] - " . generarCancha($fila["cancha"]) . " - " . date("d/m/y", strtotime($fila["dia"])) . " - " . $fila["hora"] . "hs</div>";
+                        echo "<div class='reserva'>[id: " .  $fila["id"] ."] - " . generarCancha($fila["cancha_id"]) . " - " . date("d/m/y", strtotime($fila["dia"])) . " - " . $fila["hora"] . "hs</div>";
                     }
                     else{
-                        echo "<div class='reserva_perdida'>[id: " .  $fila["id"] ."] - " . generarCancha($fila["cancha"]) . " - " . date("d/m/y", strtotime($fila["dia"])) . " - " . $fila["hora"] . "hs</div>";
+                        echo "<div class='reserva_perdida'>[id: " .  $fila["id"] ."] - " . generarCancha($fila["cancha_id"]) . " - " . date("d/m/y", strtotime($fila["dia"])) . " - " . $fila["hora"] . "hs</div>";
                     }
             }
             else
             {
                 if(intval($fila["asistio"]) == 1){
-                    echo "<div class='reserva'>[id: " .  $fila["id"] ."] - " . generarCancha($fila["cancha"]) . " - " . date("d/m/y", strtotime($fila["dia"])) . " - " . $fila["hora"] . "hs</div>";
+                    echo "<div class='reserva'>[id: " .  $fila["id"] ."] - " . generarCancha($fila["cancha_id"]) . " - " . date("d/m/y", strtotime($fila["dia"])) . " - " . $fila["hora"] . "hs</div>";
                 }
                 else{
-                    echo "<div class='reserva_perdida'>[id: " .  $fila["id"] ."] - " . generarCancha($fila["cancha"]) . " - " . date("d/m/y", strtotime($fila["dia"])) . " - " . $fila["hora"] . "hs</div>";
+                    echo "<div class='reserva_perdida'>[id: " .  $fila["id"] ."] - " . generarCancha($fila["cancha_id"]) . " - " . date("d/m/y", strtotime($fila["dia"])) . " - " . $fila["hora"] . "hs</div>";
                 }
             }
         }
