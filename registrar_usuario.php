@@ -18,7 +18,7 @@
     
 
     $consulta = mysqli_query($conexion, "INSERT INTO usuarios (nombre, apellido, email, pass, faltas, racha, rol, saldo_a_favor, telefono, dni) VALUES ('$nombre', '$apellido', '$email', '$pass', 0, 0, 0, 0, $telefono, $dni)");
-    $consulta = mysqli_query($conexion, "SELECT nombre, apellido, email, faltas, racha, rol, saldo_a_favor, telefono, dni FROM usuarios WHERE email='$email'");
+    $consulta = mysqli_query($conexion, "SELECT id, nombre, apellido, email, faltas, racha, rol, saldo_a_favor, telefono, dni FROM usuarios WHERE email='$email'");
     $data = mysqli_fetch_assoc($consulta);
     
     //Asigno los valores a la sesion

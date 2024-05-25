@@ -10,7 +10,7 @@
 
     include("./conexion.php");
 
-    $consulta = mysqli_query($conexion, "SELECT nombre, apellido, email, faltas, racha, rol, saldo_a_favor, telefono, dni FROM usuarios WHERE email='$email' AND pass='$pass'");
+    $consulta = mysqli_query($conexion, "SELECT id, nombre, apellido, email, faltas, racha, rol, saldo_a_favor, telefono, dni FROM usuarios WHERE email='$email' AND pass='$pass'");
 
     $resultado = mysqli_num_rows($consulta);
     $data = mysqli_fetch_array($consulta);

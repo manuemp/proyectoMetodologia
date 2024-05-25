@@ -15,7 +15,7 @@
     $apellido = $_SESSION["apellido"];
     $email = $_SESSION["email"];
     $hoy = date('Y/m/d');
-    $id_usuario = $_SESSION["id"];
+    $usuario_id = intval($_SESSION["id"]);
 
     include("./conexion.php");
 
@@ -43,7 +43,7 @@
         if($resultado_reservas == 0)
         {
             $consulta_reservas = mysqli_query($conexion, "INSERT INTO reservas (asistio, dia, dia_de_reserva, hora, cancha_id, usuario_id, precio, monto_seniado) 
-                                                VALUES (1,'$dia', '$hoy', '$hora', '$cancha', '$usuario_id', '$precio', 0)");
+                                                VALUES ('1','$dia', '$hoy', '$hora', '$cancha', '$usuario_id', '$precio','0')");
             
             if($consulta_reservas)
             {
@@ -56,6 +56,14 @@
                 mysqli_close($conexion);
 
                 header("Location:reserva_confirmada.php?cancha=$cancha&dia=$dia&hora=$hora&id_reserva=$id&precio=$precio");
+            }
+            else{
+                echo($dia . "\n");
+                echo($hora . "\n");
+                echo($cancha . "\n");
+                echo($usuario_id . "\n");
+                echo($precio);
+
             }
         }
         else

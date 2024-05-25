@@ -307,7 +307,7 @@
                 </select>
 
                 <select name="select_hora" class="select_reserva" id="select_hora" disabled>
-                    <option value="">Seleccione día y cancha</option>
+                    <option value="">Seleccione Horario</option>
                 </select>
                 
                 <div class="container_reserva">
