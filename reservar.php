@@ -14,7 +14,10 @@
     $hoy = date('Y-m-d');
     $contador = 0;
 
-    $consulta = mysqli_query($conexion, "SELECT * FROM reservas WHERE email = '$email' AND DATEDIFF(Dia, CURRENT_DATE()) >= 0");
+    $consulta = mysqli_query($conexion, "SELECT * FROM reservas R 
+                                         JOIN usuarios U on U.id = R.usuario_id
+                                         WHERE U.email = '$email' 
+                                         AND DATEDIFF(R.dia, CURRENT_DATE()) >= 0");
 
     // Las reservas que son del mismo día pero de una hora que ya pasó no se van a 
     // contabilizar para la restricción de 3 reservas, ya que no son más reservas pendientes

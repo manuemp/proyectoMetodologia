@@ -12,7 +12,10 @@
     
     include("./conexion.php");
     
-    $reservas = mysqli_query($conexion, "SELECT COUNT(1) AS 'contador' FROM reservas WHERE email = '$email'");
+    $reservas = mysqli_query($conexion, "SELECT COUNT(1) AS 'contador' 
+                                         FROM reservas R
+                                         JOIN usuarios U on U.id = R.usuario_id
+                                         WHERE U.email = '$email'");
     $fila = mysqli_fetch_assoc($reservas);
 
     if(intval($fila["contador"]) >= 60)

@@ -29,7 +29,7 @@
     {
         while($fila = $consulta->fetch_assoc())
         {
-            if($fila["Dia"] == date("Y-m-d"))
+            if($fila["dia"] == date("Y-m-d"))
             {
                 //Evitar que la reserva de un mismo día aparezca cuando ya pasó la hora
                 if(strtotime($fila["hora"]) > strtotime(date("H:i")))
