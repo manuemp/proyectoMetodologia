@@ -18,6 +18,8 @@
                                          WHERE U.email = '$email'");
     $fila = mysqli_fetch_assoc($reservas);
 
+    //FIJARSE SI ES DE NOCHE, AUMENTAR EL PRECIO DE LA CANCHA EN UN 20%
+
     if(intval($fila["contador"]) >= 60)
     {
         $beneficio = 0.85;

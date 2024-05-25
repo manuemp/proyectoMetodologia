@@ -383,7 +383,7 @@
             url: './precio_cancha.php',
             type: 'post',
             data: {
-                id_cancha: $("#select_cancha").val()
+                cancha_id: $("#select_cancha").val()
             },
             success: function (data) {
                 const respuesta = JSON.parse(data); 
