@@ -275,7 +275,27 @@
                 width: 100px;
             }
         }
-    
+        
+        .progress-container {
+            width: 80%;
+            background-color: #e0e0e0;
+            border-radius: 25px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 30px;
+            background-color: #4caf50;
+            width: 0;
+            border-radius: 25px;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            font-weight: bold;
+            transition: width 0.5s;
+        }
 
     </style>
 </head>
@@ -287,6 +307,13 @@
         <section id="reservas">
         <form action="./generar_reserva.php" method="post" id="form_reserva">
                 <h1 class="titulo_reserva" style="margin: 0;">Hacé tu reserva</h1><br>
+
+                 <!-- Barra de progreso -->
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+
+                
                 <select name="select_dia" class="select_reserva" id="select_dia">
                     <?php 
                         for($i = $dia_inicio ; $i < $dia_limite ; $i++)
@@ -318,6 +345,9 @@
                 <div id="beneficio"></div>
             </section>
         </form>
+        <div>
+        <h2 class="titulo_reserva" style="margin: 0;">Hacé tu reserva</h1><br>
+        </div>
     </main>
 
     <?php include("./footer.php") ?>
@@ -463,6 +493,39 @@
             }
         });
     }
+
+
+    function actualizarBarraProgreso() {
+        $.ajax({
+            url: './obtener_reservas.php',  // URL del script que devuelve el número de reservas del usuario
+            type: 'post',
+            data: {
+                email: "<?php echo $email; ?>"
+            },
+            success: function (data) {
+                const reservas = parseInt(data);
+                let porcentaje = 0;
+                let nivel = '';
+
+                if (reservas < 15) {
+                    porcentaje = (reservas / 15) * 100;
+                    nivel = 'Recreativo';
+                } else if (reservas < 40) {
+                    porcentaje = ((reservas - 15) / 25) * 100;
+                    nivel = 'Local';
+                } else {
+                    porcentaje = 100;
+                    nivel = 'Socio';
+                }
+
+                $('#progress-bar').css('width', `${porcentaje}%`);
+                $('#progress-bar').text(`${nivel} (${reservas} reservas)`);
+            }
+        });
+    }
+
+    // Llamamos a la función para actualizar la barra de progreso al cargar la página
+    actualizarBarraProgreso();
 </script>
 
 
