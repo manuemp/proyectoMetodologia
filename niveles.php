@@ -17,7 +17,7 @@
         
                 <div class="item_nivel" id="local">
                     <div class="item_titulo">Local</div><br>
-                    <div class="item_subtitulo">- de 25 a 60 reservas</div><br>
+                    <div class="item_subtitulo" style="color:white">- de 25 a 60 reservas</div><br>
                     <div class="item_texto">
                         <table>
                             <tr>

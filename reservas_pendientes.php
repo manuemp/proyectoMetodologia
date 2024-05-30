@@ -26,7 +26,7 @@
 
     if(mysqli_num_rows($consulta) == 0)
     {
-        echo "<div class='reserva'>No tenés reservas pendientes...</div>";
+        echo "<div class='reserva violeta_claro texto_2'>No tenés reservas pendientes...</div>";
     }
     else
     {

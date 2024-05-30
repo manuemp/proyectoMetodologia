@@ -173,7 +173,7 @@
             width: 380px;
             height: 250px;
             padding: 40px;
-            font-size: 2.8rem;
+            /* font-size: 2.8rem; */
             background-color: white;
             border-radius: 10px;
             font-weight: 400;
@@ -212,8 +212,6 @@
         #titulo_usuario{
             margin: 0;
             margin-bottom: -24px;
-            font-size: 3rem;
-            color: #8650fe;
         }
         
         #avisar_senia{
@@ -459,28 +457,25 @@
                 font-size: 1rem;
             }
         }
-
-        
     </style>
 </head>
 <body>
     <main>
         <section id="panel_usuario">
-            <article id="usuario">
-                <h1 id="titulo_usuario"><?php echo $_SESSION["nombre"] . " " . $_SESSION["apellido"] ?></h1>
+            <article id="usuario" class="texto_2">
+                <h1 class="titulo_3 violeta" id="titulo_usuario"><?php echo $_SESSION["nombre"] . " " . $_SESSION["apellido"] ?></h1>
                     <br><img src="./imgs/level2.png" alt="Icono Falta" class="icono_info"> Nivel: <?php echo $level ?>
                     <br><img src="./imgs/calendario.png" alt="Icono Falta" class="icono_info"> Reservas: <span style="color:#8650fe"><?php echo $reservas ?></span> 
                     <br><img src="./imgs/check.png" alt="Icono Falta" class="icono_info"> Asistencias: <span style="color:#8650fe"><?php echo $_SESSION["racha"] ?></span> 
                     <br><img src="./imgs/falta.png" alt="Icono Falta" class="icono_info"> Faltas: <span style="color: red;"><?php echo $_SESSION["faltas"]?></span>
             </article>
             <article id="reservas">
-                <span style="color: #8650fe; font-weight: bold;">Tus próximas reservas</span>
+                <span class="titulo_3 violeta">Tus próximas reservas</span>
                 <div id="container_reservas">
                     <?php include("./reservas_pendientes.php") ?>
                 </div>
             </article>
         </section>
-        
         
         <section id="reservas_responsive">
             <p id="titulo_reservas">Tus próximas reservas</p>
@@ -490,8 +485,8 @@
         </section>
         
         <section id="avisar_senia">
-            <div style="font-weight: bold;">Si ya reservaste...</div>
-            <a id="wpp_web_senia" href="https://wa.me/1159807762/?text=Hola!%20Me%20comunico%20para%20avisar%20mi%20seña!" target="_blank"><img src="./imgs/wppLogo.png" id="wpp_logo" alt="Logo Whatsapp">Avisá la seña de tu cancha</a>
+            <div style="font-weight: bold;">Si tenés alguna consulta...</div>
+            <a id="wpp_web_senia" href="https://wa.me/1159807762/?text=Hola!%20Me%20comunico%20para%20hacer%20una%20consulta" target="_blank"><img src="./imgs/wppLogo.png" id="wpp_logo" alt="Logo Whatsapp">Comunicate con nosotros</a>
         </section>
 
         <?php include("./niveles.php") ?>
