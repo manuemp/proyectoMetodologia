@@ -277,25 +277,47 @@
         }
         
         .progress-container {
-            width: 80%;
-            background-color: #e0e0e0;
+            width: 90%;
+            background-color: #f3f3f3;
             border-radius: 25px;
-            margin: 20px auto;
+            margin: 20px auto 30px;
             overflow: hidden;
             position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .progress-bar {
-            height: 30px;
-            background-color: #4caf50;
+            height: 35px;
+            background-color: #3CB371;
             width: 0;
             border-radius: 25px;
             text-align: center;
-            line-height: 30px;
+            line-height: 35px;
             color: white;
             font-weight: bold;
-            transition: width 0.5s;
+            font-size: 1.2rem;
+            transition: width 0.8s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
+        .progress-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 1.1rem;
+            color: black;
+            font-weight: bold;
+            top: 0;
+            line-height: 30px;
+        }
+
+        .progress-additional-text {
+            font-size: 1.5rem;
+            color: #333; /* Color del texto */
+            text-align: center; /* Alinear el texto al centro */
+            margin-top: 10px; /* Espacio superior */
+        }
+
 
     </style>
 </head>
@@ -311,7 +333,11 @@
                  <!-- Barra de progreso -->
                 <div class="progress-container">
                     <div id="progress-bar" class="progress-bar"></div>
+                    <div id="progress-text" class="progress-text"></div>
+                    <div id="additional-text" class="progress-additional-text">
+                    </div>
                 </div>
+                
 
                 
                 <select name="select_dia" class="select_reserva" id="select_dia">
@@ -496,33 +522,43 @@
 
 
     function actualizarBarraProgreso() {
-        $.ajax({
-            url: './obtener_reservas.php',  // URL del script que devuelve el número de reservas del usuario
-            type: 'post',
-            data: {
-                email: "<?php echo $email; ?>"
-            },
-            success: function (data) {
-                const reservas = parseInt(data);
-                let porcentaje = 0;
-                let nivel = '';
+    $.ajax({
+        url: './obtener_reservas.php',
+        type: 'post',
+        data: {
+            email: "<?php echo $email; ?>"
+        },
+        success: function (data) {
+            //const reservas = parseInt(data);
+            const reservas = 13;
+            let porcentaje = 0;
+            let nivel = '';
+            let faltan = 0;
 
-                if (reservas < 15) {
-                    porcentaje = (reservas / 15) * 100;
-                    nivel = 'Recreativo';
-                } else if (reservas < 40) {
-                    porcentaje = ((reservas - 15) / 25) * 100;
-                    nivel = 'Local';
-                } else {
-                    porcentaje = 100;
-                    nivel = 'Socio';
-                }
-
-                $('#progress-bar').css('width', `${porcentaje}%`);
-                $('#progress-bar').text(`${nivel} (${reservas} reservas)`);
+            if (reservas < 15) {
+                porcentaje = (reservas / 15) * 100;
+                nivel = 'Recreativo';
+                faltan = 15 - reservas;
+            } else if (reservas < 40) {
+                porcentaje = ((reservas - 15) / 25) * 100;
+                nivel = 'Local';
+                faltan = 40 - reservas;
+            } else {
+                porcentaje = 100;
+                nivel = 'Socio';
             }
-        });
-    }
+
+             // Actualizar el ancho de la barra de progreso
+            $('#progress-bar').css('width', `${porcentaje}%`);
+
+             // Actualizar el texto dentro del elemento con el ID 'progress-text'
+            $('#progress-text').text(`${nivel} (${reservas} reservas)`);
+
+             // Actualizar el texto adicional
+            $('#additional-text').text(`${faltan} RESERVAS MÁS Y LVL UP ⚽️`);
+        }
+    });
+}
 
     // Llamamos a la función para actualizar la barra de progreso al cargar la página
     actualizarBarraProgreso();
