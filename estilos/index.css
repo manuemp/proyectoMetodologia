@@ -75,7 +75,7 @@ border-radius: 10px;
 overflow: hidden;
 margin: 20px auto;
 box-shadow: 8px 9px 13px -4px gray;
-font-size: 2rem;
+/* font-size: 2rem; */
 }
 
 .pregunta, .respuesta{

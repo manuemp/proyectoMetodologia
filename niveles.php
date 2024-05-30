@@ -1,6 +1,6 @@
 <section class="info_container" id="beneficios_container">    
             <div class="niveles_container">
-                <div class="item_nivel" id="recreativo">
+                <div class="item_nivel violeta" id="recreativo">
                     <div class="item_titulo">Recreativo</div><br>
                     <div class="item_subtitulo">- menos de 25 reservas</div><br>
                     <div class="item_texto">

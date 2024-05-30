@@ -27,8 +27,51 @@ body, html, .nav1, .nav2{
     max-width: 2000px;
 }
 
-.nav1
-{
+.violeta{
+   color: #8650fe;
+}
+
+.violeta_oscuro{
+    color: #3e139c;
+}
+
+.violeta_claro{
+    color: #bea1ff;
+}
+
+.titulo_1{
+    font-size: 5rem;
+    font-weight: bold;
+}
+
+.titulo_2{
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.titulo_3{
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.titulo_4{
+    font-size: 2.3rem;
+    font-weight: bold;
+}
+
+.texto_1{
+    font-size: 2rem;
+}
+
+.texto_2{
+    font-size: 1.8rem;
+}
+
+.texto_3{
+    font-size: 1.2rem;
+}
+
+.nav1{
     justify-content: space-between;
     background:linear-gradient(45deg, #3e139c, #6b27fc 80%);
     width: 100vw;
@@ -37,8 +80,7 @@ body, html, .nav1, .nav2{
     align-items: center;
 }
 
-.nav2
-{
+.nav2{
     justify-content: center;
     align-items: center;
     background: linear-gradient(45deg, #481f9e, #8650fe 80%);
@@ -47,8 +89,7 @@ body, html, .nav1, .nav2{
     width: 100vw;
 }
 
-.opcion
-{
+.opcion{
     cursor: pointer;
     color: white;
     font-size: 20px;
@@ -58,34 +99,30 @@ body, html, .nav1, .nav2{
     border-radius: 10px;
 }
 
-.logo
-{
+.logo{
     width: 120px;
     margin-left: 10px;
     cursor: pointer;
 }
 
-.opcion:hover
-{
+.opcion:hover{
     background: linear-gradient(90deg, #5628bc, transparent 92%);
 }
 
-.info_container
-{
+.info_container{
     width: 100%;
     height: auto;
     box-sizing: border-box;
     padding: 45px 45px;
-    color: #8650fe;
+    /* color: #8650fe; */
     transition: 2s;
     cursor: default;
 }
 
-.info_titulo
-{
+/* .info_titulo{
     font-size: 4rem;
     font-weight: bold;
-}
+} */
 
 .info_texto
 {

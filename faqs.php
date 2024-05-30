@@ -1,7 +1,7 @@
 <div class="info_container">
-    <div class="info_titulo" style="text-align: center;">Preguntas Frecuentes</div><br><br>
+    <div class="titulo_2 violeta" style="text-align: center;">Preguntas Frecuentes</div><br><br>
     <section id="faqs">
-        <div class="pregunta">¿Cómo reservo? <img class="btn_faqs" src="./imgs/boton_faqs.png" alt="boton desplazable"></div>
+        <div class="pregunta titulo_4">¿Cómo reservo? <img class="btn_faqs" src="./imgs/boton_faqs.png" alt="boton desplazable"></div>
         <div class="respuesta">
             <p class="p_respuesta">Para reservar debés crear primero tu usuario. Luego podrás ir a la sección de reservas
             donde eligirás día, horario y cancha. Una vez efectuada tu reserva, tendrás a disposición 
@@ -10,7 +10,7 @@
             </p>
         </div>
         
-        <div class="pregunta">¿Por qué tengo que registrarme?<img class="btn_faqs" src="./imgs/boton_faqs.png" alt="boton desplazable"></div>
+        <div class="pregunta titulo_4">¿Por qué tengo que registrarme?<img class="btn_faqs" src="./imgs/boton_faqs.png" alt="boton desplazable"></div>
         <div class="respuesta">
             <p class="p_respuesta">
                 Tener registrados a nuestros clientes nos permite hacer un seguimiento de la cantidad
@@ -19,7 +19,7 @@
             </p>
         </div>
     
-        <div class="pregunta">¿Puedo perder mis beneficios?<img class="btn_faqs" src="./imgs/boton_faqs.png" alt="boton desplazable"></div>
+        <div class="pregunta titulo_4">¿Puedo perder mis beneficios?<img class="btn_faqs" src="./imgs/boton_faqs.png" alt="boton desplazable"></div>
         <div class="respuesta">
             <p class="p_respuesta">
             En caso de que no te presentes a jugar o que canceles fuera del límite de horario, se te aplicará
@@ -28,7 +28,7 @@
             </p>
         </div>
         
-        <div class="pregunta">¿Qué pasa si cancelo mi reserva?<img class="btn_faqs" src="./imgs/boton_faqs.png" alt="boton desplazable"></div>
+        <div class="pregunta titulo_4">¿Qué pasa si cancelo mi reserva?<img class="btn_faqs" src="./imgs/boton_faqs.png" alt="boton desplazable"></div>
         <div class="respuesta">
             <p class="p_respuesta">
                 La cancelación de la reserva se avisa por WhatsApp. Si cancelás fuera del horario permitido
