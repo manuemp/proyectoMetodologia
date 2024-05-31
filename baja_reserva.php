@@ -10,8 +10,8 @@
     $id = intval($_POST["id_reserva"]);
     $email = $_POST["email"];
 
-    $consulta = mysqli_query($conexion, "DELETE FROM Reservas WHERE ID = $id");
-    $consulta = mysqli_query($conexion, "UPDATE Usuarios SET Racha = Racha - 1 WHERE Email = '$email'");
+    $consulta = mysqli_query($conexion, "DELETE FROM reservas WHERE id = $id");
+    $consulta = mysqli_query($conexion, "UPDATE usuarios SET racha = racha - 1 WHERE email = '$email'");
 
     mysqli_free_result($consulta);
     mysqli_close($conexion);

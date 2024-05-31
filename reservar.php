@@ -431,6 +431,21 @@
         }
     });
 
+     //CAMBIO NECESITO QUE CADA VEZ QUE CAMBIE LA HORA CAMBIE EL PRECIO SI ES A LA NOCHE O NO
+     select_hora.addEventListener('change', ()=>{
+        if(select_hora.value == "") 
+        {
+            //Si no hay cancha seleccionada, no se va a poder seleccionar horario,
+            //ya que los horarios disponibles dependen de la cancha y el día.
+            btn_reserva.setAttribute("disabled", "");
+            precio.innerHTML = "Total: $0,00";
+        }
+        else
+        {
+            btn_reserva.removeAttribute("disabled");
+            dar_precio();
+        }
+    });
 
     function dar_precio()
     {
@@ -439,7 +454,8 @@
             url: './precio_cancha.php',
             type: 'post',
             data: {
-                cancha_id: $("#select_cancha").val()
+                cancha_id: $("#select_cancha").val(),
+                hora: $("#select_hora").val()
             },
             success: function (data) {
                 const respuesta = JSON.parse(data); 

@@ -9,22 +9,25 @@
     $cancha = intval($_POST["cancha_id"]);
     $email = $_SESSION["email"];
     $beneficio;
+
+    //Hora para verificar el horario de la noche y así aumentar el precio
+    $hora = $_POST["hora"];
     
     include("./conexion.php");
     
-    $reservas = mysqli_query($conexion, "SELECT COUNT(1) AS 'contador' 
-                                         FROM reservas R
-                                         JOIN usuarios U on U.id = R.usuario_id
+    $reservas = mysqli_query($conexion, "SELECT racha
+                                         FROM usuarios U
+                                         JOIN reservas R on U.id = R.usuario_id
                                          WHERE U.email = '$email'");
     $fila = mysqli_fetch_assoc($reservas);
 
-    //FIJARSE SI ES DE NOCHE, AUMENTAR EL PRECIO DE LA CANCHA EN UN 20%
+    //FIJARSE SI ES DE NOCHE, AUMENTAR EL PRECIO DE LA CANCHA EN UN 20%    
 
-    if(intval($fila["contador"]) >= 60)
+    if(intval($fila["racha"]) >= 20)
     {
         $beneficio = 0.85;
     }
-    else if(intval($fila["contador"]) >= 25)
+    else if(intval($fila["racha"]) >= 10)
     {
         $beneficio = 0.9;
     }
@@ -32,6 +35,17 @@
     {
         $beneficio = 1;
     }
+
+    $beneficio_temp = $beneficio;
+
+    //Verificar el tema del beneficio, no da el precio justo pero da uno cercano a la hora de tener un horario a la noche con beneficio
+    if($hora == "20:00:00" || $hora == "21:00:00" || $hora == "22:00:00"){
+        $beneficio = $beneficio + 0.2;
+    }
+    else{
+        $beneficio = $beneficio_temp;
+    }
+
 
     $consulta = mysqli_query($conexion, "SELECT precio FROM canchas WHERE id = $cancha");
     $fila = mysqli_fetch_assoc($consulta);
