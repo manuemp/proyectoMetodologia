@@ -9,7 +9,6 @@
     $email = $_SESSION["email"];
     //Sirve para contar la cantidad de reservas que faltan para volver
     //a aplicar los beneficios
-    $contador = $_SESSION["penalizacion"];
     $beneficio;
 
     //Hora para verificar el horario de la noche y así aumentar el precio
@@ -17,14 +16,19 @@
     
     include("./conexion.php");
     
-    $reservas = mysqli_query($conexion, "SELECT COUNT(*) racha
+
+    /*COMENTAR LA LINEA DE ABAJO DE ESTA PARA REALIZAR PRUEBAS CON LA RACHA Y DESCOMENTAR ESTA
+    $reservas = mysqli_query($conexion, "SELECT racha, penalizacion
+                            FROM clientes C");*/
+
+    $reservas = mysqli_query($conexion, "SELECT COUNT(*) racha, penalizacion
                             FROM clientes C
                             JOIN reservas R on C.id_usuario = R.usuario_id");
     $fila = mysqli_fetch_assoc($reservas);
 
     //FIJARSE SI ES DE NOCHE, AUMENTAR EL PRECIO DE LA CANCHA EN UN 20%    
 
-    if($contador != 0){
+    if(intval($fila["penalizacion"]) != 0){
         $beneficio = 1;
         //ACTUALIZAR EL CAMPO QUE SIRVE COMO CONTADOR RESTANDOLE 1
     }
