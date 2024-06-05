@@ -14,8 +14,12 @@
     $nombre = $_SESSION["nombre"];
     $apellido = $_SESSION["apellido"];
     $email = $_SESSION["email"];
+    $dni = $_SESSION["dni"];
     $hoy = date('Y/m/d');
     $usuario_id = intval($_SESSION["id"]);
+    //Sirve para contar la cantidad de reservas que faltan para volver
+    //a aplicar los beneficios
+    $faltas = intval($_SESSION["penalizacion"]);
 
     include("./conexion.php");
 
@@ -45,12 +49,22 @@
             $consulta_reservas = mysqli_query($conexion, "INSERT INTO reservas (asistio, dia, dia_de_reserva, hora, cancha_id, usuario_id, precio, monto_seniado) 
                                                 VALUES ('1','$dia', '$hoy', '$hora', '$cancha', '$usuario_id', '$precio','0')");
             
-            if($consulta_reservas)
+            if($consulta_reservas && $faltas == 0)
             {
                 $consulta_id = mysqli_query($conexion, "SELECT MAX(id) AS id FROM reservas");
                 $id = mysqli_fetch_assoc($consulta_id)["id"];
             
-                $consulta_reservas = mysqli_query($conexion, "UPDATE usuarios SET racha = racha + 1 WHERE email = '$email'");
+                $consulta_reservas = mysqli_query($conexion, "UPDATE clientes SET racha = racha + 1 WHERE dni = '$dni'");
+
+                mysqli_free_result($consulta_usuario);
+                mysqli_close($conexion);
+
+                header("Location:reserva_confirmada.php?cancha=$cancha&dia=$dia&hora=$hora&id_reserva=$id&precio=$precio");
+            }
+            else if($consulta_reservas && $faltas != 0)
+            {
+                $consulta_id = mysqli_query($conexion, "SELECT MAX(id) AS id FROM reservas");
+                $id = mysqli_fetch_assoc($consulta_id)["id"];
 
                 mysqli_free_result($consulta_usuario);
                 mysqli_close($conexion);
