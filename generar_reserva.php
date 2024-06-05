@@ -19,7 +19,7 @@
     $usuario_id = intval($_SESSION["id"]);
     //Sirve para contar la cantidad de reservas que faltan para volver
     //a aplicar los beneficios
-    $faltas = intval($_SESSION["penalizacion"]);
+    $faltas = $_SESSION["penalizacion"];
 
     include("./conexion.php");
 
@@ -49,7 +49,10 @@
             $consulta_reservas = mysqli_query($conexion, "INSERT INTO reservas (asistio, dia, dia_de_reserva, hora, cancha_id, usuario_id, precio, monto_seniado) 
                                                 VALUES ('1','$dia', '$hoy', '$hora', '$cancha', '$usuario_id', '$precio','0')");
             
-            if($consulta_reservas && $faltas == 0)
+            /*VER ESTO PARA BAJAR LA PENALIZACION */
+            $consulta_penalizacion = mysqli_query($conexion, "SELECT penalizacion from clientes where dni = '$dni'");
+            
+            if($consulta_reservas /*&& $consulta_penalizacion == 0*/)
             {
                 $consulta_id = mysqli_query($conexion, "SELECT MAX(id) AS id FROM reservas");
                 $id = mysqli_fetch_assoc($consulta_id)["id"];
@@ -63,6 +66,9 @@
             }
             else if($consulta_reservas && $faltas != 0)
             {
+                /*SACAR LA PENALIZACION */
+                $penalizacion_retirada = mysqli_query($conexion, "UPDATE clientes SET penalizacion = penalizacion - 1 WHERE dni = '$dni'");
+
                 $consulta_id = mysqli_query($conexion, "SELECT MAX(id) AS id FROM reservas");
                 $id = mysqli_fetch_assoc($consulta_id)["id"];
 
