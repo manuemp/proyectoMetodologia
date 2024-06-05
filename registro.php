@@ -142,12 +142,6 @@
                         <input type="email" class="form_input" id="email" autocomplete="off" name="email" required>
                         <span style="color:red;font-weight:bold;font-style:italic;"><?php echo $email_err ?></span>
                     </div>
-
-                    <div class="form_opcion">
-                        <label for="telefono">Teléfono</label>
-                        <input type="text" class="form_input" id="telefono" autocomplete="off" name="telefono" required>
-                        <!-- <span style="color:red;font-weight:bold;font-style:italic;"><?php echo $email_err ?></span> -->
-                    </div>
     
                     <div class="form_opcion">
                         <label for="pass">Contraseña</label>
@@ -186,8 +180,10 @@
                 include("./registrar_usuario.php");
                 //Como los headers ya fueron enviados no puedo usar header(Location);
                 //En cambio tengo que hacer la redirección via JS...
+                include("./registrar_cliente.php");
                 echo "<script>location.href = './index.php'</script>";
             }
+
         }
     ?>
 

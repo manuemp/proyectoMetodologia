@@ -4,8 +4,8 @@
     if(isset($_SESSION["rol"]))
     {
         //Si ese campo es admin, o sea, valor 1, entonces no me manda al index de usuario, sino al de administrador
-        if(intval($_SESSION["rol"]) == 1)
-            header("Location:admin_reservas.php");
+        /*if(intval($_SESSION["rol"]) == 1)
+            header("Location:admin_reservas.php");*/
     }
 ?>
 

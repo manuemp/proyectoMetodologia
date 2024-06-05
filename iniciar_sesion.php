@@ -10,7 +10,11 @@
 
     include("./conexion.php");
 
-    $consulta = mysqli_query($conexion, "SELECT id, nombre, apellido, email, faltas, racha, rol, saldo_a_favor, telefono, dni FROM usuarios WHERE email='$email' AND pass='$pass'");
+    //usuarios: id, nombre, apelido, email, pass, rol
+    //clientes: dni, id_usuario, faltas, racha, penalizacion, saldo_a_favor
+
+    $consulta = mysqli_query($conexion, "SELECT U.id, U.nombre, U.apellido, U.email, C.faltas, C.racha, U.rol, C.saldo_a_favor, C.dni FROM usuarios U
+                                        INNER JOIN clientes C ON U.email='$email' AND U.pass='$pass'");
 
     $resultado = mysqli_num_rows($consulta);
     $data = mysqli_fetch_array($consulta);
@@ -32,8 +36,8 @@
         $_SESSION['racha'] = $data['racha'];
         $_SESSION['rol'] = $data['rol'];
         $_SESSION['saldo_a_favor'] = $data['saldo_a_favor'];
-        $_SESSION['telefono'] = $data['telefono'];
         $_SESSION['dni'] = $data['dni'];
+        $_SESSION['penalizacion'] = $data['penalizacion'];
 
         mysqli_free_result($consulta);
         mysqli_close($conexion);
