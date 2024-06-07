@@ -32,6 +32,7 @@
                                                 WHERE dia = '$dia' AND hora = '$hora' AND U.email = '$email'");
     $resultado_usuario = mysqli_num_rows($consulta_usuario);
 
+
     //Si tiene una reserva ese día y hora en otra cancha, redirecciono a página de error
     if($resultado_usuario > 0)
     {
@@ -52,7 +53,7 @@
             /*VER ESTO PARA BAJAR LA PENALIZACION */
             $consulta_penalizacion = mysqli_query($conexion, "SELECT penalizacion from clientes where dni = '$dni'");
             
-            if($consulta_reservas /*&& $consulta_penalizacion == 0*/)
+            if($consulta_reservas && intval($consulta_penalizacion) == 0)
             {
                 $consulta_id = mysqli_query($conexion, "SELECT MAX(id) AS id FROM reservas");
                 $id = mysqli_fetch_assoc($consulta_id)["id"];
@@ -64,7 +65,7 @@
 
                 header("Location:reserva_confirmada.php?cancha=$cancha&dia=$dia&hora=$hora&id_reserva=$id&precio=$precio");
             }
-            else if($consulta_reservas && $faltas != 0)
+            else if($consulta_reservas && intval($consulta_penalizacion) != 0)
             {
                 /*SACAR LA PENALIZACION */
                 $penalizacion_retirada = mysqli_query($conexion, "UPDATE clientes SET penalizacion = penalizacion - 1 WHERE dni = '$dni'");
