@@ -15,7 +15,9 @@
     $dia = $_POST["filtro_dia"];
     $email = $_POST["filtro_email"];
 
-    $resultado = mysqli_query($conexion, "SELECT id, dia, hora, cancha, nombre, apellido, email, asistio, precio, monto_seniado, dia_de_reserva FROM reservas WHERE dia >= '$hoy' AND cancha LIKE '%$cancha%' AND email LIKE '%$email%' AND dia LIKE '%$dia%' AND asistio = 1 ORDER BY dia, hora");
+    $resultado = mysqli_query($conexion, "SELECT R.id, R.dia, R.hora, R.cancha_id, U.nombre, U.apellido, U.email, R.asistio, R.precio, R.monto_seniado, R.dia_de_reserva FROM reservas R 
+                            JOIN usuarios U on U.id = R.usuario_id
+                            WHERE R.dia >= '$hoy' AND R.cancha_id LIKE '%$cancha%' AND U.email LIKE '%$email%' AND R.dia LIKE '%$dia%' AND R.asistio = 1 ORDER BY R.dia, R.hora");
     $contador = mysqli_num_rows($resultado);
     
     $arr = [];
@@ -25,7 +27,7 @@
         $obj->id = $fila["id"];
         $obj->dia = date("d/m/Y", strtotime($fila['dia']));
         $obj->hora = $fila['hora'];
-        $obj->cancha = generarCancha($fila['cancha']);
+        $obj->cancha = generarCancha($fila['cancha_id']);
         $obj->nombre = $fila['nombre'];
         $obj->apellido = $fila['apellido'];
         $obj->email = $fila['email'];
