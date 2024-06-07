@@ -12,7 +12,6 @@
    $id = $_POST["id_reserva"];
     //Sirve para contar la cantidad de reservas que faltan para volver
     //a aplicar los beneficios
-   $faltas = intval($_SESSION["penalizacion"]);
 
    include("./conexion.php");
 
@@ -30,7 +29,7 @@
    if($resultado > 3)
    {
       //Esta variable bloquea los beneficios por 3 reservas
-      $faltas = 3;
+      $consulta = mysqli_query($conexion, "UPDATE clientes SET penalizacion = 3 WHERE dni = '$dni'");
 
       //Para evitar números negativos en contador de racha de asistencias
       $consulta = mysqli_query($conexion, "UPDATE clientes SET faltas = 0, racha = 0 WHERE dni = '$dni'");
