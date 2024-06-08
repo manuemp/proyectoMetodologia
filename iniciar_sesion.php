@@ -13,14 +13,16 @@
     //usuarios: id, nombre, apelido, email, pass, rol
     //clientes: dni, id_usuario, faltas, racha, penalizacion, saldo_a_favor
 
-    $consulta = mysqli_query($conexion, "SELECT U.id, U.nombre, U.apellido, U.email, C.faltas, C.racha, U.rol, C.saldo_a_favor, C.dni FROM usuarios U
-                                        INNER JOIN clientes C ON U.email='$email' AND U.pass='$pass'");
+    $consulta_inicio_sesion = mysqli_query($conexion, "SELECT id, nombre, apellido, email, rol FROM usuarios WHERE email='$email' AND pass='$pass'");
+    $resultado_inicio_sesion = mysqli_num_rows($consulta_inicio_sesion);
+    $datos_generales_usuario = mysqli_fetch_assoc($consulta_inicio_sesion);
+    $usuario_id = intval($datos_generales_usuario["id"]);
+    $consulta_datos_cliente = mysqli_query($conexion, "SELECT dni, id_usuario, faltas, racha, penalizacion, saldo_a_favor
+                                                       FROM clientes WHERE id_usuario = $usuario_id");
+    $datos_cliente = mysqli_fetch_array($consulta_datos_cliente);
+    $racha = intval($datos_cliente["racha"]);
 
-    $resultado = mysqli_num_rows($consulta);
-    $data = mysqli_fetch_array($consulta);
-
-    if($resultado == 0)
-    {
+    if($resultado_inicio_sesion == 0){
         echo "<span id='modal_background' style='display:block';></span>";
         include("./modal_fail.php");
         include("./index.php");
@@ -28,18 +30,27 @@
     else
     {
         session_start();
-        $_SESSION['id'] = $data['id'];
-        $_SESSION['nombre'] = $data['nombre'];
-        $_SESSION['apellido'] = $data['apellido'];
-        $_SESSION['email'] = $data['email'];
-        $_SESSION['faltas'] = $data['faltas'];
-        $_SESSION['racha'] = $data['racha'];
-        $_SESSION['rol'] = $data['rol'];
-        $_SESSION['saldo_a_favor'] = $data['saldo_a_favor'];
-        $_SESSION['dni'] = $data['dni'];
-        $_SESSION['penalizacion'] = $data['penalizacion'];
+        $query_nivel_usuario = mysqli_query($conexion, "SELECT DISTINCT N.id, N.cantidad_reservas, N.descuento, N.nombre FROM niveles N, niveles M 
+                                                        WHERE M.cantidad_reservas >= N.cantidad_reservas 
+                                                        AND $racha  BETWEEN N.cantidad_reservas AND M.cantidad_reservas + N.cantidad_reservas 
+                                                        ORDER BY N.id DESC 
+                                                        LIMIT 1");
+        $nivel = mysqli_fetch_assoc($query_nivel_usuario);
 
-        mysqli_free_result($consulta);
+        $_SESSION['id'] = $datos_generales_usuario['id'];
+        $_SESSION['nombre'] = $datos_generales_usuario['nombre'];
+        $_SESSION['apellido'] = $datos_generales_usuario['apellido'];
+        $_SESSION['email'] = $datos_generales_usuario['email'];
+        $_SESSION['faltas'] = $datos_cliente['faltas'];
+        $_SESSION['racha'] = $datos_cliente['racha'];
+        $_SESSION['rol'] = $datos_generales_usuario['rol'];
+        $_SESSION['saldo_a_favor'] = $datos_cliente['saldo_a_favor'];
+        $_SESSION['dni'] = $datos_cliente['dni'];
+        $_SESSION['penalizacion'] = $datos_cliente['penalizacion'];
+        $_SESSION['nivel'] = $nivel['nombre'];
+
+        mysqli_free_result($consulta_inicio_sesion);
+        mysqli_free_result($consulta_datos_cliente);
         mysqli_close($conexion);
 
         if(intval($_SESSION['rol']) == 1)

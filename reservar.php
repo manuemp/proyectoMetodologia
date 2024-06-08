@@ -7,6 +7,39 @@
     }
 
     include("./conexion.php");
+
+
+
+    //Si el nombre del nivel no es socio, entonces empiezo a hacer preguntas
+    //Busco el id del nivel siguiente al que estoy ahora
+    //Obtengo la cantidad de reservas de ese nivel siguiente
+    //Resto esa cantidad a la cantidad actual (mi racha)
+    //Obtengo la cantidad de reservas que me faltan.
+
+    //Si el nombre del nivel es socio, ni aparece la cuenta regresiva
+    $racha = intval($_SESSION["racha"]);
+    $nivel = $_SESSION["nivel"];
+    $reservas_proximo_nivel;
+    $nombre_proximo_nivel;
+
+    //Pido el ID del nivel actual
+    $consulta_id_nivel = mysqli_query($conexion, "SELECT id FROM niveles WHERE nombre = '$nivel'");
+    $datos_nivel = mysqli_fetch_assoc($consulta_id_nivel);
+    $id_nivel = $datos_nivel["id"];
+    //Me fijo si hay un nivel más adelante
+    $consulta_proximo_nivel = mysqli_query($conexion, "SELECT * FROM niveles WHERE id = $id_nivel + 1");
+    $existe_nivel = mysqli_num_rows($consulta_proximo_nivel);
+    //Si el nivel existe, guardo los datos
+    if($existe_nivel == 1){
+        $proximo_nivel = mysqli_fetch_assoc($consulta_proximo_nivel);
+        $reservas_proximo_nivel = intval($proximo_nivel["cantidad_reservas"]);
+        $nombre_proximo_nivel = $proximo_nivel["nombre"];
+        $reservas_faltantes = $reservas_proximo_nivel - $racha;
+    }
+
+    mysqli_free_result($consulta_id_nivel);
+    mysqli_free_result($consulta_proximo_nivel);
+
     $email = $_SESSION["email"];
 
     date_default_timezone_set("America/Argentina/Buenos_Aires");
@@ -73,7 +106,7 @@
         }
 
         main{
-            background-image: url("./imgs/fondo_inicio3.jpeg");
+            /* background-image: url("./imgs/fondo_inicio3.jpeg"); */
             background-repeat: no-repeat;
             background-size: cover;
         }
@@ -81,7 +114,7 @@
         #reservas
         {
             margin: auto;
-            width: 65%;
+            width: 100%;
             height: 100%;
             background-color: white;
             padding: 30px 30px 0px 40px;
@@ -111,7 +144,7 @@
             font-size: 2rem;
             font-weight: bold;
             box-sizing: border-box;
-            border-radius: 20px;
+            border-radius: 10px;
             text-align: center;
             border: 2px solid rgb(238, 236, 236);
             cursor: pointer;
@@ -133,7 +166,8 @@
             box-shadow: 2px 2px 7px 1px lightblue;
             border: none;
             width: 100%;
-            background-color: greenyellow;
+            background-color: #25d366;
+            color: white;
             cursor: pointer;
             margin: 0;
         }
@@ -246,7 +280,7 @@
                 margin: auto;
                 position: relative;
                 top: 10%;
-                width: 70%;
+                /* width: 70%; */
                 height: 80%;
             }
 
@@ -263,7 +297,7 @@
         @media(max-width: 450px){
 
             #reservas{
-                width: 90%;
+                /* width: 90%; */
             }
 
             .select_reserva{
@@ -279,7 +313,7 @@
         .progress-container {
             width: 90%;
             background-color: #f3f3f3;
-            border-radius: 25px;
+            border-radius: 12px;
             margin: 20px auto 30px;
             overflow: hidden;
             position: relative;
@@ -288,7 +322,7 @@
 
         .progress-bar {
             height: 35px;
-            background-color: #3CB371;
+            background-color: #25d366;
             width: 0;
             border-radius: 25px;
             text-align: center;
@@ -304,18 +338,19 @@
             position: absolute;
             width: 100%;
             text-align: center;
-            font-size: 1.1rem;
-            color: black;
+            font-size: 1.2rem;
+            color: darkslategrey;
             font-weight: bold;
             top: 0;
-            line-height: 30px;
+            line-height: 32px;
         }
 
         .progress-additional-text {
             font-size: 1.5rem;
-            color: #333; /* Color del texto */
-            text-align: center; /* Alinear el texto al centro */
-            margin-top: 10px; /* Espacio superior */
+            color: #8650fe;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
 
@@ -539,43 +574,31 @@
 
     function actualizarBarraProgreso() {
     $.ajax({
-        url: './obtener_reservas.php',
-        type: 'post',
-        data: {
-            email: "<?php echo $email; ?>"
-        },
+        url: './nivel_barra_progreso.php',
+        type: 'get',
         success: function (data) {
             //const reservas = parseInt(data);
-            const reservas = 13;
-            let porcentaje = 0;
-            let nivel = '';
-            let faltan = 0;
+            const respuesta = JSON.parse(data);
+            console.log(respuesta);
+            let racha = parseInt(respuesta["racha"]);
+            let nivel = respuesta["nivel"];
+            let faltan = respuesta["reservas_faltantes"];
+            let porcentaje =  (racha / parseInt(respuesta["reservas_proximo_nivel"])) * 100;
 
-            if (reservas < 15) {
-                porcentaje = (reservas / 15) * 100;
-                nivel = 'Recreativo';
-                faltan = 15 - reservas;
-            } else if (reservas < 40) {
-                porcentaje = ((reservas - 15) / 25) * 100;
-                nivel = 'Local';
-                faltan = 40 - reservas;
-            } else {
-                porcentaje = 100;
-                nivel = 'Socio';
-            }
-
-             // Actualizar el ancho de la barra de progreso
             $('#progress-bar').css('width', `${porcentaje}%`);
+            console.log(porcentaje);
 
              // Actualizar el texto dentro del elemento con el ID 'progress-text'
-            $('#progress-text').text(`${nivel} (${reservas} reservas)`);
+            $('#progress-text').text(`${nivel} (${racha} reservas)`);
 
              // Actualizar el texto adicional
-            $('#additional-text').text(`${faltan} RESERVAS MÁS Y LVL UP ⚽️`);
+            $('#additional-text').text(`${faltan} Reservas más para ser ${respuesta["proximo_nivel"]} ⚽️`);
         }
     });
-}
+    }
 
+
+    
     // Llamamos a la función para actualizar la barra de progreso al cargar la página
     actualizarBarraProgreso();
 </script>

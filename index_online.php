@@ -3,18 +3,18 @@
     include("./actualizar_sesion.php");
     date_default_timezone_set("America/Argentina/Buenos_Aires");
 
-    if($_SESSION["racha"] >= 60)
-    {
-        $level = "Socio";
-    }
-    else if($_SESSION["racha"] >= 25)
-    {
-        $level = "Local";
-    }
-    else 
-    {
-        $level = "Recreativo";
-    }
+    // if($_SESSION["racha"] >= 60)
+    // {
+    //     $level = "Socio";
+    // }
+    // else if($_SESSION["racha"] >= 25)
+    // {
+    //     $level = "Local";
+    // }
+    // else 
+    // {
+    //     $level = "Recreativo";
+    // }
 
     include("./conexion.php");
     $usuario_id = $_SESSION['id'];
@@ -464,7 +464,7 @@
         <section id="panel_usuario">
             <article id="usuario" class="texto_2">
                 <h1 class="titulo_3 violeta" id="titulo_usuario"><?php echo $_SESSION["nombre"] . " " . $_SESSION["apellido"] ?></h1>
-                    <br><img src="./imgs/level2.png" alt="Icono Falta" class="icono_info"> Nivel: <?php echo $level ?>
+                    <br><img src="./imgs/level2.png" alt="Icono Falta" class="icono_info"> Nivel: <?php echo $_SESSION["nivel"] ?>
                     <br><img src="./imgs/calendario.png" alt="Icono Falta" class="icono_info"> Reservas: <span style="color:#8650fe"><?php echo $reservas ?></span> 
                     <br><img src="./imgs/check.png" alt="Icono Falta" class="icono_info"> Asistencias: <span style="color:#8650fe"><?php echo $_SESSION["racha"] ?></span> 
                     <br><img src="./imgs/falta.png" alt="Icono Falta" class="icono_info"> Faltas: <span style="color: red;"><?php echo $_SESSION["faltas"]?></span>

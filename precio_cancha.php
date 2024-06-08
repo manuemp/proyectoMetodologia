@@ -15,10 +15,6 @@
     $hora = $_POST["hora"];
     
     include("./conexion.php");
-    
-    /*COMENTAR LA LINEA DE ABAJO DE ESTA PARA REALIZAR PRUEBAS CON LA RACHA Y DESCOMENTAR ESTA
-    $reservas = mysqli_query($conexion, "SELECT racha, penalizacion
-                            FROM clientes C");*/
 
     $query_reservas_cliente = mysqli_query($conexion, "SELECT COUNT(*) racha, penalizacion
                             FROM clientes C
@@ -45,28 +41,6 @@
     else{
         $beneficio = intval($nivel["descuento"]);
     }
-    // else if(intval($fila["racha"]) >= 20)
-    // {
-    //     $beneficio = 0.85;
-    // }
-    // else if(intval($fila["racha"]) >= 10)
-    // {
-    //     $beneficio = 0.9;
-    // }
-    // else
-    // {
-    //     $beneficio = 1;
-    // }
-
-    //$beneficio_temp = $beneficio;
-
-    //Verificar el tema del beneficio, no da el precio justo pero da uno cercano a la hora de tener un horario a la noche con beneficio
-    // if($hora == "20:00:00" || $hora == "21:00:00" || $hora == "22:00:00"){
-    //     $beneficio = $beneficio + 0.2;
-    // }
-    // else{
-    //     $beneficio = $beneficio_temp;
-    // }
 
     $query_canchas = mysqli_query($conexion, "SELECT precio FROM canchas WHERE id = $cancha_id");
     $cancha = mysqli_fetch_assoc($query_canchas);
