@@ -3,7 +3,17 @@
     // $resultado = mysqli_query($conexion, "SELECT ID, Nombre, Apellido, Email, Reservas, Faltas, Nivel FROM Usuarios ORDER BY Nombre");
     
     $email = $_POST["email"];
-    $resultado = mysqli_query($conexion, "SELECT id, nombre, apellido, email, faltas, racha FROM usuarios WHERE email = '$email'");
+
+    if($email == ""){
+        $resultado = mysqli_query($conexion, "SELECT U.id, U.nombre, U.apellido, U.email, C.faltas, C.racha FROM usuarios U
+                            JOIN clientes C ON C.id_usuario = U.id");
+    }
+    else{
+        $resultado = mysqli_query($conexion, "SELECT U.id, U.nombre, U.apellido, U.email, C.faltas, C.racha FROM usuarios U
+        JOIN clientes C ON C.id_usuario = U.id
+        WHERE email = '$email'");
+    }
+
 
     $arr = [];
     while($fila = $resultado->fetch_assoc())
