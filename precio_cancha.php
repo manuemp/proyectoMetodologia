@@ -39,7 +39,7 @@
         //ACTUALIZAR EL CAMPO QUE SIRVE COMO CONTADOR RESTANDOLE 1
     }
     else{
-        $beneficio = intval($nivel["descuento"]);
+        $beneficio = floatval($nivel["descuento"]);
     }
 
     $query_canchas = mysqli_query($conexion, "SELECT precio FROM canchas WHERE id = $cancha_id");

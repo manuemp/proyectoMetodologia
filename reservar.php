@@ -117,20 +117,22 @@
             width: 100%;
             height: 100%;
             background-color: white;
-            padding: 30px 30px 0px 40px;
+            padding: 40px 30px 0px 40px;
             box-sizing: border-box;
             overflow: scroll;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            /* display: flex; */
+            /* justify-content: center; */
+            /* align-items: center; */
         }
 
         .titulo_reserva
         {
             color: #8650fe;
+            position: absolute;
+            left: 70px;
             font-size: 3.5rem;
             font-weight: bold;
-            width: 100%;
+            /* width: 100%; */
             text-align: center;
             margin-bottom: 10px;
         }
@@ -139,9 +141,9 @@
         {
             width: 390px;
             display: block;
-            margin: 14px auto;
-            height: 50px;
-            font-size: 2rem;
+            margin: 6px auto;
+            height: 40px;
+            font-size: 1.5rem;
             font-weight: bold;
             box-sizing: border-box;
             border-radius: 10px;
@@ -185,15 +187,15 @@
         }
 
         #beneficio{
-            padding: 10px;
+            padding: 5px;
             color: palegreen;
             display: none;
-            border-radius: 20px;
+            border-radius: 6px;
             background: green;
-            margin: 25px auto;
+            margin: 10px auto;
             width: 160px;
             text-align: center;
-            font-size: 2rem;
+            font-size: 1.7rem;
         }
 
         main{
@@ -202,7 +204,7 @@
 
         form{
             height: auto;
-            padding: 10px
+            /* padding: 10px */
         }
 
         #arrow{
@@ -296,10 +298,6 @@
 
         @media(max-width: 450px){
 
-            #reservas{
-                /* width: 90%; */
-            }
-
             .select_reserva{
                 width: 100%;
                 font-size: 1.2rem;
@@ -311,17 +309,17 @@
         }
         
         .progress-container {
-            width: 90%;
+            width: 390px;
             background-color: #f3f3f3;
             border-radius: 12px;
-            margin: 20px auto 30px;
+            margin: 0px auto 30px;
             overflow: hidden;
             position: relative;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .progress-bar {
-            height: 35px;
+            height: 25px;
             background-color: #25d366;
             width: 0;
             border-radius: 25px;
@@ -342,7 +340,8 @@
             color: darkslategrey;
             font-weight: bold;
             top: 0;
-            line-height: 32px;
+            padding-top: 4px;
+            /* line-height: 32px; */
         }
 
         .progress-additional-text {
@@ -350,7 +349,7 @@
             color: #8650fe;
             text-align: center;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 2px;
         }
 
 
@@ -362,10 +361,9 @@
     <main>
         <a href="./index.php"><img src="./imgs/left_arrow2.png" alt="Volver" id="arrow"></a>
         <section id="reservas">
-        <form action="./generar_reserva.php" method="post" id="form_reserva">
-                <h1 class="titulo_reserva" style="margin: 0;">Hacé tu reserva</h1><br>
-
-                 <!-- Barra de progreso -->
+            <h1 class="titulo_reserva" style="margin: 0;">Hacé tu reserva</h1><br>
+            <form action="./generar_reserva.php" method="post" id="form_reserva">
+                <!-- Barra de progreso -->
                 <div class="progress-container">
                     <div id="progress-bar" class="progress-bar"></div>
                     <div id="progress-text" class="progress-text"></div>
@@ -407,7 +405,7 @@
             </section>
         </form>
         <div>
-        <h2 class="titulo_reserva" style="margin: 0;">Hacé tu reserva</h1><br>
+        <!-- <h2 class="titulo_reserva" style="margin: 0;">Hacé tu reserva</h1><br> -->
         </div>
     </main>
 
@@ -505,7 +503,7 @@
                 precio.innerHTML = `Total: ${formatter.format(respuesta["precio"])}`;
                 document.getElementById("precio_hidden").value = respuesta["precio"];
 
-                console.log(respuesta["beneficio"]);
+                console.log("Beneficio " + respuesta["beneficio"]);
                 if(respuesta["beneficio"] != "")
                 {
                     beneficio.style.display = "block";
