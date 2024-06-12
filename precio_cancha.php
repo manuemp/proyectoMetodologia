@@ -13,6 +13,7 @@
 
     //Hora para verificar el horario de la noche y así aumentar el precio
     $hora = $_POST["hora"];
+   $id_usuario = $_SESSION["id"];
     
     include("./conexion.php");
 
@@ -44,10 +45,29 @@
 
     $query_canchas = mysqli_query($conexion, "SELECT precio FROM canchas WHERE id = $cancha_id");
     $cancha = mysqli_fetch_assoc($query_canchas);
-    $precio = intval($cancha["precio"]);
+    $precio = doubleval($cancha["precio"]);
 
     if($hora == "20:00:00" || $hora == "21:00:00" || $hora == "22:00:00"){
         $precio += $precio * 0.2;
+    }
+
+    //COMPROBAR QUE HAYA UN VALE
+    $query_saldo_a_favor = mysqli_query($conexion, "SELECT saldo_a_favor FROM clientes WHERE id_usuario = $id_usuario");
+    $cliente = mysqli_fetch_assoc($query_saldo_a_favor);
+    $saldo = doubleval($cliente["saldo_a_favor"]);
+
+    if($saldo == $precio || $saldo > $precio){
+        //PASARIA ALGO CON LA API
+        $saldo = $saldo - $precio;
+        $precio = 0;
+        
+        /*ESTO HABRIA QUE HACERLO UNA VEZ QUE SE REALIZA LA RESERVA, NO CUANDO SE CAMBIA LA CANCHA O LA HORA DE LA RESERVA
+        $query_actualizar_saldo = mysqli_query($conexion, "UPDATE clientes SET saldo_a_favor = $saldo WHERE id = $id_usuario");*/
+    }else{
+        $precio = $precio - $saldo;
+        $saldo = 0;
+        /*ESTO HABRIA QUE HACERLO UNA VEZ QUE SE REALIZA LA RESERVA, NO CUANDO SE CAMBIA LA CANCHA O LA HORA DE LA RESERVA
+        $query_actualizar_saldo = mysqli_query($conexion, "UPDATE clientes SET saldo_a_favor = $saldo WHERE id = $id_usuario");*/
     }
 
     //Como la función que va a formatear a moneda el resultado está en el front,
