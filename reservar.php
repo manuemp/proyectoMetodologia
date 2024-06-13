@@ -117,7 +117,7 @@
             width: 100%;
             height: 100%;
             background-color: white;
-            padding: 40px 30px 0px 40px;
+            padding: 55px 30px 0px 40px;
             box-sizing: border-box;
             overflow: scroll;
             /* display: flex; */
@@ -127,10 +127,18 @@
 
         .titulo_reserva
         {
-            color: #8650fe;
+            /* color: #8650fe;
             position: absolute;
             left: 70px;
             font-size: 3.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px; */
+
+            color: #8650fe;
+            position: absolute;
+            left: 3%;
+            font-size: 3rem;
             font-weight: bold;
             /* width: 100%; */
             text-align: center;
@@ -175,12 +183,22 @@
         }
 
         #precio{
-            width: 100%;
+            /* width: 100%;
             text-align: center;
             font-weight: bold;
             font-size: 2.2rem;
             height: 60px;
             padding: 15px;
+            box-sizing: border-box;
+            color: #8650fe;
+            margin-top: 10px; */
+
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            font-size: 2rem;
+            height: 48px;
+            padding: 10px;
             box-sizing: border-box;
             color: #8650fe;
             margin-top: 10px;
