@@ -13,13 +13,14 @@
 
     //Hora para verificar el horario de la noche y así aumentar el precio
     $hora = $_POST["hora"];
-   $id_usuario = $_SESSION["id"];
+    $id_usuario = $_SESSION["id"];
     
     include("./conexion.php");
 
     $query_reservas_cliente = mysqli_query($conexion, "SELECT COUNT(*) racha, penalizacion
                             FROM clientes C
-                            JOIN reservas R on C.id_usuario = R.usuario_id");
+                            JOIN reservas R on C.id_usuario = R.usuario_id
+                            AND R.usuario_id = $id_usuario");
     $reservas_cliente = mysqli_fetch_assoc($query_reservas_cliente);
     $racha = intval($reservas_cliente["racha"]);
 
@@ -32,7 +33,6 @@
     $nivel = mysqli_fetch_assoc($query_nivel_usuario);
     
     //Necesito saber si está en el nivel correspondiente. Debe tener más que ese nivel y menos que el siguiente.
-
 
     //FIJARSE SI ES DE NOCHE, AUMENTAR EL PRECIO DE LA CANCHA EN UN 20%    
     if(intval($reservas_cliente["penalizacion"]) != 0){
