@@ -8,8 +8,6 @@
 
     include("./conexion.php");
 
-
-
     //Si el nombre del nivel no es socio, entonces empiezo a hacer preguntas
     //Busco el id del nivel siguiente al que estoy ahora
     //Obtengo la cantidad de reservas de ese nivel siguiente
@@ -69,7 +67,7 @@
 
     if($contador >= 3)
     {
-        header("Location:exceso_reservas.php");
+        header("Location:index.php?exceso_reservas");
     }
     
     //Indices de i para el bucle del select del día para reservar

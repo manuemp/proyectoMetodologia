@@ -22,6 +22,11 @@
     $_SESSION['penalizacion'] = $data['penalizacion'];
     $_SESSION['saldo_a_favor'] = $data['saldo_a_favor'];
 
+    //Necesito crear la variable racha, porque está en el archivo que pide el nivel...
+    $racha = intval($data["racha"]);
+    //Llamo al archivo que tiene el proceso para detectar el nivel
+    include("consultar_nivel.php");
+    $_SESSION['nivel'] = $nivel['nombre'];
 
     mysqli_free_result($consulta);
     mysqli_close($conexion);

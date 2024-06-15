@@ -32,6 +32,20 @@
     <link rel="stylesheet" href="estilos/modal.css">
     <title>Torino Fútbol: Reservá las mejores canchas</title>
     <style>
+        .alerta_reservas{
+            min-height: 40px;
+            height: auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            box-sizing: border-box;
+            background: red;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
         #info_usuario
         {
             background-image: url("./imgs/fondo_contacto5.jpeg");
@@ -460,6 +474,17 @@
     </style>
 </head>
 <body>
+    <?php 
+        if(isset($_GET["exceso_reservas"])){
+            echo "<div class='alerta_reservas'>¡No podés tener más de 3 reservas pendientes!</div>";
+        }
+        if(isset($_GET["superposicion_reservas"])){
+            echo "<div class='alerta_reservas'>¡Ya tenés una reserva en el mismo día y horario!</div>";
+        }
+        if(isset($_GET["reserva_no_disponible"])){
+            echo "<div id='exceso_reservas'>¡La reserva ya no está disponible!</div>";
+        }
+    ?>
     <main>
         <section id="panel_usuario">
             <article id="usuario" class="texto_2">
