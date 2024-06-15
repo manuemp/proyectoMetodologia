@@ -229,101 +229,6 @@
             filter: opacity(0.5);
         }
 
-        @media(max-height: 600px)
-        {
-            main{
-                height: 100vh;
-            }
-        }
-
-        @media(max-width: 1000px){
-            #reservar{
-                width: 390px;
-            }
-
-            .container_reserva{
-                justify-content: center;
-                width: 100%;
-            }
-
-            #precio{
-                text-align: center;
-                font-size: 2rem;
-                width: 100%;
-            }
-        }
-
-        @media(max-width: 1170px){
-            /* .container_reserva, .select_reserva{
-                width: 72%;
-            } */
-        }
-
-        @media (max-width: 900px){
-            .select_reserva{
-                height: 50px;
-                font-size: 1.6rem;
-            }
-            .titulo_reserva{
-                font-size: 2.8rem;
-            }
-        }
-
-        @media(max-width: 750px){
-            main{
-                height: 75vh;
-            }
-
-            .titulo_reserva, #precio{
-                margin-top: 30px;
-                font-size: 2rem;
-            }
-
-            .select_reserva{
-                width: 100%;
-                margin-bottom: 10px;
-                height: 40px;
-            }
-
-            #arrow{
-                height: 30px;
-            }
-
-            #reservar{
-                width: 100%;
-            }
-
-            #reservas{
-                border-radius: 10px;
-                margin: auto;
-                position: relative;
-                top: 10%;
-                /* width: 70%; */
-                height: 80%;
-            }
-
-            #beneficio{
-                margin: 0;
-            }
-
-            #precio{
-                margin-top: 0;
-                font-size: 1.5rem;
-            }
-        }
-
-        @media(max-width: 450px){
-
-            .select_reserva{
-                width: 100%;
-                font-size: 1.2rem;
-            }
-
-            #beneficio{
-                width: 100px;
-            }
-        }
-        
         .progress-container {
             width: 390px;
             background-color: #f3f3f3;
@@ -367,6 +272,117 @@
             font-weight: bold;
             margin-top: 2px;
         }
+
+        @media(max-height: 600px)
+        {
+            main{
+                height: 100vh;
+            }
+        }
+
+        @media(max-width: 1000px){
+            #reservar{
+                width: 390px;
+            }
+
+            .container_reserva{
+                justify-content: center;
+                width: 100%;
+            }
+
+            #precio{
+                text-align: center;
+                font-size: 2rem;
+                width: 100%;
+            }
+        }
+
+        @media(max-width: 1100px){
+            /* .container_reserva, .select_reserva{
+                width: 72%;
+            } */
+            form{
+                padding-top: 60px;
+            }
+
+            .titulo_reserva{
+                width: 100%;
+                left: 0%;
+            }
+        }
+
+        @media (max-width: 900px){
+            .select_reserva{
+                height: 50px;
+                font-size: 1.6rem;
+            }
+            .titulo_reserva{
+                font-size: 2.8rem;
+            }
+        }
+
+        @media(max-width: 750px){
+            main{
+                height: 75vh;
+            }
+
+            .titulo_reserva, #precio{
+                margin-top: 30px;
+                font-size: 2rem;
+            }
+
+            .select_reserva{
+                width: 100%;
+                margin-bottom: 10px;
+                height: 40px;
+            }
+
+            #arrow{
+                height: 30px;
+            }
+
+            #reservar{
+                width: 100%;
+            }
+
+            .progress-container{
+                width:100%;
+            }
+
+            #reservas{
+                border-radius: 10px;
+                margin: auto;
+                position: relative;
+                top: 0%;
+                /* width: 70%; */
+                height: 100%;
+            }
+
+            #beneficio{
+                margin: 0;
+            }
+
+            #precio{
+                margin-top: 0;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media(max-width: 450px){
+
+            .select_reserva{
+                width: 100%;
+                font-size: 1.2rem;
+            }
+
+            #beneficio{
+                width: 100px;
+            }
+        }
+        
+
+
+
 
 
     </style>

@@ -4,7 +4,7 @@
             <div>
                 <a class="opcion" href="./admin_reservas.php">Administrar Reservas</a>
                 <a class="opcion" href="./admin_gestionar_faltas.php">Gestionar Faltas</a>
-                <a class="opcion" href="./canchas.php">Canchas</a>
+                <a class="opcion" href="./admin_canchas.php">Canchas</a>
                 <a class="opcion" href="./cerrar_sesion.php">Cerrar Sesión</a>
             </div>
         </div>

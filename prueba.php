@@ -9,23 +9,28 @@
     // $dia = $_POST["select_dia"];
     // $cancha = $_POST["select_cancha"];
     // $hora = $_POST["select_hora"];
-    $nombre = $_SESSION["nombre"];
-    $apellido = $_SESSION["apellido"];
-    $email = $_SESSION["email"];
-    $dni = $_SESSION["dni"];
 
 
     include("./conexion.php");
+    $consulta = mysqli_query($conexion, "SELECT nombre, estado FROM canchas");
+    $resultado = mysqli_fetch_assoc($consulta);
 
-    // $consulta_reservas = mysqli_query($conexion, "SELECT * FROM Reservas WHERE Dia = '$dia', Hora = '$hora', Cancha = '$cancha'");
-    // $resultado_reservas = mysqli_num_rows($consulta_reservas);
+    $arr_nombres = [];
+    $arr_estados = [];
 
-    // $consulta_usuario = mysqli_query($conexion, "SELECT * FROM reservas WHERE dia = '$dia' AND hora = '$hora' AND email = '$email'");
-    $consulta = mysqli_query($conexion, "UPDATE clientes SET racha = racha + 1 WHERE dni = $dni");
-    $consulta = mysqli_query($conexion, "SELECT racha FROM clientes WHERE dni = $dni");
-    $resultado = mysqli_fetch_assoc($consulta)["racha"];
+    $objetoJson->nombres = $arr_nombres;
+    $objetoJson->estados = $arr_estados;
 
-    echo $resultado;
 
-    //VAMOS VELEZ
+    while($arr_nombres)
+
+    foreach($resultado as $res){
+        array_push($arr_nombres, $res["nombre"]);
+        array_push($arr_estados, $res["estado"]);
+    }
+
+    // $objetoJson = new stdClass();
+
+
+    echo json_encode($objetoJson);
 ?>
