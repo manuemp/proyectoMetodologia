@@ -17,6 +17,7 @@
     $dni = intval($_SESSION["dni"]);
     $hoy = date('Y/m/d');
     $usuario_id = intval($_SESSION["id"]);
+    $saldo = intval($_SESSION['saldo_a_favor']);
     //Sirve para contar la cantidad de reservas que faltan para volver
     //a aplicar los beneficios
     $faltas = $_SESSION["penalizacion"];
@@ -32,6 +33,7 @@
                                                 WHERE dia = '$dia' AND hora = '$hora' AND U.email = '$email'");
     $resultado_usuario = mysqli_num_rows($consulta_usuario);
 
+    $query_actualizar_saldo = mysqli_query($conexion, "UPDATE clientes SET saldo_a_favor = $saldo WHERE id_usuario = $usuario_id");;
 
     //Si tiene una reserva ese día y hora en otra cancha, redirecciono a página de error
     if($resultado_usuario > 0)

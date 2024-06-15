@@ -3,18 +3,18 @@
     include("./actualizar_sesion.php");
     date_default_timezone_set("America/Argentina/Buenos_Aires");
 
-    // if($_SESSION["racha"] >= 60)
-    // {
-    //     $level = "Socio";
-    // }
-    // else if($_SESSION["racha"] >= 25)
-    // {
-    //     $level = "Local";
-    // }
-    // else 
-    // {
-    //     $level = "Recreativo";
-    // }
+    /*if($_SESSION["racha"] >= 20)
+    {
+        $level = "Socio";
+    }
+    else if($_SESSION["racha"] >= 10)
+    {
+        $level = "Local";
+     }
+     else 
+    {
+         $level = "Recreativo";
+    }*/
 
     include("./conexion.php");
     $usuario_id = $_SESSION['id'];

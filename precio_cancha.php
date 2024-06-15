@@ -60,12 +60,13 @@
         //PASARIA ALGO CON LA API
         $saldo = $saldo - $precio;
         $precio = 0;
-        
+        $_SESSION['saldo_a_favor'] = $saldo;
         /*ESTO HABRIA QUE HACERLO UNA VEZ QUE SE REALIZA LA RESERVA, NO CUANDO SE CAMBIA LA CANCHA O LA HORA DE LA RESERVA
         $query_actualizar_saldo = mysqli_query($conexion, "UPDATE clientes SET saldo_a_favor = $saldo WHERE id = $id_usuario");*/
     }else{
         $precio = $precio - $saldo;
         $saldo = 0;
+        $_SESSION['saldo_a_favor'] = $saldo;
         /*ESTO HABRIA QUE HACERLO UNA VEZ QUE SE REALIZA LA RESERVA, NO CUANDO SE CAMBIA LA CANCHA O LA HORA DE LA RESERVA
         $query_actualizar_saldo = mysqli_query($conexion, "UPDATE clientes SET saldo_a_favor = $saldo WHERE id = $id_usuario");*/
     }
