@@ -406,7 +406,7 @@
     }
 
     #form_mp{
-        display: block;
+        display: none;
         margin: auto;
         width: 400px;
         padding: 15px;
@@ -415,8 +415,8 @@
         border-radius: 5px;
         position: fixed;
         z-index: 2;
-        /* margin-left: -200px;
-        left: 50%; */
+        margin-left: -200px;
+        left: 50%;
     }
 
     #form_mp_titulo{
@@ -480,8 +480,6 @@
             font-size: 1.5rem;
     }
 
-
-
     </style>
 </head>
 <body>
@@ -493,12 +491,10 @@
         }
     ?>
 
-
-
     <div id="form_mp">
         <div class="modal_nav">
             <div id="form_mp_titulo">Realizá tu pago</div>
-            <div class="modal_cerrar" id="cerrar_modal_precio">X</div>
+            <div class="modal_cerrar" id="cerrar_mp">X</div>
         </div>
         <br>
         <form id="form-checkout">
@@ -507,7 +503,7 @@
         <div id="form-checkout__securityCode" class="container input_mp"></div>
         <input type="text" id="form-checkout__cardholderName" class="input_mp"/>
         <select id="form-checkout__issuer" class="input_mp"></select>
-        <select id="form-checkout__installments"class="input_mp"></select>
+        <select id="form-checkout__installments"class="input_mp" hidden></select>
         <select id="form-checkout__identificationType" class="input_mp"></select>
         <input type="text" id="form-checkout__identificationNumber" class="input_mp"/>
         <input type="email" id="form-checkout__cardholderEmail" class="input_mp"/>
@@ -583,6 +579,7 @@
 <?php include("./nav_desplegable.php") ?>
 
 <script>
+    window.history.pushState({}, document.title, window.location.pathname);
 
     const mp = new MercadoPago("APP_USR-f32ac0cd-edd2-4aab-9249-31598b03b20d");
 
@@ -674,7 +671,11 @@
         .then(data => {
             const trimmedData = data.trim();
 
-            if(trimmedData == "ACEPTADO") console.log("Pago aceptado");
+            if(trimmedData == "ACEPTADO") {
+                console.log("Pago aceptado");
+                //GUARDO LA RESERVA
+                document.getElementById("form_reserva").submit();
+            }
             if(trimmedData == "RECHAZADO") window.location.href = "/proyectoCancha/proyecto/reservar.php?errorMP";
         })
         .catch(error => {
@@ -710,6 +711,10 @@
                     "16:00:00", "17:00:00", "18:00:00", "19:00:00", "20:00:00", "21:00:00", "22:00:00"];
     
     
+    document.getElementById("cerrar_mp").addEventListener('click', ()=>{
+        document.getElementById("form_mp").style.display = "none";
+    })
+
     //Si no hay ningún horario disponible, no se podrá reservar la cancha
     btn_reserva.addEventListener('click', (ev)=>{
         ev.preventDefault();
@@ -719,7 +724,7 @@
             document.getElementById("cancha_mp").innerText = select_cancha.options[select_cancha.selectedIndex].text;
             document.getElementById("hora_mp").innerText = select_hora.options[select_hora.selectedIndex].text.substr(0, 5) + "hs";
             document.getElementById("precio_mp").innerText = document.getElementById("precio").innerText.substr(7)
-            // document.getElementById("form_reserva").submit();
+            document.getElementById("form_mp").style.display = "block";
         }
     })
 
