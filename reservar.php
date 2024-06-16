@@ -381,14 +381,148 @@
         }
         
 
+    #form-checkout {
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+        /* max-width: 400px; */
+    }
 
+    .container {
+        height: 18px;
+        display: inline-block;
+        border: 1px solid rgb(118, 118, 118);
+        border-radius: 2px;
+        padding: 1px 2px;
+    }
+
+    .input_mp{
+        height: 25px;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        background-color: white;
+        margin-bottom: 10px;
+        padding: 2px 5px;
+    }
+
+    #form_mp{
+        display: block;
+        margin: auto;
+        width: 400px;
+        padding: 15px;
+        background: white;
+        border: 2px solid #8650fe;
+        border-radius: 5px;
+        position: fixed;
+        z-index: 2;
+        /* margin-left: -200px;
+        left: 50%; */
+    }
+
+    #form_mp_titulo{
+        color: #8650fe;
+        font-size: 2rem;
+    }
+
+    #form-checkout__submit{
+        height: 40px;
+        background:#25d366;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+
+    #datos_pago{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .item_pago{
+        width: 48%;
+        height: 35px;
+        margin: 4px;
+        background: lavender;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #8650fe;
+        font-weight: bold;
+    }
+
+    #copyright{
+        font-size: 0.8rem;
+        color: slategrey;
+        text-align: center;
+    }
+
+    #mplogo{
+        width: auto;
+        height: 20px;
+        display: block;
+        margin: auto;
+    }
+
+    .alerta_reservas{
+            min-height: 40px;
+            height: auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            box-sizing: border-box;
+            background: red;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+    }
 
 
 
     </style>
 </head>
 <body>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
     <?php include("./nav_online.php") ?>
+    <?php 
+        if(isset($_GET["errorMP"])){
+            echo "<div class='alerta_reservas'>¡Hubo un error en el pago, intentá nuevamente!</div>";
+        }
+    ?>
+
+
+
+    <div id="form_mp">
+        <div class="modal_nav">
+            <div id="form_mp_titulo">Realizá tu pago</div>
+            <div class="modal_cerrar" id="cerrar_modal_precio">X</div>
+        </div>
+        <br>
+        <form id="form-checkout">
+        <div id="form-checkout__cardNumber" class="container input_mp"></div>
+        <div id="form-checkout__expirationDate" class="container input_mp"></div>
+        <div id="form-checkout__securityCode" class="container input_mp"></div>
+        <input type="text" id="form-checkout__cardholderName" class="input_mp"/>
+        <select id="form-checkout__issuer" class="input_mp"></select>
+        <select id="form-checkout__installments"class="input_mp"></select>
+        <select id="form-checkout__identificationType" class="input_mp"></select>
+        <input type="text" id="form-checkout__identificationNumber" class="input_mp"/>
+        <input type="email" id="form-checkout__cardholderEmail" class="input_mp"/>
+        <div id="datos_pago">
+            <div class="item_pago" id="cancha_mp">F7 A</div>
+            <div class="item_pago" id="dia_mp">10/05/2024</div>
+            <div class="item_pago" id="hora_mp">10:00:00hs</div>
+            <div class="item_pago" id="precio_mp">$35.000</div>
+        </div>
+        <button type="submit" id="form-checkout__submit">Pagar</button>
+        <progress value="0" class="progress-bar">Cargando...</progress>
+        <!-- <div id="copyright">&copy; MercadoLibre SRL</div> -->
+        <img id="mplogo" src="./imgs/mercadopago.webp" alt="mercadopago">
+      </form>
+    </div>
 
     <main>
         <a href="./index.php"><img src="./imgs/left_arrow2.png" alt="Volver" id="arrow"></a>
@@ -450,6 +584,118 @@
 
 <script>
 
+    const mp = new MercadoPago("APP_USR-f32ac0cd-edd2-4aab-9249-31598b03b20d");
+
+    const cardForm = mp.cardForm({
+    amount: "100",
+    iframe: true,
+    form: {
+        id: "form-checkout",
+        cardNumber: {
+        id: "form-checkout__cardNumber",
+        placeholder: "Numero de tarjeta",
+        },
+        expirationDate: {
+        id: "form-checkout__expirationDate",
+        placeholder: "MM/YY",
+        },
+        securityCode: {
+        id: "form-checkout__securityCode",
+        placeholder: "Código de seguridad",
+        },
+        cardholderName: {
+        id: "form-checkout__cardholderName",
+        placeholder: "Titular de la tarjeta",
+        },
+        issuer: {
+        id: "form-checkout__issuer",
+        placeholder: "Banco emisor",
+        },
+        installments: {
+        id: "form-checkout__installments",
+        placeholder: "Cuotas",
+        },        
+        identificationType: {
+        id: "form-checkout__identificationType",
+        placeholder: "Tipo de documento",
+        },
+        identificationNumber: {
+        id: "form-checkout__identificationNumber",
+        placeholder: "Número del documento",
+        },
+        cardholderEmail: {
+        id: "form-checkout__cardholderEmail",
+        placeholder: "E-mail",
+        },
+    },
+    callbacks: {
+        onFormMounted: error => {
+        if (error) return console.warn("Form Mounted handling error: ", error);
+        console.log("Form mounted");
+        },
+        onSubmit: event => {
+        event.preventDefault();
+
+        const {
+            paymentMethodId: payment_method_id,
+            issuerId: issuer_id,
+            cardholderEmail: email,
+            amount,
+            token,
+            installments,
+            identificationNumber,
+            identificationType,
+        } = cardForm.getCardFormData();
+
+        fetch("/proyectoCancha/proyecto/process_payment.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+            token,
+            issuer_id,
+            payment_method_id,
+            transaction_amount: Number(amount),
+            installments: Number(installments),
+            description: "Descripción del producto",
+            payer: {
+                email,
+                identification: {
+                type: identificationType,
+                number: identificationNumber,
+                },
+            },
+            }),
+        })
+        .then(response => {
+            return response.text();
+        })
+        .then(data => {
+            const trimmedData = data.trim();
+
+            if(trimmedData == "ACEPTADO") console.log("Pago aceptado");
+            if(trimmedData == "RECHAZADO") window.location.href = "/proyectoCancha/proyecto/reservar.php?errorMP";
+        })
+        .catch(error => {
+            console.error("Error al recibir la respuesta del servidor: ", error);
+        });
+        },
+        onFetching: (resource) => {
+        console.log("Fetching resource: ", resource);
+
+        // Animate progress bar
+        const progressBar = document.querySelector(".progress-bar");
+        progressBar.removeAttribute("value");
+        
+        return () => {
+            // console.log("Pago exitoso");
+            progressBar.setAttribute("value", "0");
+        };
+        }
+    },
+    });
+
     let select_hora = document.getElementById("select_hora");
     let select_dia = document.getElementById("select_dia");
     let select_cancha = document.getElementById("select_cancha");
@@ -469,12 +715,19 @@
         ev.preventDefault();
         if(select_hora.value != "")
         {
-            document.getElementById("form_reserva").submit();
+            document.getElementById("dia_mp").innerText = select_dia.options[select_dia.selectedIndex].text;
+            document.getElementById("cancha_mp").innerText = select_cancha.options[select_cancha.selectedIndex].text;
+            document.getElementById("hora_mp").innerText = select_hora.options[select_hora.selectedIndex].text.substr(0, 5) + "hs";
+            document.getElementById("precio_mp").innerText = document.getElementById("precio").innerText.substr(7)
+            // document.getElementById("form_reserva").submit();
         }
     })
 
     //Cada vez que cambie el día, vuelvo a filtrar los horarios disponibles
-    select_dia.addEventListener('change', filtrar_horarios);
+    select_dia.addEventListener('change', ()=>{
+        filtrar_horarios();
+        
+    });
 
     //Habilito o inhabilito el boton de reservar en caso de que haya o no 
     //cancha seleccionada

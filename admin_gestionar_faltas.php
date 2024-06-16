@@ -9,13 +9,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos/modal.css">
+    <link rel="stylesheet" href="estilos/admin.css">
     <script src="./jquery.js"></script>
     <title>TorinoFútbol: Admin - Usuarios</title>
     <style>
         body, html
         {
             height: 100%;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
         }
 
         .nav_admin
@@ -99,7 +101,7 @@
             display: flex;
             justify-content: space-around;
             border-radius: 10px;
-            margin-bottom: 5px;
+            margin-bottom: 0px;
             transition: 1s;
         }
 
@@ -139,7 +141,7 @@
         {
             background-color: #333;
             color: white;
-            border-radius: 20px 20px 0 0;
+            border-radius: 10px 10px 0 0;
         }
 
         #filtros_historial
@@ -173,7 +175,6 @@
             /* font-size: 1rem; */
         }
 
-
         .id, .faltas, .reservas, .nivel{
             width: 10%;
             justify-content: center;
@@ -186,7 +187,6 @@
         .email{
             width: 25%;
         }
-
 
         #form_faltas{
             width: 60%;
@@ -207,9 +207,10 @@
             display: block;
             margin: 30px auto;
             width: 250px;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 2px solid #8650fe;
             font-family: inherit;
+            color:#8650fe;
             /* background-color:#d0bbff; */
         }
 
@@ -220,15 +221,16 @@
             width: 125px;
             border: none;
             height: 50px;
-            border-radius: 10px;
-            background-color: greenyellow;
+            border-radius: 8px;
+            background-color: #25d366;
+            color: white;
             font-weight: bold;
             cursor: pointer;
         }
 
         #btn_aplicar_falta{
             position: relative;
-            top: -19px;
+            top: -10px;
             width: 120px;
             height: 42px;
             background-color: red;

@@ -3,8 +3,9 @@
     display: none;
     width: 102%;
     height: 102%;
-    background-color: gray;
-    opacity: 0.6;
+    /* background-color: gray; */
+    /* opacity: 0.6; */
+    backdrop-filter: blur(6px);
     z-index: 2;
     position: fixed;
     margin: -10px;
@@ -61,8 +62,12 @@
 
 .modal_nav
 {
-    display:flex;
-    justify-content: end;
+    display: flex;
+    justify-content: space-between;
+    height: 28px;
+    color: #8650fe;
+    font-weight: bold;
+    border-bottom: 2px solid #8650fe;
 }
 
 .modal_cerrar
