@@ -1,10 +1,12 @@
 <?php session_start(); ?>
 <?php
-    if(intval($_SESSION["rol"]) != 1)
-    {
-        header("Location:index.php");
+    if(intval($_SESSION["rol"]) == 1){
+        header("Location:admin_canchas.php");
     }
 
+    if(intval($_SESSION["rol"]) == 0){
+        header("Location:index.php");
+    }
     date_default_timezone_set("America/Argentina/Buenos_Aires");
         
     //Indices de i para el bucle del select del día para reservar
@@ -254,7 +256,7 @@
 </head>
 <div id="modal_background"></div>
 <body>
-    <?php include("./nav_admin.php") ?>
+    <?php include("./nav_superadmin.php") ?>
     <main>
         <h1>Administrar Reservas</h1>
     

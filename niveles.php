@@ -2,7 +2,7 @@
             <div class="niveles_container">
                 <div class="item_nivel violeta" id="recreativo">
                     <div class="item_titulo">Recreativo</div><br>
-                    <div class="item_subtitulo">- menos de 25 reservas</div><br>
+                    <div class="item_subtitulo">- menos de 10 reservas</div><br>
                     <div class="item_texto">
                         <table>
                             <tr>
@@ -17,7 +17,7 @@
         
                 <div class="item_nivel" id="local">
                     <div class="item_titulo">Local</div><br>
-                    <div class="item_subtitulo" style="color:white">- de 25 a 60 reservas</div><br>
+                    <div class="item_subtitulo" style="color:white">- de 10 a 20 reservas</div><br>
                     <div class="item_texto">
                         <table>
                             <tr>
@@ -38,7 +38,7 @@
         
                 <div class="item_nivel" id="socio">
                     <div class="item_titulo" style="color: gold">Socio</div><br>
-                    <div class="item_subtitulo" style="color: gold">- más de 60 reservas</div><br>
+                    <div class="item_subtitulo" style="color: gold">- más de 20 reservas</div><br>
                     <div class="item_texto">
                         <table>
                             <tr>

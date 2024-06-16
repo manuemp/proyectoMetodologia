@@ -120,7 +120,9 @@
 </head>
 <body>
     <div id="modal_background"></div>
-    <?php include("nav_admin.php") ?>
+    <?php 
+    include("nav_superadmin.php");
+    ?>
     <div id="titulo_canchas">
        <h1>Administrar Canchas</h1> 
     </div>

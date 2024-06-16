@@ -56,6 +56,10 @@
 
         if(intval($_SESSION['rol']) == 1)
         {
+            header("Location:admin_canchas.php");
+            exit;
+        }
+        else if (intval($_SESSION['rol']) == 2){
             header("Location:admin_reservas.php");
             exit;
         }

@@ -23,8 +23,10 @@
         <div class="respuesta">
             <p class="p_respuesta">
             En caso de que no te presentes a jugar o que canceles fuera del límite de horario, se te aplicará
-                una 'falta'. Podés acumular como máximo 3 faltas por año, y una vez que las superes deberás comenzar de cero, 
-                por lo que perderás tus beneficios hasta subir nuevamente de nivel.
+                una 'falta'. Podés acumular como máximo 3 faltas por año, y una vez que las superes tanto tu racha como 
+                tus beneficios quedaran congelados durante las proximas 3 reservas.
+                <!--deberás comenzar de cero, 
+                por lo que perderás tus beneficios hasta subir nuevamente de nivel.-->
             </p>
         </div>
         
@@ -33,7 +35,7 @@
             <p class="p_respuesta">
                 La cancelación de la reserva se avisa por WhatsApp. Si cancelás fuera del horario permitido
                 tendrás una falta, la cual se guardará durante lo que quede del año. Si superas las tres faltas
-                perderás tus beneficios.
+                tus beneficios se congelaran durante las proximas 3 reservas.
             </p>
         </div>
     </section>

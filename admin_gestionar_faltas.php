@@ -1,7 +1,12 @@
 <?php session_start(); ?>
 <?php 
-    if(intval($_SESSION["rol"]) != 1)
-        header("Location:index.php");
+        if(intval($_SESSION["rol"]) == 1){
+            header("Location:admin_canchas.php");
+        }
+    
+        if(intval($_SESSION["rol"]) == 0){
+            header("Location:index.php");
+        }
 ?>
 
 <!DOCTYPE html>
@@ -269,7 +274,7 @@
     </style>
 </head>
 <body>
-    <?php include("./nav_admin.php") ?>
+    <?php include("./nav_superadmin.php") ?>
     <div id="form_faltas">
             <div id="titulo_faltas">Gestión de Faltas</div>
             <input type="email" name="email" id="filtro_faltas" placeholder="Email usuario..." required autocomplete="off">
