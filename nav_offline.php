@@ -17,5 +17,5 @@
 <div class="navbar_desplegable">
     <a class="opcion_desplegable" id="iniciar_sesion_desplegable">Iniciar Sesión</a>
     <a class="opcion_desplegable" href="registro.php">Registrate</a>
-    <a class="opcion_desplegable" href="contacto.php">Contacto</a>
+    <!-- <a class="opcion_desplegable" href="contacto.php">Contacto</a> -->
 </div>

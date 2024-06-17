@@ -30,10 +30,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos/modal.css">
+    <link rel="stylesheet" href="estilos/general.css">
     <link rel="stylesheet" href="estilos/admin.css">
     <script src="./jquery.js"></script>
     <title>TorinoFútbol: Admin - Reservas</title>
     <style>
+
+    body, html{
+        background: white;
+    }
+
+    .nav1{
+        background: white;
+    }
+
+    .opcion:hover{
+        background: white;
+    }
+
+    @media(max-width: 1300px){
+        .opcion
+        {
+            font-size: 12px;
+        }
+    }
 
     @media(max-height: 500px){
         #modal_estados, #modal_admin, #modal_falta, #modal_baja{
@@ -362,6 +382,7 @@
 
 </body>
 </html>
+<?php include("nav_desplegable.php"); ?>
 <script>    
 
     let filtro_cancha = document.getElementById("filtro_cancha");

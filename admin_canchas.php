@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="estilos/modal.css">
     <link rel="stylesheet" href="estilos/admin.css">
+    <link rel="stylesheet" href="./estilos/general.css">
     <script src="./jquery.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Canchas</title>
     <style>
+        body, html{
+            background: white;
+        }
+
+        .nav1{
+            background: white;
+        }
+
+        .opcion{
+            color: #8650fe;
+        }
+
+        .opcion:hover{
+            background: white;
+        }
+
         #titulo_canchas{
             color: #8650fe;
             font-size: 2rem;
@@ -28,11 +45,6 @@
         }
 
         .fila_panel_cancha{
-            /* margin-bottom: 20px;
-            padding: 10px;
-            border-bottom: 1px solid lightgray;
-            display: flex;
-            justify-content: space-between; */
             margin-bottom: 10px;
             padding: 10px;
             border-bottom: 1px solid lightgray;
@@ -60,28 +72,6 @@
         .inhabilitada{
             background: red;
             color: white;
-        }
-
-        .boton{
-            /* background: #25d366; */
-            color: white;
-            border-radius: 5px;
-            padding: 5px;
-            width: 140px;
-            cursor: pointer;
-        }
-
-        @media(max-width: 650px){
-            #panel_canchas{
-                width: 98%;
-            }
-        }
-
-        @media(max-width: 450px){
-            .nombre_cancha{
-                width: 100%;
-                margin-bottom: 10px;
-            }
         }
 
         .modal_precio{
@@ -115,7 +105,57 @@
             text-align:center
         }
 
-        
+        .boton{
+            color: white;
+            border-radius: 5px;
+            padding: 5px;
+            width: 140px;
+            cursor: pointer;
+        }
+
+        @media(max-width: 1300px){
+            .opcion
+            {
+                font-size: 12px;
+            }
+        }
+
+        @media( max-width: 1236px){
+            .form_container
+            {
+                justify-content: center;
+            }
+
+            #titulo_registro
+            {
+                width: fit-content;
+                margin: 30px auto;
+            }
+        }
+
+        @media(max-width: 950px){
+            form
+            {
+                width: 90%;
+            }
+            #titulo_registro
+            {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media(max-width: 700px){
+            #panel_canchas{
+                width: 95%;
+            }
+        }
+
+        @media(max-width: 450px){
+            .nombre_cancha{
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -145,88 +185,12 @@
     </div>
 
     <div id="panel_canchas">
-        <!-- <div class="fila_panel_cancha">
-            <div class="nombre_cancha" id="F5 A">
-                F5 A
-            </div>
-            <div class="precio_cancha">
-                $32000
-            </div>
-            <div class="estado_cancha">
-                <div class="boton habilitada">
-                    HABILITADA
-                </div>
-            </div>
-        </div>
-        <div class="fila_panel_cancha">
-            <div class="nombre_cancha" id="F5 B">
-                F5 B
-            </div>
-            <div class="precio_cancha">
-                $32000
-            </div>
-            <div class="estado_cancha">
-            <div class="boton inhabilitada">
-                    INHABILITADA
-                </div>
-            </div>
-        </div>
-        <div class="fila_panel_cancha">
-            <div class="nombre_cancha" id="F7 B">
-                F7 A
-            </div>
-            <div class="precio_cancha">
-                $32000
-            </div>
-            <div class="estado_cancha">
-            <div class="boton habilitada">
-                    HABILITADA
-                </div>
-            </div>
-        </div>
-        <div class="fila_panel_cancha">
-            <div class="nombre_cancha" id="F7 B">
-                F7 B
-            </div>
-            <div class="precio_cancha">
-                $32000
-            </div>
-            <div class="estado_cancha">
-            <div class="boton habilitada">
-                    HABILITADA
-                </div>
-            </div>
-        </div>
-        <div class="fila_panel_cancha">
-            <div class="nombre_cancha" id="F8 A">
-                F8 A
-            </div>
-            <div class="precio_cancha">
-                $32000
-            </div>
-            <div class="estado_cancha">
-            <div class="boton habilitada">
-                    HABILITADA
-                </div>
-            </div>
-        </div>
-        <div class="fila_panel_cancha">
-            <div class="nombre_cancha" id="F8 B">
-                F8 B
-            </div>
-            <div class="precio_cancha">
-                $32000
-            </div>
-            <div class="estado_cancha">
-            <div class="boton habilitada">
-                    HABILITADA
-                </div>
-            </div>
-        </div> -->
     </div>
 </body>
 </html>
+<?php include("nav_desplegable.php"); ?>
 <script>
+
 
     let cerrar_modal_precio = document.getElementById("cerrar_modal_precio");
     let panel_canchas = document.getElementById("panel_canchas");

@@ -7,7 +7,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./estilos/general.css">
     <link rel="stylesheet" href="./estilos/registro.css">
+    <link rel="stylesheet" href="./estilos/admin.css">
     <style>
+
+        body,html{
+            padding: 0;
+        }
+
+        #registro_admin{
+            background: white;
+            color:#8650fe;
+            font-weight: bold;
+        }
+
+        .nav1{
+            background: white;
+        }
+
+        .opcion{
+            color: #8650fe;
+        }
+
+        .opcion:hover{
+            background: white;
+        }
+
+        .logo{
+            position: static;
+        }
+
+        .registro_container{
+            align-items: start;
+        }
+
+        form{
+            margin: 15% auto;
+        }
+
         @media (min-width: 1450px){
             form
             {
@@ -39,11 +75,18 @@
             }
         }
 
+        @media(max-width: 1300px){
+            .opcion
+            {
+                font-size: 12px;
+            }
+        }
+
         @media(max-width: 600px){
-            .img_container
+            /* .img_container
             {
                 display: none;
-            }
+            } */
 
             form
             {
@@ -57,6 +100,32 @@
 
             .logo{
                 right: 6px;
+            }
+        }
+
+        .img_container_admin
+        {
+            min-width: 45%;
+            min-height: 100vh;
+            background: linear-gradient(45deg, lavender, white);
+            background-image: url("../proyecto/imgs/fondo_admin2.jpeg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-left: 6px solid #8650fe;
+        }
+
+        @media(max-width: 900px){
+            .form_opcion{
+                margin: 20px auto;
+            }
+            .img_container_admin{
+                display: none;
+            }
+            .registro_container{
+                width: 100%;
+            }
+            .form_container{
+                flex-direction: column;
             }
         }
 
@@ -111,9 +180,12 @@
     
     <?php include("./nav_superadmin.php") ?>
     <main>
-        <div class="registro_container">
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
-                <div class="form_container">
+        <div class="registro_container" id="registro_admin">
+            <div>
+                </div>
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
+                    <p id="titulo_registro">Registrar <br>Administrador</p>
+                    <div class="form_container">
 
                     <div class="form_opcion">
                         <label for="nombre">Nombre</label>
@@ -143,6 +215,8 @@
             </form>
         </div>
     
+        <div class="img_container_admin">
+    
         </div>
     </main>
     <?php include("./footer.php"); ?>
@@ -161,3 +235,5 @@
         }
     ?>
 </html>
+
+<?php include("nav_desplegable.php"); ?>

@@ -480,6 +480,21 @@
             font-size: 1.5rem;
     }
 
+    @media(max-width: 600px){
+        #form_mp{
+            width: 100%;
+            box-sizing: border-box;
+            left: 0;
+            margin-left: 0;
+        }
+        #datos_pago{
+            justify-content: space-between;
+        }
+        .item_pago{
+            width: 45%;
+        }
+    }
+
     </style>
 </head>
 <body>

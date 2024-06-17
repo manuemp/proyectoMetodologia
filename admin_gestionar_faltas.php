@@ -15,6 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos/modal.css">
+    <link rel="stylesheet" href="estilos/general.css">
     <link rel="stylesheet" href="estilos/admin.css">
     <script src="./jquery.js"></script>
     <title>TorinoFútbol: Admin - Usuarios</title>
@@ -22,6 +23,7 @@
         body, html
         {
             height: 100%;
+            background: white;
             /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
         }
 
@@ -33,6 +35,18 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 2px solid #8650fe;
+        }
+
+        .nav1{
+            background: white;
+        }
+
+        .opcion{
+            color: #8650fe;
+        }
+
+        .opcion:hover{
+            background: white;
         }
 
         main
@@ -256,6 +270,13 @@
             text-align: right;
         }
 
+        @media(max-width: 1300px){
+            .opcion
+            {
+                font-size: 12px;
+            }
+        }
+
         @media(max-width: 650px){
             #tabla, #filtro_faltas{
                 width: 100%;
@@ -295,6 +316,7 @@
     </table>
 </body>
 </html>
+<?php include("nav_desplegable.php"); ?>
 <script>
 
     let body_tabla = document.getElementById("body_tabla");
