@@ -17,7 +17,7 @@
     //usuarios: id, nombre, apelido, email, pass, rol
     //clientes: dni, id_usuario, faltas, racha, penalizacion, saldo_a_favor
 
-    $consulta = mysqli_query($conexion, "INSERT INTO usuarios (nombre, apellido, email, pass, rol) VALUES ('$nombre', '$apellido', '$email', '$pass', 2)");
+    $consulta = mysqli_query($conexion, "INSERT INTO usuarios (nombre, apellido, email, pass, rol) VALUES ('$nombre', '$apellido', '$email', '$pass', 1)");
     $consulta = mysqli_query($conexion, "SELECT id, nombre, apellido, email, rol FROM usuarios WHERE email='$email'");
     
     $data = mysqli_fetch_assoc($consulta);
