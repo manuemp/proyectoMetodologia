@@ -546,12 +546,6 @@
             
                 <select name="select_cancha" class="select_reserva" id="select_cancha">
                     <option value="">Seleccionar Cancha</option>
-                    <option value="1">F5 A</option>
-                    <option value="2">F5 B</option>
-                    <option value="3">F7 A</option>
-                    <option value="4">F7 B</option>
-                    <option value="5">F8 A</option>
-                    <option value="6">F8 B</option>
                 </select>
 
                 <select name="select_hora" class="select_reserva" id="select_hora" disabled>
@@ -697,6 +691,25 @@
     },
     });
 
+    $(document).ready(function () {
+        $.ajax({
+            url:"canchas_disponibles.php",
+            success: function(respuestaDelServer, estado){
+                alert(respuestaDelServer);
+                
+                var objJson = JSON.parse(respuestaDelServer);
+                
+                objJson.forEach(function(argvalor, argIndice){
+                    var objOpcion = document.createElement("option");
+                    objOpcion.setAttribute("value", argvalor.id);
+                    objOpcion.innerHTML = argvalor.nombre;
+                    document.getElementById("select_cancha").appendChild(objOpcion);
+                })
+                
+            }
+        })
+
+    })
     let select_hora = document.getElementById("select_hora");
     let select_dia = document.getElementById("select_dia");
     let select_cancha = document.getElementById("select_cancha");
