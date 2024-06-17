@@ -695,7 +695,6 @@
         $.ajax({
             url:"canchas_disponibles.php",
             success: function(respuestaDelServer, estado){
-                alert(respuestaDelServer);
                 
                 var objJson = JSON.parse(respuestaDelServer);
                 
