@@ -3,7 +3,7 @@
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
         $consulta = mysqli_query($conexion, "SELECT nombre, estado, precio FROM canchas");
-    
+
         class Canchas {
             public $array_nombres = array();
             public $array_estados = array();
@@ -33,6 +33,24 @@
         else{
             $estado_cancha = intval($_POST["estado"]);
             $consulta = mysqli_query($conexion, "UPDATE canchas SET estado = $estado_cancha WHERE nombre = '$nombre_cancha'");
+
+            if($estado_cancha == 0){
+                $agarrar_cancha= mysqli_query($conexion, "SELECT id, nombre FROM canchas where nombre = '$nombre_cancha'");
+                $resultado = mysqli_fetch_assoc($agarrar_cancha);
+                
+                $id = $resultado["id"];
+                
+                $cambiar_reservas = mysqli_query($conexion, "UPDATE reservas SET asistio = 0 WHERE cancha_id = '$id'");
+            
+            }else{
+                $agarrar_cancha= mysqli_query($conexion, "SELECT id, nombre FROM canchas where nombre = '$nombre_cancha'");
+                $resultado = mysqli_fetch_assoc($agarrar_cancha);
+                
+                $id = $resultado["id"];
+                
+                $cambiar_reservas = mysqli_query($conexion, "UPDATE reservas SET asistio = 1 WHERE cancha_id = '$id'");
+            }
+
         }
     }
 
