@@ -103,12 +103,10 @@
     overflow: scroll;
 }
 
-
 .botones_admin{
     width: 100%;
     text-align: right;
 }
-
 
 .boton_modal_admin{
     color: white;
@@ -117,6 +115,7 @@
     width: 70px;
     border-radius: 10px;
     font-weight: bold;
+    text-align: center;
     font-family: inherit;
     margin-right: 10px;
     cursor: pointer;

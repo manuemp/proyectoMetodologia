@@ -248,14 +248,30 @@
         }
 
         #btn_aplicar_falta{
+            background-color: red;
+            margin-left: -120px;
+            color: white;
+        }
+
+        #btn_aplicar_vale{
+            background-color: #8650fe;
+            color: white;
+            margin-left: -260px;
+        }
+
+        #btn_quitar_falta{
+            background-color: dodgerblue;
+            color: white;
+            margin-left: -260px;
+        }
+
+        .btn{
             position: relative;
-            top: -10px;
             width: 120px;
             height: 42px;
-            background-color: red;
+            left: 100%;
             border-radius: 0px 0px 10px 10px;
             font-family: inherit;
-            color: white;
             transition: 1s;
             border: none;
             cursor: pointer;
@@ -268,27 +284,6 @@
 
         #td_btn_falta{
             text-align: right;
-        }
-
-        @media(max-width: 1300px){
-            .opcion
-            {
-                font-size: 12px;
-            }
-        }
-
-        @media(max-width: 650px){
-            #tabla, #filtro_faltas{
-                width: 100%;
-            }
-
-            .td_historial{
-                font-size: 0.7rem;
-            }
-
-            #titulo_faltas{
-                font-size: 2rem;
-            }
         }
 
         .opcionEmail{
@@ -309,10 +304,98 @@
             background: dodgerblue;
             color:white;
         }
+
+        .modal_vale{
+            display: none;
+            z-index:2;
+            width: 350px;
+            background: white;
+            height: auto;
+            border-radius: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #8650fe;
+            color: #8650fe;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            margin-top: -150px;
+            margin-left: -175px;
+            font-weight: bold;
+        }
+
+        #precio_modal{
+            width: 85%;
+            margin: auto;
+            display: inline-block;
+            color: #8650fe;
+        }
+
+        #titulo_modal_vale{
+            font-size:1.5rem;
+            text-align:center
+        }
+
+        .precio_cancha{
+            padding: 5px;
+            border-radius: 12px;
+            width: 30%;
+            text-align: center;
+            background-color: lavender;
+            cursor: pointer;
+        }
+
+        @media(max-width: 1300px){
+            .opcion
+            {
+                font-size: 12px;
+            }
+        }
+
+        @media(max-width: 650px){
+            #tabla, #filtro_faltas, #res{
+                width: 100%;
+            }
+
+            .td_historial{
+                font-size: 0.7rem;
+            }
+
+            #titulo_faltas{
+                font-size: 2rem;
+            }
+
+            .modal_vale{
+                width: 97%;
+                margin-left: 0;
+                left: 0;
+            }
+        }
     </style>
 </head>
 <body>
+    <div id="modal_background"></div>
     <?php include("./nav_superadmin.php") ?>
+
+    <!-- MODAL -->
+    <div class="modal_vale">
+        <div class="modal_nav">
+            <div>Generar Vale</div>
+            <div class="modal_cerrar" id="cerrar_modal_vale">X</div>
+        </div>
+        <br>
+        <div id="titulo_modal_vale"></div>
+        <br>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            $<input type="number" class="precio_cancha" id="precio_modal" placeholder="Ingrese monto del vale...">
+        </div>
+        <br><br>
+        <div class="botones_admin">
+            <div id="boton_modal_vale" class="boton_modal_admin guardar">Aceptar</div>
+        </div>
+    </div>
+
+
     <div id="form_faltas">
             <div id="titulo_faltas">Gestión de Faltas</div>
             <input type="email" name="email" id="filtro_faltas" placeholder="Email usuario..." required autocomplete="off">
@@ -339,6 +422,12 @@
 
     let body_tabla = document.getElementById("body_tabla");
     let res = document.getElementById("res");
+
+    document.getElementById("cerrar_modal_vale").addEventListener('click', ()=>{
+        document.getElementById("modal_background").style.display = "none";
+        document.querySelector(".modal_vale").style.display = "none";
+    });
+
 
     let busquedaInput = document.getElementById("filtro_faltas");
         busquedaInput.addEventListener('keyup', ()=>{
@@ -382,22 +471,9 @@
                 let div = document.createElement("div");
                 div.className = "opcionEmail";
                 div.innerText = elem["email"];
-                // div.setAttribute('name', 'email');
-
                 div.addEventListener('click', ()=> {
                     document.getElementById("filtro_faltas").value = div.innerText;
                     res.innerHTML = "";
-                    // fetch('./buscar_usuario.php', {
-                    // method: 'POST',
-                    // headers: {
-                    //     'Content-Type': 'application/x-www-form-urlencoded'  // Indicamos que los datos se envían en el formato correcto
-                    // },
-                    // body: new URLSearchParams({
-                    //     'email': div.innerText  // Enviar los datos del input en el cuerpo de la petición
-                    //     })
-                    // })
-                    // .then(response => response.json())
-                    // .then(data => console.log(data));
                 })
                 res.appendChild(div);
             })
@@ -407,15 +483,9 @@
         });
     }
 
-
-
-
     function generar_tabla(data)
     {
         data.forEach((elemento) =>{
-            
-            
-            
             let tr_filtro = document.createElement("tr");
             let td_id = document.createElement("td");
             let td_nombre = document.createElement("td");
@@ -424,20 +494,29 @@
             let td_faltas = document.createElement("td");
             let td_racha = document.createElement("td");
 
-            //Creo tr, td y botón para aplicar falta
-            let tr_boton = document.createElement("tr");
-            let td_boton = document.createElement("td");
-            let tr_boton_vale = document.createElement("tr");
-            let td_boton_vale = document.createElement("td");
-            let boton = document.createElement("input");
+            //botones
+            let boton_aplicar_falta = document.createElement("input");
+            let boton_quitar_falta = document.createElement("input");
             let boton_vale = document.createElement("input");
 
             boton_vale.setAttribute("type", "submit");
+            boton_vale.setAttribute("id", "btn_aplicar_vale");
             boton_vale.value = "Aplicar Vale";
+            boton_vale.innerHTML = "Aplicar Vale";
+            boton_vale.className = "btn";
 
-            boton.setAttribute("type", "submit");
-            boton.value = "Aplicar Falta";
+            boton_aplicar_falta.setAttribute("type", "submit");
+            boton_aplicar_falta.setAttribute("id", "btn_aplicar_falta");
+            boton_aplicar_falta.value = "Falta + 1";
+            boton_aplicar_falta.innerHTML = "Falta + 1";
+            boton_aplicar_falta.className = "btn";
 
+            boton_quitar_falta.setAttribute("type", "submit");
+            boton_quitar_falta.setAttribute("id", "btn_quitar_falta");
+            boton_quitar_falta.value = "Falta - 1";
+            boton_quitar_falta.innerHTML = "Falta - 1";
+            boton_quitar_falta.className = "btn";
+            
             tr_filtro.className = "item_historial";
 
             td_id.innerHTML = elemento["id"];
@@ -451,17 +530,7 @@
             td_racha.innerHTML = elemento["racha"];
             td_racha.className = "faltas td_historial";
 
-
-            td_boton.setAttribute("id", "td_btn_falta");
-            boton.innerHTML = "Aplicar Falta";
-            boton.setAttribute("id", "btn_aplicar_falta");
-            
-            td_boton_vale.setAttribute("id", "td_boton_vale");
-            boton_vale.innerHTML = "Aplicar Vale";
-            boton_vale.setAttribute("id", "boton_vale");
-
-
-            boton.addEventListener('click', ()=>{
+            boton_aplicar_falta.addEventListener('click', ()=>{
                 $.ajax({
                     url: './aplicar_falta.php',
                     method: 'post',
@@ -476,21 +545,25 @@
             });
 
             boton_vale.addEventListener('click', ()=>{
-                $.ajax({
-                    url: './aplicar_vale.php',
-                    method: 'post',
-                    data: {email: elemento["email"]},
-                    success: function(res)
-                    {
-                        alert(`El vale ha sido aplicada al usuario ${elemento["nombre"]} ${elemento["apellido"]}`);
-                        $("#body_tabla").empty();
-                        verificar_tabla_vacia();
-                    }
-                });
-            });
+                document.getElementById("modal_background").style.display = "block";
+                document.querySelector(".modal_vale").style.display = "block";
+            })
 
+            //Esto debería ir en otro lado, una vez que ya se indicó el vale!
 
-
+            // boton_vale.addEventListener('click', ()=>{
+            //     $.ajax({
+            //         url: './aplicar_vale.php',
+            //         method: 'post',
+            //         data: {email: elemento["email"]},
+            //         success: function(res)
+            //         {
+            //             alert(`El vale ha sido aplicado al usuario ${elemento["nombre"]} ${elemento["apellido"]}`);
+            //             $("#body_tabla").empty();
+            //             verificar_tabla_vacia();
+            //         }
+            //     });
+            // });
 
             tr_filtro.appendChild(td_id);
             tr_filtro.appendChild(td_nombre);
@@ -498,15 +571,10 @@
             tr_filtro.appendChild(td_racha);
             tr_filtro.appendChild(td_faltas);
 
-            tr_boton.appendChild(td_boton);
-            td_boton.appendChild(boton);
-
-            tr_boton_vale.appendChild(td_boton_vale);
-            td_boton_vale.appendChild(boton_vale);
-
             body_tabla.appendChild(tr_filtro);
-            body_tabla.appendChild(tr_boton);
-            body_tabla.appendChild(tr_boton_vale);
+            body_tabla.appendChild(boton_aplicar_falta);
+            body_tabla.appendChild(boton_quitar_falta);
+            body_tabla.appendChild(boton_vale);
         });
     }
 
