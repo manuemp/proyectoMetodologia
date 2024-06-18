@@ -79,8 +79,8 @@
     $respuesta->precio = $precio * (1 - $beneficio);
     if($beneficio == 0.15)
         $respuesta->beneficio = "15% off";
-    else if($beneficio == 0.20)
-        $respuesta->beneficio = "20% off";
+    else if($beneficio == 0.25)
+        $respuesta->beneficio = "25% off";
     else
         $respuesta->beneficio = "";
 
