@@ -609,24 +609,27 @@
     }
 
     function limpiar_modal(){
-        document.getElementById("monto_vale_modal").empty;
+        document.getElementById("monto_modal_vale").empty;
     }
 
     document.getElementById("boton_modal_vale").addEventListener('click', ()=>{
-                $.ajax({
-                    url: './aplicar_vale.php',
-                    method: 'post',
-                    data: {monto: document.getElementById("monto_modal_vale").value,
-                            id_usuario:document.getElementById("id_usuario").innerHTML},
-                    success: function(res)
-                    {
-                        alert(`Se le ha aplicado el vale al usuario ${elemento["nombre"]} ${elemento["apellido"]}`);
-                        $("#body_tabla").empty();
-                        verificar_tabla_vacia();
-                        limpiar_modal();
-                    }
-                });
-            });
+        $.ajax({
+            url: './aplicar_vale.php',
+            method: 'post',
+            data: {monto: document.getElementById("monto_vale_modal").value,
+                    id_usuario: document.getElementById("id_usuario").innerHTML},
+            success: function(res)
+            {
+                document.querySelector(".modal_vale").style.display = "none";
+                document.getElementById("monto_vale_modal").value = "";
+                document.getElementById("modal_background").style.display = "none";
+                alert(`Se le ha aplicado el vale al usuario`);
+                $("#body_tabla").empty();
+                verificar_tabla_vacia();
+            }
+        });
+        
+    });
 
 
 </script>
