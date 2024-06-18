@@ -352,7 +352,13 @@
             //Creo tr, td y botón para aplicar falta
             let tr_boton = document.createElement("tr");
             let td_boton = document.createElement("td");
+            let tr_boton_vale = document.createElement("tr");
+            let td_boton_vale = document.createElement("td");
             let boton = document.createElement("input");
+            let boton_vale = document.createElement("input");
+
+            boton_vale.setAttribute("type", "submit");
+            boton_vale.value = "Aplicar Vale";
 
             boton.setAttribute("type", "submit");
             boton.value = "Aplicar Falta";
@@ -370,10 +376,16 @@
             td_racha.innerHTML = elemento["racha"];
             td_racha.className = "faltas td_historial";
 
+
             td_boton.setAttribute("id", "td_btn_falta");
             boton.innerHTML = "Aplicar Falta";
             boton.setAttribute("id", "btn_aplicar_falta");
             
+            td_boton_vale.setAttribute("id", "td_boton_vale");
+            boton_vale.innerHTML = "Aplicar Vale";
+            boton_vale.setAttribute("id", "boton_vale");
+
+
             boton.addEventListener('click', ()=>{
                 $.ajax({
                     url: './aplicar_falta.php',
@@ -388,6 +400,23 @@
                 });
             });
 
+            boton_vale.addEventListener('click', ()=>{
+                $.ajax({
+                    url: './aplicar_vale.php',
+                    method: 'post',
+                    data: {email: elemento["email"]},
+                    success: function(res)
+                    {
+                        alert(`El vale ha sido aplicada al usuario ${elemento["nombre"]} ${elemento["apellido"]}`);
+                        $("#body_tabla").empty();
+                        verificar_tabla_vacia();
+                    }
+                });
+            });
+
+
+
+
             tr_filtro.appendChild(td_id);
             tr_filtro.appendChild(td_nombre);
             tr_filtro.appendChild(td_apellido);
@@ -397,8 +426,12 @@
             tr_boton.appendChild(td_boton);
             td_boton.appendChild(boton);
 
+            tr_boton_vale.appendChild(td_boton_vale);
+            td_boton_vale.appendChild(boton_vale);
+
             body_tabla.appendChild(tr_filtro);
             body_tabla.appendChild(tr_boton);
+            body_tabla.appendChild(tr_boton_vale);
         });
     }
 
