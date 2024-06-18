@@ -324,7 +324,7 @@
             font-weight: bold;
         }
 
-        #precio_modal{
+        #monto_vale_modal{
             width: 85%;
             margin: auto;
             display: inline-block;
@@ -387,11 +387,11 @@
         <div id="titulo_modal_vale"></div>
         <br>
         <div style="display:flex;justify-content:space-between;align-items:center">
-            $<input type="number" class="precio_cancha" id="precio_modal" placeholder="Ingrese monto del vale...">
+            $<input type="number" class="precio_cancha" id="monto_vale_modal" placeholder="Ingrese monto del vale...">
         </div>
         <br><br>
         <div class="botones_admin">
-            <div id="boton_modal_vale" class="boton_modal_admin guardar">Aceptar</div>
+            <div id="boton_modal_vale" class="boton_modal_admin guardar"  type="submit">Aceptar</div>
         </div>
     </div>
 
@@ -521,6 +521,7 @@
 
             td_id.innerHTML = elemento["id"];
             td_id.className = "id td_historial";
+            td_id.setAttribute("id", "id_usuario");
             td_nombre.innerHTML = elemento["nombre"];
             td_nombre.className = "nombre td_historial";
             td_apellido.innerHTML = elemento["apellido"];
@@ -532,9 +533,9 @@
 
             boton_aplicar_falta.addEventListener('click', ()=>{
                 $.ajax({
-                    url: './aplicar_falta.php',
+                    url: './sumar_falta.php',
                     method: 'post',
-                    data: {email: elemento["email"]},
+                    data: {id: elemento["id"]},
                     success: function(res)
                     {
                         alert(`La falta ha sido aplicada al usuario ${elemento["nombre"]} ${elemento["apellido"]}`);
@@ -543,6 +544,21 @@
                     }
                 });
             });
+
+            boton_quitar_falta.addEventListener('click', ()=>{
+                $.ajax({
+                    url: './quitar_falta.php',
+                    method: 'post',
+                    data: {id: elemento["id"]},
+                    success: function(res)
+                    {
+                        alert(`La falta se le ha retirado al usuario ${elemento["nombre"]} ${elemento["apellido"]}`);
+                        $("#body_tabla").empty();
+                        verificar_tabla_vacia();
+                    }
+                });
+            });
+
 
             boton_vale.addEventListener('click', ()=>{
                 document.getElementById("modal_background").style.display = "block";
@@ -591,5 +607,26 @@
                 body_tabla.appendChild(tr_filtro);
             }
     }
+
+    function limpiar_modal(){
+        document.getElementById("monto_vale_modal").empty;
+    }
+
+    document.getElementById("boton_modal_vale").addEventListener('click', ()=>{
+                $.ajax({
+                    url: './aplicar_vale.php',
+                    method: 'post',
+                    data: {monto: document.getElementById("monto_modal_vale").value,
+                            id_usuario:document.getElementById("id_usuario").innerHTML},
+                    success: function(res)
+                    {
+                        alert(`Se le ha aplicado el vale al usuario ${elemento["nombre"]} ${elemento["apellido"]}`);
+                        $("#body_tabla").empty();
+                        verificar_tabla_vacia();
+                        limpiar_modal();
+                    }
+                });
+            });
+
 
 </script>
