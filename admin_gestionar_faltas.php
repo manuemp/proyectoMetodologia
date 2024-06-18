@@ -224,7 +224,7 @@
             padding: 20px;
             box-sizing: border-box;
             display: block;
-            margin: 30px auto;
+            margin: 50px auto 0px auto;
             width: 250px;
             border-radius: 8px;
             border: 2px solid #8650fe;
@@ -235,7 +235,7 @@
 
         #btn_buscador_faltas{
             display: block;
-            margin: auto;
+            margin: 50px auto;
             padding: 15px;
             width: 125px;
             border: none;
@@ -291,7 +291,24 @@
             }
         }
 
+        .opcionEmail{
+            border: 1px solid lightgray;
+            padding: 10px;
+            width: 250px;
+            box-sizing: border-box;
+        }
 
+        #res{
+            width: 250px;
+            margin: auto;
+            max-height: 112px;
+            overflow: scroll;
+        }
+
+        .opcionEmail:hover{
+            background: dodgerblue;
+            color:white;
+        }
     </style>
 </head>
 <body>
@@ -299,6 +316,7 @@
     <div id="form_faltas">
             <div id="titulo_faltas">Gestión de Faltas</div>
             <input type="email" name="email" id="filtro_faltas" placeholder="Email usuario..." required autocomplete="off">
+            <div id="res"></div>
             <button id="btn_buscador_faltas" value="Buscar">Buscar</button>
     </div>
     <table id="tabla">
@@ -320,13 +338,21 @@
 <script>
 
     let body_tabla = document.getElementById("body_tabla");
-    console.log(body_tabla.childNodes.length);
+    let res = document.getElementById("res");
+
+    let busquedaInput = document.getElementById("filtro_faltas");
+        busquedaInput.addEventListener('keyup', ()=>{
+        if(busquedaInput.value == "") res.innerHTML = "";
+        else buscarUsuarios(busquedaInput.value);
+    })
+
+
     verificar_tabla_vacia();
 
     document.getElementById("btn_buscador_faltas").addEventListener('click', ()=>{
         $("#body_tabla").empty();
         $.ajax({
-            url: './listar_usuarios.php',
+            url: './buscar_usuario.php',
             method: 'post',
             data: {email: $("#filtro_faltas").val()},
             success: function(res)
@@ -338,9 +364,58 @@
         })
     });
 
+    async function buscarUsuarios(val) {
+
+    fetch('./listar_usuarios.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'  // Indicamos que los datos se envían en el formato correcto
+            },
+            body: new URLSearchParams({
+                'email': val  // Enviar los datos del input en el cuerpo de la petición
+            })
+        })
+        .then(response => response.json())  // Asumimos que la respuesta es JSON
+        .then(data => {
+            res.innerHTML = "";
+            data.forEach((elem) => {
+                let div = document.createElement("div");
+                div.className = "opcionEmail";
+                div.innerText = elem["email"];
+                // div.setAttribute('name', 'email');
+
+                div.addEventListener('click', ()=> {
+                    document.getElementById("filtro_faltas").value = div.innerText;
+                    res.innerHTML = "";
+                    // fetch('./buscar_usuario.php', {
+                    // method: 'POST',
+                    // headers: {
+                    //     'Content-Type': 'application/x-www-form-urlencoded'  // Indicamos que los datos se envían en el formato correcto
+                    // },
+                    // body: new URLSearchParams({
+                    //     'email': div.innerText  // Enviar los datos del input en el cuerpo de la petición
+                    //     })
+                    // })
+                    // .then(response => response.json())
+                    // .then(data => console.log(data));
+                })
+                res.appendChild(div);
+            })
+        })
+        .catch(error => {
+            console.error('Error:', error);  // Manejar cualquier error
+        });
+    }
+
+
+
+
     function generar_tabla(data)
     {
-        data.forEach((elemento) =>{           
+        data.forEach((elemento) =>{
+            
+            
+            
             let tr_filtro = document.createElement("tr");
             let td_id = document.createElement("td");
             let td_nombre = document.createElement("td");
