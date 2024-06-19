@@ -19,6 +19,8 @@
     $consulta = mysqli_query($conexion, "DELETE FROM reservas WHERE id = $id");
     $consulta = mysqli_query($conexion, "UPDATE clientes SET racha = racha - 1 WHERE id_usuario = '$id_cliente'");
 
-    mysqli_free_result($consulta);
     mysqli_close($conexion);
+
+    // header("Location:admin_reservas.php");
+
 ?>

@@ -17,9 +17,6 @@
     $dni = intval($_SESSION["dni"]);
     $hoy = date('Y/m/d');
     $usuario_id = intval($_SESSION["id"]);
-
-    $_SESSION["saldo_a_favor"] = intval($_SESSION["saldo_a_favor"]) - intval($_POST["precio_original"]);
-    $saldo = intval($_SESSION['saldo_a_favor']);
     //Sirve para contar la cantidad de reservas que faltan para volver
     //a aplicar los beneficios
     $faltas = $_SESSION["penalizacion"];
@@ -35,8 +32,6 @@
                                                 WHERE dia = '$dia' AND hora = '$hora' AND U.email = '$email'");
     $resultado_usuario = mysqli_num_rows($consulta_usuario);
 
-    $query_actualizar_saldo = mysqli_query($conexion, "UPDATE clientes SET saldo_a_favor = $saldo WHERE id_usuario = $usuario_id");;
-
     //Si tiene una reserva ese día y hora en otra cancha, redirecciono a página de error
     if($resultado_usuario > 0)
     {
@@ -51,8 +46,17 @@
         //tardó en elegir ya la hizo otro usuario, en ese caso redirecciono a página de error
         if($resultado_reservas == 0)
         {
+            //SOLAMENTE SI LA RESERVA SE PUEDE HACER, ACTUALIZO EL SALDO
+            $saldo = intval($_SESSION['saldo_a_favor']) - intval($_POST["precio_original"]);
+            //PREVENIR SALDOS NEGATIVOS
+            if($saldo < 0) $saldo = 0;
+            $_SESSION["saldo_a_favor"] = strval($saldo);
+
+            $query_actualizar_saldo = mysqli_query($conexion, "UPDATE clientes SET saldo_a_favor = $saldo WHERE id_usuario = $usuario_id");
             $consulta_reservas = mysqli_query($conexion, "INSERT INTO reservas (asistio, dia, dia_de_reserva, hora, cancha_id, usuario_id, precio, monto_seniado) 
-                                                VALUES ('1','$dia', '$hoy', '$hora', '$cancha', '$usuario_id', '$precio','0')");
+                                                VALUES ('1','$dia', '$hoy', '$hora', '$cancha', '$usuario_id', '$precio','$precio')");
+
+                                           
             
             /*VER ESTO PARA BAJAR LA PENALIZACION */
             $consulta_penalizacion = mysqli_query($conexion, "SELECT penalizacion from clientes where dni = '$dni'");
@@ -68,7 +72,8 @@
                 mysqli_free_result($consulta_usuario);
                 mysqli_close($conexion);
 
-                header("Location:reserva_confirmada.php?cancha=$cancha&dia=$dia&hora=$hora&id_reserva=$id&precio=$precio");
+                header("Location:index.php?reserva_confirmada");
+                // header("Location:reserva_confirmada.php?cancha=$cancha&dia=$dia&hora=$hora&id_reserva=$id&precio=$precio");
             }
             else if($consulta_reservas && intval($penalizaciones) != 0)
             {
@@ -81,12 +86,12 @@
                 mysqli_free_result($consulta_usuario);
                 mysqli_close($conexion);
 
-                header("Location:reserva_confirmada.php?cancha=$cancha&dia=$dia&hora=$hora&id_reserva=$id&precio=$precio");
+                header("Location:index.php?reserva_confirmada");
             }
         }
         else
         {
-            header("Location:reserva_no_disponible.php");
+            header("Location:index.php?reserva_no_disponible");
         }
     }
 

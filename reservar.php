@@ -1,6 +1,7 @@
 <?php session_start(); ?>
 <?php 
 
+    include("./actualizar_sesion.php");
     if(!isset($_SESSION["nombre"]))
     {
         header("Location:index.php");
@@ -762,11 +763,16 @@
         ev.preventDefault();
         if(select_hora.value != "")
         {
-            document.getElementById("dia_mp").innerText = select_dia.options[select_dia.selectedIndex].text;
-            document.getElementById("cancha_mp").innerText = select_cancha.options[select_cancha.selectedIndex].text;
-            document.getElementById("hora_mp").innerText = select_hora.options[select_hora.selectedIndex].text.substr(0, 5) + "hs";
-            document.getElementById("precio_mp").innerText = document.getElementById("precio").innerText.substr(7)
-            document.getElementById("form_mp").style.display = "block";
+            if(document.getElementById("precio").innerHTML != "Total: $0.00"){
+                document.getElementById("dia_mp").innerText = select_dia.options[select_dia.selectedIndex].text;
+                document.getElementById("cancha_mp").innerText = select_cancha.options[select_cancha.selectedIndex].text;
+                document.getElementById("hora_mp").innerText = select_hora.options[select_hora.selectedIndex].text.substr(0, 5) + "hs";
+                document.getElementById("precio_mp").innerText = document.getElementById("precio").innerText.substr(7)
+                document.getElementById("form_mp").style.display = "block";
+            }
+            else{
+                document.getElementById("form_reserva").submit();
+            }
         }
     })
 

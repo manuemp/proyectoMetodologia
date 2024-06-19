@@ -25,10 +25,17 @@
                             WHERE R.dia >= '$hoy' 
                             AND R.cancha_id LIKE '%$cancha%' 
                             AND U.email LIKE '%$email%' 
-                            AND R.dia LIKE '%$dia%' 
-                            ORDER BY R.dia, R.hora");
+                            AND R.dia LIKE '%$dia%'
+                            AND R.asistio = '1'
+                            ORDER BY 
+                            CASE 
+                                WHEN R.hora >= CURTIME() AND R.dia = '$hoy' THEN 1
+                                ELSE 2
+                            END,
+                            R.dia, R.hora");
     $contador = mysqli_num_rows($resultado);
 
+    //CREO EL OBJETO JSON DONDE ENVÍO TODOS LOS DATOS A LA TABLA DE RESERVAS DEL ADMIN
     $arr = [];
     while($fila = $resultado->fetch_assoc())
     {

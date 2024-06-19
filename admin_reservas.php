@@ -325,9 +325,9 @@
             </div>
             <div class="titulo_modal_falta" style="color: #8560fe;font-weight: bold;">¿Desea borrar la reserva?</div>
             <div class="contenido_modal_falta">
-                    <div><span id="nombre_baja"></span> <span id="apellido_falta"></div>
+                    <div><span id="nombre_baja"></span> <span id="apellido_baja"></div>
                     <div><span id="mail_baja"></span></div>
-                    <div><span id="dia_baja"></span> <span id="hora_falta"></div>
+                    <div><span id="dia_baja"></span> <span id="hora_baja"></div>
                     <div><span id="cancha_baja"></span></div>
             </div>
             <div class="botones_admin"><button class="boton_modal_admin cerrar">Salir</button><button class="boton_modal_admin guardar" id="baja_reserva">Baja</button></div>
@@ -402,6 +402,7 @@
     
     //Traer datos automáticamente antes de cargar la página
     traer_datos();
+    
 
     ayuda.addEventListener('click', ()=>{
         modal_estados.style.display = "block";
@@ -533,7 +534,7 @@
             boton_falta_responsive.addEventListener('click', ()=>{
                 aplicar_falta(registro["id"], registro["email"], registro["nombre"], 
                              registro["apellido"], registro["hora"], registro["cancha"], registro["dia"]);
-            })
+            });
 
             //CUANDO HAGO CLICK, MUESTRO EL MODAL CON LOS DATOS DE LA RESERVA CLICKEADA
             tr_filtro.addEventListener('click', ()=>{
@@ -595,48 +596,48 @@
                 tr_filtro_responsive.style.backgroundColor = "crimson";
                 tr_filtro_responsive.className = "item_responsive inhabilitada";
             }
-
             body_tabla.appendChild(tr_filtro);
-            body_tabla.appendChild(tr_filtro_responsive);
-            
+            body_tabla.appendChild(tr_filtro_responsive); 
         });
     }
 
     function baja_reserva(id, email_user, nombre, apellido, hora, cancha, dia){
-        let confirmar = confirm(`¿Desea eliminar la reserva del usuario?\n
-                                ${nombre} ${apellido}\n
-                                ${email_user}\n
-                                ${dia}, ${hora}hs\n
-                                ${cancha}`
-                        );
-        if(confirmar)
-        {
+        document.getElementById("nombre_baja").innerText = nombre;
+        document.getElementById("apellido_baja").innerText = apellido;
+        document.getElementById("dia_baja").innerText = dia;
+        document.getElementById("hora_baja").innerText = hora;
+        document.getElementById("cancha_baja").innerText = cancha;
+        document.getElementById("mail_baja").innerText = email_user;
+        document.getElementById("modal_baja").style.display = "block";
+        
+        document.getElementById("baja_reserva").addEventListener('click', ()=>{
             $.ajax({
                 url: './baja_reserva.php',
                 method: 'post',
                 data: { 
-                    id_reserva : id,
+                    id_reserva: id,
                     email: email_user 
                 },
                 success: function(){
                     document.getElementById("modal_baja").style.display = "none";
                     modal_background.style.display = "none";
-                    alert("La reserva fue dada de baja");
+                    $("#body_tabla").empty();
                     traer_datos();
                 }
             });
-        }
+        })
     }
 
     function aplicar_falta(id, email_user, nombre, apellido, hora, cancha, dia){
-        let confirmar = confirm(`¿Desea aplicar una falta al usuario?\n
-                                ${nombre} ${apellido}\n
-                                ${email_user}\n
-                                ${dia}, ${hora}hs\n
-                                ${cancha}`
-                        );
-        if(confirmar)
-        {
+        document.getElementById("nombre_falta").innerText = nombre;
+        document.getElementById("apellido_falta").innerText = apellido;
+        document.getElementById("dia_falta").innerText = dia;
+        document.getElementById("hora_falta").innerText = hora;
+        document.getElementById("cancha_falta").innerText = cancha;
+        document.getElementById("mail_falta").innerText = email_user;
+        document.getElementById("modal_falta").style.display = "block";
+        
+        document.getElementById("falta_reserva").addEventListener('click', ()=>{
             $.ajax({
                 url: './aplicar_falta.php',
                 method: 'post',
@@ -647,11 +648,12 @@
                 success: function(){
                     document.getElementById("modal_falta").style.display = "none";
                     modal_background.style.display = "none";
-                    alert(`Se aplicó la falta a ${nombre} ${apellido}`);
+                    $("#body_tabla").empty();
+                    // alert(`Se aplicó la falta a ${nombre} ${apellido}`);
                     traer_datos();
                 }
             });
-        }
+        })
     }
 
 </script>

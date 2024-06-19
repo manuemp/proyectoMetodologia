@@ -35,12 +35,11 @@
    {
       //Esta variable bloquea los beneficios por 3 reservas
       $consulta = mysqli_query($conexion, "UPDATE clientes SET penalizacion = 3 WHERE id_usuario = '$id_cliente'");
-
       //Para evitar números negativos en contador de racha de asistencias
       $consulta = mysqli_query($conexion, "UPDATE clientes SET faltas = 0 WHERE id_usuario = '$id_cliente'");
-      
+
    }
 
-   mysqli_free_result($consulta);
+   // mysqli_free_result($consulta);
    mysqli_close($conexion);
 ?>

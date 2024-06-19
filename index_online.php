@@ -3,19 +3,6 @@
     include("./actualizar_sesion.php");
     date_default_timezone_set("America/Argentina/Buenos_Aires");
 
-    /*if($_SESSION["racha"] >= 20)
-    {
-        $level = "Socio";
-    }
-    else if($_SESSION["racha"] >= 10)
-    {
-        $level = "Local";
-     }
-     else 
-    {
-         $level = "Recreativo";
-    }*/
-
     include("./conexion.php");
     $usuario_id = $_SESSION['id'];
     $consulta = mysqli_query($conexion, "SELECT COUNT(*) AS contador FROM reservas WHERE usuario_id = '$usuario_id'");
@@ -32,7 +19,7 @@
     <link rel="stylesheet" href="estilos/modal.css">
     <title>Torino Fútbol: Reservá las mejores canchas</title>
     <style>
-        .alerta_reservas{
+        .notificacion_reservas{
             min-height: 40px;
             height: auto;
             width: 100%;
@@ -41,11 +28,20 @@
             justify-content: center;
             padding: 8px;
             box-sizing: border-box;
-            background: red;
-            color: white;
             font-weight: bold;
             font-size: 1.5rem;
         }
+
+        .error{
+            background: red;
+            color: white;
+        }
+
+        .exito{
+            color: white;
+            background: #23d366;
+        }
+
         #info_usuario
         {
             background-image: url("./imgs/fondo_contacto5.jpeg");
@@ -161,6 +157,7 @@
 
         .icono_info{
             height: 32px;
+            margin-right: 15px;
         }
 
         .btn_triangulo{
@@ -258,6 +255,12 @@
             width: 25px; 
             filter:invert(1);
             margin-right: 10px;
+        }
+
+        .datos_panel_usuario{
+            display: flex;
+            align-items: center;
+            margin-bottom: 3px;
         }
 
         @media(min-width: 1390px){
@@ -476,23 +479,27 @@
 <body>
     <?php 
         if(isset($_GET["exceso_reservas"])){
-            echo "<div class='alerta_reservas'>¡No podés tener más de 3 reservas pendientes!</div>";
+            echo "<div class='notificacion_reservas error'>¡No podés tener más de 3 reservas pendientes!</div>";
         }
         if(isset($_GET["superposicion_reservas"])){
-            echo "<div class='alerta_reservas'>¡Ya tenés una reserva en el mismo día y horario!</div>";
+            echo "<div class='notificacion_reservas error'>¡Ya tenés una reserva en el mismo día y horario!</div>";
         }
         if(isset($_GET["reserva_no_disponible"])){
-            echo "<div id='exceso_reservas'>¡La reserva ya no está disponible!</div>";
+            echo "<div class='notificacion_reservas error'>¡La reserva ya no está disponible!</div>";
+        }
+        if(isset($_GET["reserva_confirmada"])){
+            echo "<div class='notificacion_reservas exito'>¡La reserva fue confirmada con éxito!</div>";
         }
     ?>
     <main>
         <section id="panel_usuario">
             <article id="usuario" class="texto_2">
-                <h1 class="titulo_3 violeta" id="titulo_usuario"><?php echo $_SESSION["nombre"] . " " . $_SESSION["apellido"] ?></h1>
-                    <br><img src="./imgs/level2.png" alt="Icono Falta" class="icono_info"> Nivel: <?php echo $_SESSION["nivel"] ?>
-                    <br><img src="./imgs/calendario.png" alt="Icono Falta" class="icono_info"> Reservas: <span style="color:#8650fe"><?php echo $reservas ?></span> 
-                    <br><img src="./imgs/check.png" alt="Icono Falta" class="icono_info"> Asistencias: <span style="color:#8650fe"><?php echo $_SESSION["racha"] ?></span> 
-                    <br><img src="./imgs/falta.png" alt="Icono Falta" class="icono_info"> Faltas: <span style="color: red;"><?php echo $_SESSION["faltas"]?></span>
+                <h1 class="titulo_3 violeta" id="titulo_usuario"><?php echo $_SESSION["nombre"] . " " . $_SESSION["apellido"] ?></h1><br>
+                    <div class="datos_panel_usuario"><img src="./imgs/level2.png" alt="Icono Falta" class="icono_info"> Nivel: <?php echo $_SESSION["nivel"] ?></div>
+                    <div class="datos_panel_usuario"><img src="./imgs/calendario.png" alt="Icono Falta" class="icono_info"> Reservas: &nbsp;<span style="color:#8650fe"><?php echo $reservas ?></span> </div>
+                    <div class="datos_panel_usuario"><img src="./imgs/check.png" alt="Icono Falta" class="icono_info"> Asistencias: &nbsp;<span style="color:#8650fe"><?php echo $_SESSION["racha"] ?></span> </div>
+                    <div class="datos_panel_usuario"><img src="./imgs/falta.png" alt="Icono Falta" class="icono_info"> Faltas: &nbsp;<span style="color: red;"><?php echo $_SESSION["faltas"]?></span></div>
+                    <div class="datos_panel_usuario"><img src="./imgs/simbolo_dinero.png" alt="icono_saldo_a_favor" class="icono_info"> Saldo a Favor: &nbsp;<span style="color: #23d366;">$<?php echo $_SESSION["saldo_a_favor"]?></span></div>
             </article>
             <article id="reservas">
                 <span class="titulo_3 violeta">Tus próximas reservas</span>

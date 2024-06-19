@@ -93,6 +93,21 @@
             .info_container{
                 padding: 45px 12px;
             }
+
+            .titulo_2{
+                font-size: 3rem;
+            }
+
+            .titulo_4{
+                font-size: 1.5rem;
+            }
+            .item_texto td {
+                font-size: 1.2rem;
+            }
+
+            .item_nivel{
+                width: 90%;
+            }
         }
 
         @media(max-width: 425px){
