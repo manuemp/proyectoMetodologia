@@ -472,6 +472,7 @@
         let fila;
         let cont = 0;
         data.forEach((registro) =>{  
+            //CREO LOS ELEMENTOS PARA CADA FILA DE LA TABLA DE RESERVAS PENDIENTES
             let tr_filtro = document.createElement("tr");
             let tr_filtro_responsive = document.createElement("tr");
             let td_boton = document.createElement("td");
@@ -481,7 +482,7 @@
             let boton_responsive = document.createElement("button");
             let boton_falta_responsive = document.createElement("button");
             
-
+            //AGREGO LOS ATRIBUTOS
             tr_filtro.className = "item_historial";
             tr_filtro_responsive.className = "item_responsive";
             td_boton.className = "boton";
@@ -502,39 +503,39 @@
                 <td class='dia td_historial'>${registro["dia"]}</td>
                 <td class='hora td_historial'>${registro["hora"]}</td>`;
 
+            //LOS COLOCO EN SUS ELEMENTOS PADRE
             td_boton.appendChild(boton_falta);
             td_boton.appendChild(boton);
-
             tr_filtro.appendChild(td_boton);
-
+            //LO MISMO CON LAS FILAS RESPONSIVE
             td_boton_responsive.appendChild(boton_responsive);
             td_boton_responsive.appendChild(boton_falta_responsive);
-
             tr_filtro_responsive.appendChild(td_boton_responsive);
 
+            //A CADA BOTÓN LE DOY SU FUNCIÓN DE BAJA DE RESERVA
             boton.addEventListener('click', ()=>{
                 baja_reserva(registro["id"], registro["email"], registro["nombre"], 
                              registro["apellido"], registro["hora"], registro["cancha"], registro["dia"]);
                 flag_btn = true;
             })
-
+            //FUNCIÓN PARA APLICAR FALTA
             boton_falta.addEventListener('click', ()=>{
                 aplicar_falta(registro["id"], registro["email"], registro["nombre"], 
                              registro["apellido"], registro["hora"], registro["cancha"], registro["dia"]);
                 flag_btn = true;
             })
-
+            //BAJA RESERVA PARA RESPONSIVE
             boton_responsive.addEventListener('click', ()=>{
                 baja_reserva(registro["id"], registro["email"], registro["nombre"], 
                              registro["apellido"], registro["hora"], registro["cancha"], registro["dia"]);
             })
-
+            //FALTA PARA RESPONSIVE
             boton_falta_responsive.addEventListener('click', ()=>{
                 aplicar_falta(registro["id"], registro["email"], registro["nombre"], 
                              registro["apellido"], registro["hora"], registro["cancha"], registro["dia"]);
             })
 
-            //Lleno el modal cuando se haga click en el registro creado
+            //CUANDO HAGO CLICK, MUESTRO EL MODAL CON LOS DATOS DE LA RESERVA CLICKEADA
             tr_filtro.addEventListener('click', ()=>{
                 if(!flag_btn)
                 {
@@ -553,20 +554,17 @@
                 flag_btn = false;
             });
             
-            //Por ultimo, veo si la reserva es de hoy y todavía no se jugó,
-            //si es de hoy y ya pasó el horario, o si no es de hoy.
-            
-            //Agrego ceros a las horas, minutos y segundos del objeto Date para que sea compatible
-            //con lo obtenido en la base de datos.
+            //AGREGO CEROS A LAS HORAS, MINS y SEG DEL OBJETO Date PARA QUE SEA COMPATIBLE
+            //CON LO QUE OBTENGO DE LA BBDD
             function addZero(i) {
                 if (i < 10) {i = "0" + i}
                 return i;
             }
-
             const d = new Date();
             let hora = `${addZero(d.getHours())}:${addZero(d.getMinutes())}:${addZero(d.getSeconds())}`;
             let hoy = `${addZero(d.getDate())}/${addZero(d.getMonth() + 1)}/${addZero(d.getFullYear())}`
 
+            //SI LA RESERVA ES DE HOY, CAMBIO FORMATO SEGÚN SI PASÓ EL HORARIO O TODAVÍA ESTÄ PENDIENTE
             if(hoy == registro["dia"])
             {
                 if(Date.parse(`1/1/2023 ${hora}`) < Date.parse(`1/1/2023 ${registro["hora"]}`))
@@ -586,18 +584,16 @@
             if(registro["adelanto"] == registro["precio"]){
                 tr_filtro.style.borderLeft = "12px solid #3aea00";
             }
-            else if(registro["adelanto"] != "0"){
-                tr_filtro.style.borderLeft = "12px solid orange";
-            }
             else{
                 tr_filtro.style.borderLeft = "12px solid red";
             }
 
-            if(registro["dia_pedido"] != hoy && registro["dia"] != hoy && registro["adelanto"] == "0")
+            //EN ROJO LAS RESERVAS DE CANCHAS QUE SE INHABILITARON
+            if(registro["estado_cancha"] == "0")
             {
-                tr_filtro.className = "item_historial adeuda";
+                tr_filtro.className = "item_historial inhabilitada";
                 tr_filtro_responsive.style.backgroundColor = "crimson";
-                tr_filtro_responsive.className = "item_responsive adeuda";
+                tr_filtro_responsive.className = "item_responsive inhabilitada";
             }
 
             body_tabla.appendChild(tr_filtro);
@@ -607,7 +603,6 @@
     }
 
     function baja_reserva(id, email_user, nombre, apellido, hora, cancha, dia){
-
         let confirmar = confirm(`¿Desea eliminar la reserva del usuario?\n
                                 ${nombre} ${apellido}\n
                                 ${email_user}\n
@@ -620,9 +615,9 @@
                 url: './baja_reserva.php',
                 method: 'post',
                 data: { 
-                        id_reserva : id,
-                        email: email_user 
-                    },
+                    id_reserva : id,
+                    email: email_user 
+                },
                 success: function(){
                     document.getElementById("modal_baja").style.display = "none";
                     modal_background.style.display = "none";
@@ -631,39 +626,9 @@
                 }
             });
         }
-
-        //Este código de abajo no sirve, con un modal hecho a mano se guardan los llamados a función
-        //porque nunca retorno nada. Lo que esta pasando es que si hago aparecer el modal y lo cancelo,
-        //y repito lo mismo x cantidad de veces, se van a almacenar los llamados a función,
-        //y a la primera que doy a aceptar, se aceptan todos los anteriores juntos y aplica multiples faltas.
-        // modal_background.style.display = "block";
-        // document.getElementById("modal_baja").style.display = "block";
-        // document.getElementById("nombre_baja").innerHTML = `${nombre} ${apellido}`;
-        // document.getElementById("mail_baja").innerHTML = email_user;
-        // document.getElementById("dia_baja").innerHTML = `${dia}, ${hora}`;
-        // document.getElementById("cancha_baja").innerHTML = cancha;
-
-        // document.getElementById("baja_reserva").addEventListener('click', ()=>{
-        //     $.ajax({
-        //         url: './baja_reserva.php',
-        //         method: 'post',
-        //         data: { 
-        //                 id_reserva : id,
-        //                 email: email_user 
-        //             },
-        //         success: function(){
-        //             document.getElementById("modal_baja").style.display = "none";
-        //             modal_background.style.display = "none";
-        //             alert("La reserva fue dada de baja");
-        //             traer_datos();
-        //         }
-        //     });
-        // });
-
     }
 
     function aplicar_falta(id, email_user, nombre, apellido, hora, cancha, dia){
-
         let confirmar = confirm(`¿Desea aplicar una falta al usuario?\n
                                 ${nombre} ${apellido}\n
                                 ${email_user}\n
@@ -676,9 +641,9 @@
                 url: './aplicar_falta.php',
                 method: 'post',
                 data: { 
-                        id_reserva : id,
-                        email: email_user 
-                    },
+                    id_reserva : id,
+                    email: email_user 
+                },
                 success: function(){
                     document.getElementById("modal_falta").style.display = "none";
                     modal_background.style.display = "none";
@@ -687,35 +652,6 @@
                 }
             });
         }
-
-        //Este código de abajo no sirve, con un modal hecho a mano se guardan los llamados a función
-        //porque nunca retorno nada. Lo que esta pasando es que si hago aparecer el modal y lo cancelo,
-        //y repito lo mismo x cantidad de veces, se van a almacenar los llamados a función,
-        //y a la primera que doy a aceptar, se aceptan todos los anteriores juntos y aplica multiples faltas.
-
-        // modal_background.style.display = "block";
-        // document.getElementById("modal_falta").style.display = "block";
-        // document.getElementById("nombre_falta").innerHTML = `${nombre} ${apellido}`;
-        // document.getElementById("mail_falta").innerHTML = email_user;
-        // document.getElementById("dia_falta").innerHTML = `${dia}, ${hora}`;
-        // document.getElementById("cancha_falta").innerHTML = cancha;
-
-        // document.getElementById("falta_reserva").addEventListener('click', ()=>{
-        //     $.ajax({
-        //         url: './aplicar_falta.php',
-        //         method: 'post',
-        //         data: { 
-        //                 id_reserva : id,
-        //                 email: email_user 
-        //             },
-        //         success: function(){
-        //             document.getElementById("modal_falta").style.display = "none";
-        //             modal_background.style.display = "none";
-        //             alert(`Se aplicó la falta a ${nombre} ${apellido}`);
-        //             traer_datos();
-        //         }
-        //     });
-        // });
     }
 
 </script>
