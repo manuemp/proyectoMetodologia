@@ -94,6 +94,7 @@
                             <th class="td_historial">Día</th>
                             <th class="td_historial">Cancha</th>
                             <th class="td_historial">Hora</th>
+                            <th class="td_historial">Precio</th>
                         </tr>
                     </thead>
                     <tbody id="body_tabla">
@@ -163,6 +164,7 @@
                 <td class='td_historial'>${registro["dia"]}</td>\
                 <td class='td_historial'>${registro["cancha"]}</td>\
                 <td class='td_historial'>${registro["hora"]}</td>\
+                <td class='td_historial'>$${registro["precio"]}</td>\
                 </tr>\
                 `
             }
@@ -173,6 +175,7 @@
                 <td class='td_historial'>${registro["dia"]}</td>\
                 <td class='td_historial'>${registro["cancha"]}</td>\
                 <td class='td_historial'>${registro["hora"]}</td>\
+                <td class='td_historial'>$${registro["precio"]}</td>\
                 </tr>\
                 `
             }

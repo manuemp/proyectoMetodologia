@@ -12,9 +12,9 @@
     $usuario_id = $_SESSION["id"];
     
     if($cancha != "")
-        $resultado = mysqli_query($conexion, "SELECT dia, hora, cancha_id, asistio FROM reservas WHERE usuario_id = '$usuario_id' AND cancha_id = $cancha ORDER BY dia DESC");
+        $resultado = mysqli_query($conexion, "SELECT dia, hora, cancha_id, asistio, precio FROM reservas WHERE usuario_id = '$usuario_id' AND cancha_id = $cancha ORDER BY dia DESC");
     else
-        $resultado = mysqli_query($conexion, "SELECT dia, hora, cancha_id, asistio FROM reservas WHERE usuario_id = '$usuario_id' ORDER BY dia DESC");
+        $resultado = mysqli_query($conexion, "SELECT dia, hora, cancha_id, asistio, precio FROM reservas WHERE usuario_id = '$usuario_id' ORDER BY dia DESC");
 
     $arr = [];
     while($fila = $resultado->fetch_assoc())
@@ -24,6 +24,7 @@
         $subarray["hora"] = $fila["hora"];
         $subarray["cancha"] = generarCancha($fila["cancha_id"]);
         $subarray["asistio"] = $fila["asistio"];
+        $subarray["precio"] = $fila["precio"];
         array_push($arr, $subarray);
     }
 
