@@ -393,6 +393,7 @@
 
             #usuario{
                 width: 85%;
+                font-size: 1.7rem;
             }
 
             .texto_info{
