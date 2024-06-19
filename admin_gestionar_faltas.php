@@ -565,22 +565,6 @@
                 document.querySelector(".modal_vale").style.display = "block";
             })
 
-            //Esto debería ir en otro lado, una vez que ya se indicó el vale!
-
-            // boton_vale.addEventListener('click', ()=>{
-            //     $.ajax({
-            //         url: './aplicar_vale.php',
-            //         method: 'post',
-            //         data: {email: elemento["email"]},
-            //         success: function(res)
-            //         {
-            //             alert(`El vale ha sido aplicado al usuario ${elemento["nombre"]} ${elemento["apellido"]}`);
-            //             $("#body_tabla").empty();
-            //             verificar_tabla_vacia();
-            //         }
-            //     });
-            // });
-
             tr_filtro.appendChild(td_id);
             tr_filtro.appendChild(td_nombre);
             tr_filtro.appendChild(td_apellido);

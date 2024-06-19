@@ -273,6 +273,21 @@
             margin-top: 2px;
         }
 
+        #calculo_saldo{
+            position: relative;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 15px;
+            color: #8650fe;
+            font-weight: bold;
+        }
+
+        #a_favor{
+            color:#25d366;
+        }
+
         @media(max-height: 600px)
         {
             main{
@@ -569,6 +584,8 @@
                 
                 <div class="container_reserva">
                     <input type="submit" class="select_reserva" value="Reservar" id="reservar" disabled>
+                    <div id="calculo_saldo"></div>
+                    <input type="hidden" name="precio_original" id="precio_original" value="">
                     <div id="precio">Total: $0.00</input>
                 </div>
                 <input type="hidden" name="precio_hidden" id="precio_hidden" value="">
@@ -699,7 +716,6 @@
         progressBar.removeAttribute("value");
         
         return () => {
-            // console.log("Pago exitoso");
             progressBar.setAttribute("value", "0");
         };
         }
@@ -736,7 +752,6 @@
     hoy = date.toLocaleDateString('en-CA');
     let horarios = ["10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00",
                     "16:00:00", "17:00:00", "18:00:00", "19:00:00", "20:00:00", "21:00:00", "22:00:00"];
-    
     
     document.getElementById("cerrar_mp").addEventListener('click', ()=>{
         document.getElementById("form_mp").style.display = "none";
@@ -817,8 +832,13 @@
                 currency: 'USD'
                 });
 
-                precio.innerHTML = `Total: ${formatter.format(respuesta["precio"])}`;
-                document.getElementById("precio_hidden").value = respuesta["precio"];
+                precio.innerHTML = `Total: ${formatter.format(respuesta["precio_final"])}`;
+                document.getElementById("precio_hidden").value = respuesta["precio_final"];
+                document.getElementById("precio_original").value = respuesta["precio"];
+                
+                if(respuesta["saldo_a_favor"] != "0"){
+                    document.getElementById("calculo_saldo").innerHTML = `Precio: $${respuesta["precio"]} - <span id="a_favor">A Favor: $${respuesta["saldo_a_favor"]}</span>`;
+                }
 
                 console.log("Beneficio " + respuesta["beneficio"]);
                 if(respuesta["beneficio"] != "")

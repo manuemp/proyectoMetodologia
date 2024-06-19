@@ -7,6 +7,8 @@
     
     $cancha_id = intval($_POST["cancha_id"]);
     $email = $_SESSION["email"];
+    // define("A_FAVOR", $_SESSION["saldo_a_favor"]);
+
     //Sirve para contar la cantidad de reservas que faltan para volver
     //a aplicar los beneficios
     $beneficio;
@@ -57,18 +59,11 @@
     $saldo = doubleval($cliente["saldo_a_favor"]);
 
     if($saldo == $precio || $saldo > $precio){
-        //PASARIA ALGO CON LA API
-        $saldo = $saldo - $precio;
-        $precio = 0;
-        $_SESSION['saldo_a_favor'] = $saldo;
-        /*ESTO HABRIA QUE HACERLO UNA VEZ QUE SE REALIZA LA RESERVA, NO CUANDO SE CAMBIA LA CANCHA O LA HORA DE LA RESERVA
-        $query_actualizar_saldo = mysqli_query($conexion, "UPDATE clientes SET saldo_a_favor = $saldo WHERE id = $id_usuario");*/
+        // $saldo = $saldo - $precio;
+        $precio_final = 0;
     }else{
-        $precio = $precio - $saldo;
-        $saldo = 0;
-        $_SESSION['saldo_a_favor'] = $saldo;
-        /*ESTO HABRIA QUE HACERLO UNA VEZ QUE SE REALIZA LA RESERVA, NO CUANDO SE CAMBIA LA CANCHA O LA HORA DE LA RESERVA
-        $query_actualizar_saldo = mysqli_query($conexion, "UPDATE clientes SET saldo_a_favor = $saldo WHERE id = $id_usuario");*/
+        $precio_final = $precio - $saldo;
+        // $saldo = 0;
     }
 
     //Como la función que va a formatear a moneda el resultado está en el front,
@@ -84,11 +79,12 @@
     else
         $respuesta->beneficio = "";
 
+    $respuesta->saldo_a_favor = $_SESSION["saldo_a_favor"];
+    $respuesta->precio_final = $precio_final;
+
     mysqli_free_result($query_canchas);
     mysqli_free_result($query_nivel_usuario);
     mysqli_free_result($query_reservas_cliente);
     mysqli_close($conexion);
     echo json_encode($respuesta);
-    
-
 ?>

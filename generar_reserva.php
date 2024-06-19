@@ -17,6 +17,8 @@
     $dni = intval($_SESSION["dni"]);
     $hoy = date('Y/m/d');
     $usuario_id = intval($_SESSION["id"]);
+
+    $_SESSION["saldo_a_favor"] = intval($_SESSION["saldo_a_favor"]) - intval($_POST["precio_original"]);
     $saldo = intval($_SESSION['saldo_a_favor']);
     //Sirve para contar la cantidad de reservas que faltan para volver
     //a aplicar los beneficios
