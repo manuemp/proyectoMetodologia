@@ -505,6 +505,7 @@
             <article id="reservas">
                 <span class="titulo_3 violeta">Tus próximas reservas</span>
                 <div id="container_reservas">
+                    
                     <?php include("./reservas_pendientes.php") ?>
                 </div>
             </article>
@@ -547,27 +548,10 @@
     // var navbar_desplegable = document.querySelector(".navbar_desplegable");
 
     var container_reservas = document.getElementById("container_reservas");
-    var div_beneficios = document.getElementById("beneficios");
     var beneficios_container = document.getElementById("beneficios_container");
     var img = document.getElementById("btn_beneficios");
     // var flag = false;
     var flag_beneficios = false;
-
-    div_beneficios.addEventListener('click', ()=>{
-        flag_beneficios = !flag_beneficios;
-        if(flag_beneficios)
-        {
-            img.style.transform = "rotate(180deg)";
-            beneficios_container.style.display = "flex";
-            div_beneficios.className = "beneficios_activo";        
-        }
-        else
-        {
-            img.style.transform = "rotate(360deg)";
-            beneficios_container.style.display = "none";
-            div_beneficios.className = "beneficios_inactivo";
-        }
-    })
 
     //Cuando mediante PHP no se pueda detectar que no hay reservas pendientes,
     //que es en el caso en que habían reservas pendientes para ese día pero ya pasó la hora,
