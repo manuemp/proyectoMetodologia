@@ -3,19 +3,6 @@
     // $resultado = mysqli_query($conexion, "SELECT ID, Nombre, Apellido, Email, Reservas, Faltas, Nivel FROM Usuarios ORDER BY Nombre");
     
     $email = trim($_POST["email"]);
-
-    // if($email == "") exit();
-
-    // if($email == ""){
-    //     $resultado = mysqli_query($conexion, "SELECT U.id, U.nombre, U.apellido, U.email, C.faltas, C.racha FROM usuarios U
-    //                         JOIN clientes C ON C.id_usuario = U.id");
-    // }
-    // else{
-    // $resultado = mysqli_query($conexion, "SELECT U.id, U.nombre, U.apellido, U.email, C.faltas, C.racha 
-    // FROM usuarios U
-    // JOIN clientes C ON C.id_usuario = U.id
-    // WHERE U.email LIKE '[$email]'");
-    // }
     
     if($email != ""){
         $resultado = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email LIKE '$email%' AND rol = 0");
@@ -28,8 +15,8 @@
             $obj->nombre = $fila['nombre'];
             $obj->apellido = $fila['apellido'];
             $obj->email = $fila['email'];
-            // $obj->faltas = $fila['faltas'];
-            // $obj->racha = $fila['racha'];
+            $obj->faltas = $fila['faltas'];
+            $obj->racha = $fila['racha'];
             array_push($arr, $obj);
         }
     

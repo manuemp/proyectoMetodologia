@@ -1,3 +1,11 @@
+<?php 
+    session_start();
+
+    if(intval($_SESSION["rol"]) == 1 || intval($_SESSION["rol"] == 0)){
+        header("Location:index.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

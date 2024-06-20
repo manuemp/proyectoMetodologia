@@ -1,9 +1,5 @@
 <?php session_start(); ?>
 <?php 
-        if(intval($_SESSION["rol"]) == 1){
-            header("Location:admin_canchas.php");
-        }
-    
         if(intval($_SESSION["rol"]) == 0){
             header("Location:index.php");
         }
@@ -375,7 +371,11 @@
 </head>
 <body>
     <div id="modal_background"></div>
-    <?php include("./nav_superadmin.php") ?>
+
+    <?php 
+    if(intval($_SESSION["rol"]) == 1) include("./nav_admin.php"); 
+    else if(intval($_SESSION["rol"]) == 2) include("./nav_superadmin.php") ;
+    ?>
 
     <!-- MODAL -->
     <div class="modal_vale">
@@ -397,7 +397,7 @@
 
 
     <div id="form_faltas">
-            <div id="titulo_faltas">Gestión de Faltas</div>
+            <div id="titulo_faltas">Gestionar Usuarios</div>
             <input type="email" name="email" id="filtro_faltas" placeholder="Email usuario..." required autocomplete="off">
             <div id="res"></div>
             <button id="btn_buscador_faltas" value="Buscar">Buscar</button>

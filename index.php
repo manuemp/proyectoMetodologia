@@ -1,11 +1,12 @@
 <?php session_start(); ?>
 <?php 
-    //Si en la sesión está el campo rol...
+    //SI EL USUARIO REDIRECCIONADO ES ADMIN, VUELVO A REDIRECCIONAR
     if(isset($_SESSION["rol"]))
     {
-        //Si ese campo es admin, o sea, valor 1, entonces no me manda al index de usuario, sino al de administrador
-        /*if(intval($_SESSION["rol"]) == 1)
-            header("Location:admin_reservas.php");*/
+        if(intval($_SESSION["rol"]) == 1){
+            header("Location:admin_reservas.php");
+        }
+
     }
 ?>
 
@@ -54,6 +55,7 @@
 
     <!-- NAV -->
     <?php 
+        //SI EN LA SESION NO ESTÁ EL ATRIBUTO NOMBRE, ENTONCES EL USUARIO NO SE LOGUEÓ
         if(!isset($_SESSION['nombre']))
         {
             include("./nav_offline.php");

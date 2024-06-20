@@ -1,8 +1,8 @@
 <?php session_start(); ?>
 <?php
-    if(intval($_SESSION["rol"]) == 1){
-        header("Location:admin_canchas.php");
-    }
+    // if(intval($_SESSION["rol"]) == 1){
+    //     header("Location:admin_canchas.php");
+    // }
 
     if(intval($_SESSION["rol"]) == 0){
         header("Location:index.php");
@@ -276,7 +276,10 @@
 </head>
 <div id="modal_background"></div>
 <body>
-    <?php include("./nav_superadmin.php") ?>
+    <?php 
+        if(intval($_SESSION["rol"]) == 1) include("./nav_admin.php"); 
+        else include("./nav_superadmin.php") ;
+    ?>
     <main>
         <h1>Administrar Reservas</h1>
     

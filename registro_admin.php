@@ -39,10 +39,45 @@
         .registro_container{
             align-items: start;
         }
-
+        
         form{
             margin: 15% auto;
         }
+        
+        .img_container_admin
+        {
+            min-width: 45%;
+            min-height: 100vh;
+            background: linear-gradient(45deg, lavender, white);
+            background-image: url("../proyecto/imgs/fondo_admin2.jpeg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-left: 6px solid #8650fe;
+        }
+
+        .notificacion{
+            min-height: 40px;
+            height: auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            box-sizing: border-box;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .error{
+            background: red;
+            color: white;
+        }
+
+        .exito{
+            color: white;
+            background: #23d366;
+        }
+
 
         @media (min-width: 1450px){
             form
@@ -103,16 +138,6 @@
             }
         }
 
-        .img_container_admin
-        {
-            min-width: 45%;
-            min-height: 100vh;
-            background: linear-gradient(45deg, lavender, white);
-            background-image: url("../proyecto/imgs/fondo_admin2.jpeg");
-            background-repeat: no-repeat;
-            background-size: cover;
-            border-left: 6px solid #8650fe;
-        }
 
         @media(max-width: 900px){
             .form_opcion{
@@ -179,6 +204,12 @@
     ?>
     
     <?php include("./nav_superadmin.php") ?>
+    <?php if(isset($_GET["exito"]))
+        echo "<div class='notificacion exito'>¡Administrador registrado exitosamente!</div>";
+    ?>
+    <?php if(isset($_GET["error"]))
+        echo "<div class='notificacion error'>Hubo un error en el registro</div>";
+    ?>
     <main>
         <div class="registro_container" id="registro_admin">
             <div>

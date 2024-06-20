@@ -13,22 +13,9 @@
     $email = $_POST['email'];
 
     include("./conexion.php");
-    
-    //usuarios: id, nombre, apelido, email, pass, rol
-    //clientes: dni, id_usuario, faltas, racha, penalizacion, saldo_a_favor
 
     $consulta = mysqli_query($conexion, "INSERT INTO usuarios (nombre, apellido, email, pass, rol) VALUES ('$nombre', '$apellido', '$email', '$pass', 1)");
-    $consulta = mysqli_query($conexion, "SELECT id, nombre, apellido, email, rol FROM usuarios WHERE email='$email'");
-    
-    $data = mysqli_fetch_assoc($consulta);
-    
-    //Asigno los valores a la sesion
-    $_SESSION['id'] = $data['id'];
-    $_SESSION['nombre'] = $data['nombre'];
-    $_SESSION['apellido'] = $data['apellido'];
-    $_SESSION['email'] = $data['email'];
-    $_SESSION['rol'] = $data['rol'];
+    $consulta_admin = mysqli_query($conexion, "SELECT id, nombre, apellido, email, rol FROM usuarios WHERE email='$email'");
 
-    mysqli_free_result($consulta);
     mysqli_close($conexion);
 ?>
