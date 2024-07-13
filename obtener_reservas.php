@@ -8,5 +8,3 @@ $row = mysqli_fetch_assoc($result);
 
 echo $row['reservas'];
 ?>
-
-//Fijense si tienen que acomodar esto...

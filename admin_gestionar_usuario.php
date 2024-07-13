@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="estilos/general.css">
     <link rel="stylesheet" href="estilos/admin.css">
     <script src="./jquery.js"></script>
-    <title>TorinoFútbol: Admin - Usuarios</title>
+    <title>TorinoFútbol: Gestionar Clientes</title>
     <style>
         body, html
         {
@@ -397,7 +397,7 @@
 
 
     <div id="form_faltas">
-            <div id="titulo_faltas">Gestionar Usuarios</div>
+            <div id="titulo_faltas">Gestionar Clientes</div>
             <input type="email" name="email" id="filtro_faltas" placeholder="Email usuario..." required autocomplete="off">
             <div id="res"></div>
             <button id="btn_buscador_faltas" value="Buscar">Buscar</button>

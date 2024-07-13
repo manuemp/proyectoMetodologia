@@ -10,9 +10,6 @@
 
     include("./conexion.php");
 
-    //usuarios: id, nombre, apelido, email, pass, rol
-    //clientes: dni, id_usuario, faltas, racha, penalizacion, saldo_a_favor
-
     $consulta_inicio_sesion = mysqli_query($conexion, "SELECT id, nombre, apellido, email, rol FROM usuarios WHERE email='$email' AND pass='$pass'");
     $resultado_inicio_sesion = mysqli_num_rows($consulta_inicio_sesion);
     $datos_generales_usuario = mysqli_fetch_assoc($consulta_inicio_sesion);
@@ -29,9 +26,11 @@
     }
     else
     {
-        session_start();
-        include("consultar_nivel.php");
 
+        session_start();
+        //Consulto el nivel del usuario según su cantidad de reservas
+        include("consultar_nivel.php");
+        //Creo la sesión y guardo todos los datos
         $_SESSION['id'] = $datos_generales_usuario['id'];
         $_SESSION['nombre'] = $datos_generales_usuario['nombre'];
         $_SESSION['apellido'] = $datos_generales_usuario['apellido'];
@@ -48,6 +47,7 @@
         mysqli_free_result($consulta_datos_cliente);
         mysqli_close($conexion);
 
+        //Según el rol, redirecciono a la página que corresponda
         if(intval($_SESSION['rol']) == 1)
         {
             header("Location:admin_canchas.php");

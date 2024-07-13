@@ -1,17 +1,18 @@
 <?php 
     include("./conexion.php");
 
+    //Si la petición es GET, es porque se pidieron los datos
     if($_SERVER["REQUEST_METHOD"] === "GET"){
         $consulta = mysqli_query($conexion, "SELECT nombre, estado, precio FROM canchas");
-
+        //Creo el objeto canchas donde voy a ingresar todos los datos de cada cancha
         class Canchas {
             public $array_nombres = array();
             public $array_estados = array();
             public $array_precios = array();
         }
-    
+        
         $objJson = new Canchas();
-    
+        //Agrego a cada campo del objeto (que son arrays) el nombre, precio y estado de la cancha.
         while($resultado = mysqli_fetch_assoc($consulta)){
             $objJson->array_nombres[] = $resultado["nombre"];
             $objJson->array_estados[] = $resultado["estado"];
@@ -19,7 +20,7 @@
         }
         echo json_encode($objJson);
     }
-
+    //Si la petición es POST:
     if($_SERVER["REQUEST_METHOD"] === 'POST'){
         $nombre_cancha = $_POST["nombre"];
 

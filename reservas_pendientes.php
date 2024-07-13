@@ -17,11 +17,6 @@
     $email = $_SESSION["email"];
     $usuario_id = $_SESSION["id"];
 
-    
-    // $consulta = mysqli_query($conexion, "SELECT * FROM reservas R
-    //                                     JOIN usuarios U on R.usuario_id = U.id
-    //                                     WHERE U.email = '$email' AND R.dia >= '$hoy' ORDER BY R.dia");
-
     $consulta = mysqli_query($conexion, "SELECT * FROM reservas WHERE usuario_id = '$usuario_id' AND dia >= '$hoy' ORDER BY dia");
 
     if(mysqli_num_rows($consulta) == 0)
@@ -57,6 +52,4 @@
 
     mysqli_free_result($consulta);
     mysqli_close($conexion);
-
-
 ?>

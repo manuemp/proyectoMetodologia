@@ -1,14 +1,15 @@
 <?php 
     include("./conexion.php");
-    // $resultado = mysqli_query($conexion, "SELECT ID, Nombre, Apellido, Email, Reservas, Faltas, Nivel FROM Usuarios ORDER BY Nombre");
     
     $email = $_POST["email"];
+
 
     $resultado = mysqli_query($conexion, "SELECT U.id, U.nombre, U.apellido, U.email, C.faltas, C.racha 
                                           FROM usuarios U
                                           JOIN clientes C ON C.id_usuario = U.id
                                           WHERE U.email = '$email'");
 
+    //Genero el JSON con los datos del usuario
     $arr = [];
     while($fila = $resultado->fetch_assoc())
     {

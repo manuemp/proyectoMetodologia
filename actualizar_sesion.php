@@ -5,12 +5,9 @@
     }
     try
     {
-        //usuarios: id, nombre, apelido, email, pass, rol
-        //clientes: dni, id_usuario, faltas, racha, penalizacion, saldo_a_favor
         $dni = $_SESSION["dni"];
 
         include("./conexion.php");
-
         $consulta = mysqli_query($conexion, "SELECT * FROM clientes WHERE dni = '$dni'");
     
         $fila = $consulta->fetch_assoc();

@@ -2,7 +2,6 @@
 <?php 
 
     $id = intval($_POST["id"]);
-    //REVISAR
     $senia = intval($_POST["senia"]);
 
     include("./conexion.php");

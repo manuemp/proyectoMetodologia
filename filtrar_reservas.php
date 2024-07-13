@@ -11,11 +11,13 @@
     $cancha = $_POST["filtro_cancha"];
     $usuario_id = $_SESSION["id"];
     
+    //Si el filtro está vacío muestro todas
     if($cancha != "")
         $resultado = mysqli_query($conexion, "SELECT dia, hora, cancha_id, asistio, precio FROM reservas WHERE usuario_id = '$usuario_id' AND cancha_id = $cancha ORDER BY dia DESC");
     else
         $resultado = mysqli_query($conexion, "SELECT dia, hora, cancha_id, asistio, precio FROM reservas WHERE usuario_id = '$usuario_id' ORDER BY dia DESC");
 
+    //Creo un array y lo lleno con todas las reservas
     $arr = [];
     while($fila = $resultado->fetch_assoc())
     {

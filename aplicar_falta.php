@@ -1,7 +1,4 @@
 <?php 
-   //Es una variable que sirve para acumular las reservas que quedan para volver 
-   //a aplicar los beneficios
-
    if(!(isset($_POST["email"]) && isset($_POST["id_reserva"])))
    {
       header("Location:index.php");
@@ -9,8 +6,6 @@
 
    $email = $_POST["email"];
    $id = $_POST["id_reserva"];
-    //Sirve para contar la cantidad de reservas que faltan para volver
-    //a aplicar los beneficios
 
    include("./conexion.php");
 

@@ -10,29 +10,18 @@
 
     $respuesta = new StdClass();
 
-    // Step 2: Set production or sandbox access token
+    // Paso 2: Token de producción
     MercadoPagoConfig::setAccessToken("APP_USR-8736495117391111-061611-a56e4fa21163f64f8603ecc6ea392a34-115251485");
-    // Step 2.1 (optional - default is SERVER): Set your runtime enviroment from MercadoPagoConfig::RUNTIME_ENVIROMENTS
-    // In case you want to test in your local machine first, set runtime enviroment to LOCAL
+    // Paso 2.1 (opcional): setear el entorno con MercadoPagoConfig::RUNTIME_ENVIROMENTS. El default es SERVER
     // MercadoPagoConfig::setRuntimeEnviroment(MercadoPagoConfig::LOCAL);
 
     $array = json_decode(file_get_contents('php://input'));
-    //echo '<pre>'.print_r($array, true).'</pre>';
-    // var_dump($array);
-    // echo $array->token;
-    // echo "\n";
-    // echo $array->payment_method_id;
-    // echo "\n";
-    // echo $array->payer->identification->type;
-    // echo "\n";
-    // echo $array->payer->identification->number;
-    // echo "\n\n";
 
-    // Step 3: Initialize the API client
+    // Paso 3: Inicializar la API
     $client = new PaymentClient();
 
     try {
-        // Step 4: Create the request array
+        // Paso 4: Crear el array del request
         $request = [
             "transaction_amount" => 100.00,
             "token" => $array->token,
@@ -48,31 +37,19 @@
               ]
             ]
         ];
-        // Step 5: Create the request options, setting X-Idempotency-Key
+        // Paso 5: Crear las opciones del request, fijar el X-Idempotency-Key
         $request_options = new RequestOptions();
         $request_options->setCustomHeaders(["X-Idempotency-Key: <SOME_UNIQUE_VALUE>"]);
 
-        // Step 6: Make the request
+        // Paso 6: Hacer el request
         $payment = $client->create($request, $request_options);
-        // $respuesta->estado = "ACEPTADO";
-        // echo json_encode($res);
         echo "ACEPTADO";
-        // echo $payment->id;
 
-    // Step 7: Handle exceptions
+    // Paso 7: Manejar Excepciones
     } catch (MPApiException $e) {
       echo "RECHAZADO";
-      // $respuesta->estado = "RECHAZADO";
-      // echo json_encode($res);
-        // echo "Status code: " . $e->getApiResponse()->getStatusCode() . "\n";
-        // echo "Content: ";
-        // var_dump($e->getApiResponse()->getContent());
-        // echo "\n";
     } catch (\Exception $e) {
       echo "RECHAZADO";
-      // $respuesta->estado = "RECHAZADO";
-      // echo json_encode($res);
-        // echo $e->getMessage();
     }
 ?>
 

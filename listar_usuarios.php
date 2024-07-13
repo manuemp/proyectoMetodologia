@@ -1,6 +1,5 @@
 <?php 
     include("./conexion.php");
-    // $resultado = mysqli_query($conexion, "SELECT ID, Nombre, Apellido, Email, Reservas, Faltas, Nivel FROM Usuarios ORDER BY Nombre");
     
     $email = trim($_POST["email"]);
     
@@ -15,8 +14,8 @@
             $obj->nombre = $fila['nombre'];
             $obj->apellido = $fila['apellido'];
             $obj->email = $fila['email'];
-            $obj->faltas = $fila['faltas'];
-            $obj->racha = $fila['racha'];
+            // $obj->faltas = $fila['faltas'];
+            // $obj->racha = $fila['racha'];
             array_push($arr, $obj);
         }
     

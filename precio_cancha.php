@@ -21,11 +21,10 @@
     $racha = intval($reservas_cliente["racha"]);
 
     //ACA BUSCO EL NIVEL DEL USUARIO
-    $query_nivel_usuario = mysqli_query($conexion, "SELECT DISTINCT N.id, N.cantidad_reservas, N.descuento, N.nombre FROM niveles N, niveles M 
-                                              WHERE M.cantidad_reservas >= N.cantidad_reservas 
-                                              AND $racha BETWEEN N.cantidad_reservas AND M.cantidad_reservas + N.cantidad_reservas 
-                                              ORDER BY N.id DESC 
-                                              LIMIT 1");
+    $query_nivel_usuario = mysqli_query($conexion, "SELECT DISTINCT * FROM niveles 
+                                              WHERE $racha >= cantidad_reservas  
+                                              ORDER BY id DESC 
+                                              LIMIT 1");  
     $nivel = mysqli_fetch_assoc($query_nivel_usuario);
 
     //FIJARSE SI ES DE NOCHE, AUMENTAR EL PRECIO DE LA CANCHA EN UN 20%    
